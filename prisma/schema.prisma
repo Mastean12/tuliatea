@@ -4,7 +4,6 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-
 }
 
 enum Role {
@@ -12,26 +11,45 @@ enum Role {
   ADMIN
 }
 
-model User {
-  id             String    @id @default(cuid())
-  name           String?
-  email          String    @unique
-  emailVerified  DateTime?
-  image          String?
-  passwordHash   String?
-  role           Role      @default(CUSTOMER)
-  isActive       Boolean   @default(true)
-  createdAt      DateTime  @default(now())
-  updatedAt      DateTime  @updatedAt
+enum OrderStatus {
+  PENDING
+  PROCESSING
+  SHIPPED
+  DELIVERED
+  CANCELLED
+  REFUNDED
+}
 
-  orders         Order[]
-  addresses      Address[]
-  accounts       Account[]
-  sessions       Session[]
+enum DiscountType {
+  PERCENTAGE
+  FIXED_AMOUNT
+}
+
+model User {
+  id            String    @id @default(uuid()) @db.Uuid
+  name          String?
+  email         String    @unique
+  emailVerified DateTime?
+  image         String?
+  passwordHash  String?
+  role          Role      @default(CUSTOMER)
+  isActive      Boolean   @default(true)
+  phone         String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  orders        Order[]
+  addresses     Address[]
+  accounts      Account[]
+  sessions      Session[]
+  reviews       Review[]
+
+  @@map("users")
 }
 
 model Account {
-  userId            String
+  id                String  @id @default(uuid()) @db.Uuid
+  userId            String  @db.Uuid
   type              String
   provider          String
   providerAccountId String
@@ -45,14 +63,18 @@ model Account {
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  @@id([provider, providerAccountId])
+  @@unique([provider, providerAccountId])
+  @@map("accounts")
 }
 
 model Session {
-  sessionToken String   @id
-  userId       String
+  id           String   @id @default(uuid()) @db.Uuid
+  sessionToken String   @unique
+  userId       String   @db.Uuid
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
 }
 
 model VerificationToken {
@@ -61,10 +83,11 @@ model VerificationToken {
   expires    DateTime
 
   @@id([identifier, token])
+  @@map("verification_tokens")
 }
 
 model Category {
-  id          String    @id @default(cuid())
+  id          String    @id @default(uuid()) @db.Uuid
   name        String    @unique
   slug        String    @unique
   description String?
@@ -75,87 +98,126 @@ model Category {
   updatedAt   DateTime  @updatedAt
 
   products    Product[]
+
+  @@map("categories")
 }
 
 model Product {
-  id            String         @id @default(cuid())
+  id            String         @id @default(uuid()) @db.Uuid
   name          String
   slug          String         @unique
   description   String
   ingredients   String?
+  benefits      String?
   brewingGuide  String?
   price         Decimal        @db.Decimal(10, 2)
   comparePrice  Decimal?       @db.Decimal(10, 2)
   costPrice     Decimal?       @db.Decimal(10, 2)
   sku           String?
+  barcode       String?
   stock         Int            @default(0)
   isActive      Boolean        @default(true)
   isFeatured    Boolean        @default(false)
   weight        String?
-  categoryId    String
+  servings      String?
+  categoryId    String         @db.Uuid
   createdAt     DateTime       @default(now())
   updatedAt     DateTime       @updatedAt
 
   category      Category       @relation(fields: [categoryId], references: [id])
   images        ProductImage[]
   orderItems    OrderItem[]
+  reviews       Review[]
+
+  @@index([categoryId])
+  @@index([slug])
+  @@map("products")
 }
 
 model ProductImage {
-  id        String   @id @default(cuid())
+  id        String   @id @default(uuid()) @db.Uuid
   url       String
   alt       String?
+  width     Int?
+  height    Int?
+  format    String?
+  publicId  String?
   sortOrder Int      @default(0)
-  productId String
+  isPrimary Boolean  @default(false)
+  productId String   @db.Uuid
   product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
 
   @@index([productId])
+  @@map("product_images")
+}
+
+model Review {
+  id        String   @id @default(uuid()) @db.Uuid
+  rating    Int
+  title     String?
+  comment   String?
+  isActive  Boolean  @default(true)
+  productId String   @db.Uuid
+  userId    String   @db.Uuid
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([productId, userId])
+  @@index([productId])
+  @@map("reviews")
 }
 
 model Order {
-  id              String      @id @default(cuid())
+  id              String      @id @default(uuid()) @db.Uuid
   orderNumber     String      @unique
-  userId          String?
+  userId          String?     @db.Uuid
   email           String
   status          OrderStatus @default(PENDING)
   subtotal        Decimal     @db.Decimal(10, 2)
   shipping        Decimal     @db.Decimal(10, 2)
   tax             Decimal     @db.Decimal(10, 2)
+  discount        Decimal     @default(0) @db.Decimal(10, 2)
   total           Decimal     @db.Decimal(10, 2)
   currency        String      @default("KES")
   notes           String?
+  couponCode      String?
+  isPaid          Boolean     @default(false)
+  paidAt          DateTime?
+  shippedAt       DateTime?
+  deliveredAt     DateTime?
+  cancelledAt     DateTime?
+  cancelReason    String?
   createdAt       DateTime    @default(now())
-  updatedAt       DateTime    @updatedAt
+  updatedAt       DateTime   @updatedAt
 
   user            User?       @relation(fields: [userId], references: [id])
   items           OrderItem[]
   shippingAddress Address?
-}
 
-enum OrderStatus {
-  PENDING
-  PROCESSING
-  SHIPPED
-  DELIVERED
-  CANCELLED
-  REFUNDED
+  @@index([userId])
+  @@index([orderNumber])
+  @@map("orders")
 }
 
 model OrderItem {
-  id        String   @id @default(cuid())
+  id        String   @id @default(uuid()) @db.Uuid
   quantity  Int
   price     Decimal  @db.Decimal(10, 2)
-  orderId   String
-  productId String
+  orderId   String   @db.Uuid
+  productId String   @db.Uuid
   order     Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
   product   Product  @relation(fields: [productId], references: [id])
 
   @@index([orderId])
   @@index([productId])
+  @@map("order_items")
 }
 
 model Address {
-  id         String  @id @default(cuid())
+  id         String  @id @default(uuid()) @db.Uuid
   firstName  String
   lastName   String
   company    String?
@@ -167,10 +229,43 @@ model Address {
   country    String  @default("KE")
   phone      String?
   isDefault  Boolean @default(false)
-  userId     String?
-  orderId    String? @unique
+  userId     String? @db.Uuid
+  orderId    String? @unique @db.Uuid
   user       User?   @relation(fields: [userId], references: [id])
   order      Order?  @relation(fields: [orderId], references: [id])
 
   @@index([userId])
+  @@map("addresses")
+}
+
+model Coupon {
+  id           String       @id @default(uuid()) @db.Uuid
+  code         String       @unique
+  description  String?
+  discountType DiscountType @default(PERCENTAGE)
+  discount     Decimal      @db.Decimal(10, 2)
+  minOrder     Decimal?     @default(0) @db.Decimal(10, 2)
+  maxUses      Int?
+  usedCount    Int          @default(0)
+  isActive     Boolean      @default(true)
+  startsAt     DateTime?
+  expiresAt    DateTime?
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+
+  @@map("coupons")
+}
+
+model Page {
+  id        String   @id @default(uuid()) @db.Uuid
+  title     String
+  slug      String   @unique
+  content   String?
+  metaTitle String?
+  metaDesc  String?
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("pages")
 }

@@ -10,9 +10,11 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   pages: {
     signIn: "/login",
     newUser: "/register",
+    error: "/login",
   },
   providers: [
     Credentials({
+      name: "credentials",
       credentials: {
         email: { label: "Email", type: "email" },
         password: { label: "Password", type: "password" },
@@ -25,7 +27,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
         const user = await prisma.user.findUnique({ where: { email } })
 
-        if (!user || !user.passwordHash) return null
+        if (!user || !user.passwordHash || !user.isActive) return null
 
         const isValid = await bcrypt.compare(password, user.passwordHash)
 
@@ -42,17 +44,34 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     }),
   ],
   callbacks: {
-    async jwt({ token, user }) {
+    async jwt({ token, user, trigger }) {
       if (user) {
         token.id = user.id as string
         token.role = user.role as string
       }
+
+      if (trigger === "update") {
+        const fresh = await prisma.user.findUnique({
+          where: { id: token.id },
+          select: { name: true, email: true, image: true, role: true },
+        })
+        if (fresh) {
+          token.name = fresh.name
+          token.email = fresh.email
+          token.picture = fresh.image
+          token.role = fresh.role
+        }
+      }
+
       return token
     },
     async session({ session, token }) {
       if (session.user) {
         session.user.id = token.id as string
-        session.user.role = token.role as string
+        session.user.name = token.name
+        session.user.email = token.email as string
+        session.user.image = token.picture
+        session.user.role = (token.role as string) || "CUSTOMER"
       }
       return session
     },

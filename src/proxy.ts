@@ -1,5 +1,9 @@
-export { auth as proxy } from "@/lib/auth"
+import { auth } from "@/lib/auth"
+
+export { auth as proxy }
 
 export const config = {
-  matcher: ["/((?!api|_next/static|_next/image|favicon.ico|images|icons).*)"],
+  matcher: [
+    "/((?!api|_next/static|_next/image|favicon.ico|images|icons|robots\\.txt|sitemap\\.xml|manifest\\.webmanifest).*)",
+  ],
 }

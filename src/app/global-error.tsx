@@ -10,13 +10,15 @@ export default function GlobalError({
   return (
     <html lang="en">
       <body>
-        <div className="flex min-h-screen flex-col items-center justify-center gap-4 px-4 text-center">
-          <h2 className="font-heading text-5xl font-semibold">
-            Critical Error
-          </h2>
-          <p className="max-w-md text-muted-foreground">
-            A critical error occurred. Please refresh the page.
-          </p>
+        <div className="flex min-h-screen flex-col items-center justify-center gap-6 px-4 text-center">
+          <div className="space-y-2">
+            <h2 className="font-heading text-4xl font-semibold">
+              Critical Error
+            </h2>
+            <p className="text-muted-foreground">
+              A critical error occurred. Please refresh the page.
+            </p>
+          </div>
           <button
             onClick={reset}
             className="inline-flex h-10 items-center justify-center rounded-lg bg-primary px-6 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"

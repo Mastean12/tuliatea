@@ -1,9 +1,11 @@
 import type { Metadata } from "next"
 import { Inter, Cormorant_Garamond } from "next/font/google"
 import "./globals.css"
-import { SITE } from "@/constants"
+import { siteConfig } from "@/config/site"
+import { Providers } from "@/providers/providers"
 import { Toaster } from "sonner"
-import { TooltipProvider } from "@/components/ui/tooltip"
+import { Navbar } from "@/components/layout/navbar"
+import { Footer } from "@/components/layout/footer"
 
 const fontSans = Inter({
   variable: "--font-sans",
@@ -18,22 +20,30 @@ const fontHeading = Cormorant_Garamond({
 
 export const metadata: Metadata = {
   title: {
-    default: SITE.name,
-    template: `%s | ${SITE.name}`,
+    default: siteConfig.name,
+    template: `%s | ${siteConfig.name}`,
   },
-  description: SITE.description,
-  metadataBase: new URL(SITE.url),
+  description: siteConfig.description,
+  metadataBase: new URL(siteConfig.url),
+  keywords: siteConfig.keywords,
   openGraph: {
     type: "website",
-    locale: SITE.locale,
-    siteName: SITE.name,
-    title: SITE.name,
-    description: SITE.description,
+    locale: siteConfig.locale,
+    siteName: siteConfig.name,
+    title: siteConfig.name,
+    description: siteConfig.description,
+    images: [
+      {
+        url: `${siteConfig.url}/images/og-default.jpg`,
+        width: 1200,
+        height: 630,
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: SITE.name,
-    description: SITE.description,
+    title: siteConfig.name,
+    description: siteConfig.description,
   },
   robots: {
     index: true,
@@ -52,7 +62,11 @@ export default function RootLayout({
       className={`${fontSans.variable} ${fontHeading.variable} h-full`}
     >
       <body className="min-h-full flex flex-col">
-        <TooltipProvider>{children}</TooltipProvider>
+        <Providers>
+          <Navbar />
+          <main className="flex-1">{children}</main>
+          <Footer />
+        </Providers>
         <Toaster richColors closeButton position="top-right" />
       </body>
     </html>
