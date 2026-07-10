@@ -20,6 +20,7 @@ const STATUSES = [
   "SHIPPED",
   "DELIVERED",
   "CANCELLED",
+  "REFUNDED",
 ]
 
 type OrderStatusUpdaterProps = {

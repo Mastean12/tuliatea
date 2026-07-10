@@ -1,12 +1,23 @@
 import { auth } from "@/lib/auth"
 import { NextResponse } from "next/server"
+import type { NextRequest } from "next/server"
 
-export async function proxy(request: Request) {
+export async function proxy(request: NextRequest) {
   const session = await auth()
   const { pathname } = new URL(request.url)
 
   // Protect admin routes — must be ADMIN or SUPER_ADMIN
   if (pathname.startsWith("/admin")) {
+    if (pathname === "/admin/login") {
+      if (
+        session?.user &&
+        (session.user.role === "ADMIN" || session.user.role === "SUPER_ADMIN")
+      ) {
+        return NextResponse.redirect(new URL("/admin", request.url))
+      }
+      return NextResponse.next()
+    }
+
     if (!session?.user) {
       return NextResponse.redirect(new URL("/admin/login", request.url))
     }

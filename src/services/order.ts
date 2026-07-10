@@ -64,6 +64,8 @@ export async function createOrder(input: CreateOrderInput) {
           productId: item.productId,
           quantity: item.quantity,
           price: item.price,
+          productName: item.name || null,
+          productWeight: item.weight || null,
         })),
       },
     },

@@ -28,6 +28,7 @@ export async function updateOrderStatus(
       "SHIPPED",
       "DELIVERED",
       "CANCELLED",
+      "REFUNDED",
     ] as const
     type ValidStatus = (typeof validStatuses)[number]
 
