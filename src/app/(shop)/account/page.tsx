@@ -1,114 +1,101 @@
 import type { Metadata } from "next"
 import { redirect } from "next/navigation"
-import { siteConfig } from "@/config/site"
-import { Container } from "@/components/ui/container"
-import { PageHeader } from "@/components/ui/page-header"
 import { Card } from "@/components/ui/card"
-import { Separator } from "@/components/ui/separator"
-import { ProfileForm } from "@/components/auth/profile-form"
-import { PasswordForm } from "@/components/auth/password-form"
+import { PageHeader } from "@/components/ui/page-header"
+import { DashboardStats } from "@/components/dashboard/dashboard-stats"
+import { Button } from "@/components/ui/button"
+import { Badge } from "@/components/ui/badge"
+import { formatDate, formatPrice } from "@/lib/utils"
 import { getCurrentUser } from "@/lib/current-user"
+import { getOrdersByUser } from "@/services/order"
+import { getUserAddresses } from "@/services/address"
 import { routes } from "@/config/routes"
-import { Mail } from "lucide-react"
+import Link from "next/link"
+import { ArrowRight, Package } from "lucide-react"
 
 export const metadata: Metadata = {
-  title: "My Account",
-  description: "Manage your Tullia Tea account profile and settings.",
-  openGraph: { title: `My Account | ${siteConfig.name}` },
+  title: "Dashboard",
+  description: "Your Tullia Tea account dashboard.",
+  robots: { index: false, follow: false },
 }
 
-export default async function AccountPage() {
+export default async function DashboardPage() {
   const user = await getCurrentUser()
+  if (!user?.id) redirect(routes.auth.login)
 
-  if (!user || !user.id) {
-    redirect(routes.auth.login)
-  }
+  const orders = await getOrdersByUser(user.id)
+  const addresses = await getUserAddresses(user.id)
+
+  const totalOrders = orders.length
+  const pendingOrders = orders.filter(
+    (o) => o.status === "PENDING" || o.status === "CONFIRMED"
+  ).length
+  const completedOrders = orders.filter((o) => o.status === "DELIVERED").length
+  const savedAddresses = addresses.length
 
   return (
-    <Container className="py-8 sm:py-12">
+    <div className="space-y-8">
       <PageHeader
-        title="My Account"
-        description="Manage your profile and account settings"
+        title={`Welcome back, ${user.name?.split(" ")[0] || "there"}!`}
+        description="Manage your account and view your orders."
       />
 
-      <div className="grid gap-8 lg:grid-cols-3">
-        {/* Profile summary */}
-        <div>
-          <Card className="p-6">
-            <div className="flex flex-col items-center text-center">
-              <div className="mb-3 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
-                <span className="font-heading text-xl font-semibold text-primary">
-                  {(user.name || "U").charAt(0).toUpperCase()}
-                </span>
-              </div>
-              <h2 className="font-heading text-lg font-semibold">
-                {user.name}
-              </h2>
-              <p className="text-sm capitalize text-muted-foreground">
-                {(user.role || "CUSTOMER").toLowerCase()}
-              </p>
-              <Separator className="my-4" />
-              <div className="w-full space-y-3 text-sm">
-                <div className="flex items-center gap-2 text-muted-foreground">
-                  <Mail className="h-4 w-4" />
-                  {user.email}
-                </div>
-              </div>
-            </div>
-          </Card>
+      <DashboardStats
+        totalOrders={totalOrders}
+        pendingOrders={pendingOrders}
+        completedOrders={completedOrders}
+        savedAddresses={savedAddresses}
+      />
 
-          <Card className="mt-4 p-4">
-            <nav className="space-y-1 text-sm">
-              <a
-                href={routes.account.root}
-                className="block rounded-lg bg-primary/10 px-3 py-2 font-medium text-primary"
-              >
-                Profile
-              </a>
-              <a
-                href={routes.account.orders}
-                className="block rounded-lg px-3 py-2 text-muted-foreground transition-colors hover:text-foreground hover:bg-muted"
-              >
-                Orders
-              </a>
-              <a
-                href={routes.account.addresses}
-                className="block rounded-lg px-3 py-2 text-muted-foreground transition-colors hover:text-foreground hover:bg-muted"
-              >
-                Addresses
-              </a>
-            </nav>
-          </Card>
+      {/* Recent Orders */}
+      <div>
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="font-heading text-lg font-semibold">Recent Orders</h2>
+          {orders.length > 0 && (
+            <Link href={routes.account.orders}>
+              <Button variant="link" size="sm">
+                View All <ArrowRight className="ml-1 h-3 w-3" />
+              </Button>
+            </Link>
+          )}
         </div>
 
-        {/* Profile forms */}
-        <div className="lg:col-span-2 space-y-8">
-          <Card className="p-6">
-            <h3 className="font-heading mb-1 text-lg font-semibold">
-              Profile Information
-            </h3>
-            <p className="mb-6 text-sm text-muted-foreground">
-              Update your personal details
-            </p>
-            <ProfileForm
-              userId={user.id}
-              firstName={null}
-              lastName={null}
-              phone={null}
-            />
+        {orders.length === 0 ? (
+          <Card className="p-8 text-center">
+            <Package className="mx-auto mb-3 h-10 w-10 text-muted-foreground/30" />
+            <p className="text-sm text-muted-foreground mb-3">No orders yet</p>
+            <Link href={routes.products}>
+              <Button size="sm">Start Shopping</Button>
+            </Link>
           </Card>
-
-          <Card className="p-6">
-            <h3 className="font-heading mb-1 text-lg font-semibold">
-              Change Password
-            </h3>
-            <p className="mb-6 text-sm text-muted-foreground">
-              Update your account password
-            </p>
-            <PasswordForm userId={user.id} />
-          </Card>
-        </div>
+        ) : (
+          <div className="space-y-3">
+            {orders.slice(0, 5).map((order) => (
+              <Link
+                key={order.id}
+                href={routes.account.order(order.orderNumber)}
+              >
+                <Card className="p-4 flex items-center justify-between gap-4 hover:bg-muted/50 transition-colors">
+                  <div className="min-w-0 flex-1">
+                    <p className="text-sm font-medium">{order.orderNumber}</p>
+                    <p className="text-xs text-muted-foreground">
+                      {formatDate(order.createdAt)}
+                    </p>
+                  </div>
+                  <div className="text-right shrink-0">
+                    <Badge variant="outline" className="text-[10px]">
+                      {order.status}
+                    </Badge>
+                    <p className="text-sm font-semibold mt-1 tabular-nums">
+                      {formatPrice(Number(order.total))}
+                    </p>
+                  </div>
+                </Card>
+              </Link>
+            ))}
+          </div>
+        )}
       </div>
-    </Container>
+    </div>
   )
 }

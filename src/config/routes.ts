@@ -6,10 +6,12 @@ export const routes = {
   checkout: "/checkout",
   account: {
     root: "/account",
+    profile: "/account/profile",
     orders: "/account/orders",
     order: (id: string) => `/account/orders/${id}`,
     addresses: "/account/addresses",
-    settings: "/account/settings",
+    password: "/account/password",
+    wishlist: "/account/wishlist",
   },
   auth: {
     login: "/login",

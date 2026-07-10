@@ -46,6 +46,7 @@ model User {
   accounts      Account[]
   sessions      Session[]
   reviews       Review[]
+  wishlistItems WishlistItem[]
 
   @@map("users")
 }
@@ -134,6 +135,7 @@ model Product {
   images        ProductImage[]
   orderItems    OrderItem[]
   reviews       Review[]
+  wishlistItems WishlistItem[]
 
   @@index([categoryId])
   @@index([slug])
@@ -241,7 +243,8 @@ model OrderItem {
 }
 
 model Address {
-  id         String  @id @default(uuid()) @db.Uuid
+  id         String   @id @default(uuid()) @db.Uuid
+  label      String?
   firstName  String
   lastName   String
   company    String?
@@ -257,9 +260,24 @@ model Address {
   orderId    String? @unique @db.Uuid
   user       User?   @relation(fields: [userId], references: [id])
   order      Order?  @relation(fields: [orderId], references: [id])
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 
   @@index([userId])
   @@map("addresses")
+}
+
+model WishlistItem {
+  id        String   @id @default(uuid()) @db.Uuid
+  userId    String   @db.Uuid
+  productId String   @db.Uuid
+  createdAt DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, productId])
+  @@map("wishlist_items")
 }
 
 model Coupon {
