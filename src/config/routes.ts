@@ -21,8 +21,10 @@ export const routes = {
   },
   admin: {
     root: "/admin",
+    login: "/admin/login",
     products: "/admin/products",
     product: (id: string) => `/admin/products/${id}`,
+    newProduct: "/admin/products/new",
     orders: "/admin/orders",
     order: (id: string) => `/admin/orders/${id}`,
     categories: "/admin/categories",

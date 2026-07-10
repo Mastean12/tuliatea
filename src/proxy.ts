@@ -5,6 +5,16 @@ export async function proxy(request: Request) {
   const session = await auth()
   const { pathname } = new URL(request.url)
 
+  // Protect admin routes — must be ADMIN or SUPER_ADMIN
+  if (pathname.startsWith("/admin")) {
+    if (!session?.user) {
+      return NextResponse.redirect(new URL("/admin/login", request.url))
+    }
+    if (session.user.role !== "ADMIN" && session.user.role !== "SUPER_ADMIN") {
+      return NextResponse.redirect(new URL("/", request.url))
+    }
+  }
+
   // Protect account routes
   if (pathname.startsWith("/account") && !session?.user) {
     return NextResponse.redirect(new URL("/login", request.url))

@@ -9,6 +9,13 @@ datasource db {
 enum Role {
   CUSTOMER
   ADMIN
+  SUPER_ADMIN
+}
+
+enum ProductStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
 }
 
 enum OrderStatus {
@@ -47,6 +54,8 @@ model User {
   sessions      Session[]
   reviews       Review[]
   wishlistItems WishlistItem[]
+  createdProducts Product[] @relation("CreatedProducts")
+  updatedProducts Product[] @relation("UpdatedProducts")
 
   @@map("users")
 }
@@ -111,27 +120,36 @@ model Product {
   name          String
   slug          String         @unique
   description   String
+  shortDesc     String?
   ingredients   String?
   benefits      String?
   brewingGuide  String?
   deliveryInfo  String?
   returnInfo    String?
   tags          String?
+  metaTitle     String?
+  metaDesc      String?
   price         Decimal        @db.Decimal(10, 2)
   comparePrice  Decimal?       @db.Decimal(10, 2)
   costPrice     Decimal?       @db.Decimal(10, 2)
   sku           String?
   barcode       String?
   stock         Int            @default(0)
+  lowStock      Int            @default(5)
+  status        ProductStatus  @default(DRAFT)
   isActive      Boolean        @default(true)
   isFeatured    Boolean        @default(false)
   weight        String?
   servings      String?
   categoryId    String         @db.Uuid
+  createdBy     String?        @db.Uuid
+  updatedBy     String?        @db.Uuid
   createdAt     DateTime       @default(now())
   updatedAt     DateTime       @updatedAt
 
   category      Category       @relation(fields: [categoryId], references: [id])
+  creator       User?          @relation("CreatedProducts", fields: [createdBy], references: [id])
+  updater       User?          @relation("UpdatedProducts", fields: [updatedBy], references: [id])
   images        ProductImage[]
   orderItems    OrderItem[]
   reviews       Review[]

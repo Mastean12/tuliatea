@@ -13,10 +13,12 @@ export async function requireAuth() {
 
 export async function requireAdmin() {
   const user = await requireAuth()
-  if (user.role !== "ADMIN") throw new Error("Forbidden")
+  if (user.role !== "ADMIN" && user.role !== "SUPER_ADMIN") {
+    throw new Error("Forbidden")
+  }
   return user
 }
 
 export function isAdmin(role?: string | null): boolean {
-  return role === "ADMIN"
+  return role === "ADMIN" || role === "SUPER_ADMIN"
 }
