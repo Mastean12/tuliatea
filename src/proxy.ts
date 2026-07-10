@@ -6,9 +6,11 @@ export async function proxy(request: NextRequest) {
   const session = await auth()
   const { pathname } = new URL(request.url)
 
-  // Protect admin routes — must be ADMIN or SUPER_ADMIN
+  // ── Admin routes — ADMIN / SUPER_ADMIN only ──────────
   if (pathname.startsWith("/admin")) {
+    // Allow access to admin login page without auth
     if (pathname === "/admin/login") {
+      // But redirect already-authenticated admins away from login
       if (
         session?.user &&
         (session.user.role === "ADMIN" || session.user.role === "SUPER_ADMIN")
@@ -18,22 +20,56 @@ export async function proxy(request: NextRequest) {
       return NextResponse.next()
     }
 
+    // All other admin routes require ADMIN role
     if (!session?.user) {
       return NextResponse.redirect(new URL("/admin/login", request.url))
     }
     if (session.user.role !== "ADMIN" && session.user.role !== "SUPER_ADMIN") {
-      return NextResponse.redirect(new URL("/", request.url))
+      return NextResponse.redirect(new URL("/account", request.url))
     }
+    return NextResponse.next()
   }
 
-  // Protect account routes
-  if (pathname.startsWith("/account") && !session?.user) {
-    return NextResponse.redirect(new URL("/login", request.url))
+  // ── Account routes — CUSTOMER only ──────────────────
+  if (pathname.startsWith("/account")) {
+    // Allow access to login/register pages without auth
+    if (pathname === "/account/login" || pathname === "/account/register") {
+      // Redirect already-authenticated customers away from auth pages
+      if (session?.user && session.user.role === "CUSTOMER") {
+        return NextResponse.redirect(new URL("/account", request.url))
+      }
+      return NextResponse.next()
+    }
+
+    // All other account routes require CUSTOMER role
+    if (!session?.user) {
+      return NextResponse.redirect(new URL("/account/login", request.url))
+    }
+    // Admins cannot access customer account pages
+    if (session.user.role !== "CUSTOMER") {
+      return NextResponse.redirect(new URL("/admin", request.url))
+    }
+    return NextResponse.next()
   }
 
-  // Redirect authenticated users away from auth pages
-  if (session?.user && (pathname === "/login" || pathname === "/register")) {
-    return NextResponse.redirect(new URL("/", request.url))
+  // ── Legacy auth pages — redirect to new paths ──────
+  if (pathname === "/login") {
+    return NextResponse.redirect(new URL("/account/login", request.url))
+  }
+  if (pathname === "/register") {
+    return NextResponse.redirect(new URL("/account/register", request.url))
+  }
+
+  // ── Customer auth pages — redirect if already authed ──
+  if (
+    session?.user &&
+    (pathname === "/account/login" || pathname === "/account/register")
+  ) {
+    return NextResponse.redirect(
+      session.user.role === "CUSTOMER"
+        ? new URL("/account", request.url)
+        : new URL("/admin", request.url)
+    )
   }
 
   return NextResponse.next()

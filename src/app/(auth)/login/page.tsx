@@ -1,13 +1,5 @@
-import type { Metadata } from "next"
-import { siteConfig } from "@/config/site"
-import { LoginForm } from "@/components/auth/login-form"
+import { redirect } from "next/navigation"
 
-export const metadata: Metadata = {
-  title: "Sign In",
-  description: "Sign in to your Tullia Tea account.",
-  openGraph: { title: `Sign In | ${siteConfig.name}` },
-}
-
-export default function LoginPage() {
-  return <LoginForm />
+export default function OldLoginRedirect() {
+  redirect("/account/login")
 }

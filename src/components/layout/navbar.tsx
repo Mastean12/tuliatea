@@ -82,15 +82,27 @@ export function Navbar() {
 
               {session?.user ? (
                 <div className="hidden items-center gap-1.5 sm:flex">
-                  <Link href={routes.account.root}>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      className="text-muted-foreground/70"
-                    >
-                      Account
-                    </Button>
-                  </Link>
+                  {session.user.role === "CUSTOMER" ? (
+                    <Link href={routes.account.root}>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="text-muted-foreground/70"
+                      >
+                        Dashboard
+                      </Button>
+                    </Link>
+                  ) : (
+                    <Link href={routes.admin.root}>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="text-muted-foreground/70"
+                      >
+                        Admin
+                      </Button>
+                    </Link>
+                  )}
                   <Button
                     variant="ghost"
                     size="sm"
@@ -156,13 +168,23 @@ export function Navbar() {
                 <hr className="my-2" />
                 {session?.user ? (
                   <>
-                    <Link
-                      href={routes.account.root}
-                      onClick={() => setIsOpen(false)}
-                      className="rounded-lg px-3 py-2.5 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted"
-                    >
-                      Account
-                    </Link>
+                    {session.user.role === "CUSTOMER" ? (
+                      <Link
+                        href={routes.account.root}
+                        onClick={() => setIsOpen(false)}
+                        className="rounded-lg px-3 py-2.5 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted"
+                      >
+                        Dashboard
+                      </Link>
+                    ) : (
+                      <Link
+                        href={routes.admin.root}
+                        onClick={() => setIsOpen(false)}
+                        className="rounded-lg px-3 py-2.5 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted"
+                      >
+                        Admin
+                      </Link>
+                    )}
                     <button
                       onClick={() => signOut()}
                       className="rounded-lg px-3 py-2.5 text-left text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted"

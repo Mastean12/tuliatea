@@ -45,11 +45,36 @@ export async function login(
   }
 
   try {
+    // Look up user to determine role for redirect
+    const user = await prisma.user.findUnique({
+      where: { email: parsed.data.email },
+      select: { passwordHash: true, role: true, isActive: true },
+    })
+
+    if (!user || !user.passwordHash || !user.isActive) {
+      return { error: "Invalid email or password", fields: raw }
+    }
+
+    const isValid = await bcrypt.compare(
+      parsed.data.password,
+      user.passwordHash
+    )
+    if (!isValid) {
+      return { error: "Invalid email or password", fields: raw }
+    }
+
+    // Role-based redirect target
+    const targetUrl =
+      user.role === "ADMIN" || user.role === "SUPER_ADMIN"
+        ? routes.admin.root
+        : routes.account.root
+
     await signIn("credentials", {
       email: parsed.data.email,
       password: parsed.data.password,
-      redirectTo: routes.home,
+      redirectTo: targetUrl,
     })
+
     return { success: true }
   } catch (error) {
     if (error instanceof AuthError) {
@@ -110,10 +135,11 @@ export async function register(
       },
     })
 
+    // Customers always redirect to /account after registration
     await signIn("credentials", {
       email: parsed.data.email,
       password: parsed.data.password,
-      redirectTo: routes.home,
+      redirectTo: routes.account.root,
     })
 
     return { success: true }

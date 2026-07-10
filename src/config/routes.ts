@@ -14,8 +14,8 @@ export const routes = {
     wishlist: "/account/wishlist",
   },
   auth: {
-    login: "/login",
-    register: "/register",
+    login: "/account/login",
+    register: "/account/register",
     forgotPassword: "/forgot-password",
     resetPassword: "/reset-password",
   },

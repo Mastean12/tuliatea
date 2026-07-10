@@ -1,14 +1,5 @@
-import type { Metadata } from "next"
-import { siteConfig } from "@/config/site"
-import { RegisterForm } from "@/components/auth/register-form"
+import { redirect } from "next/navigation"
 
-export const metadata: Metadata = {
-  title: "Create Account",
-  description:
-    "Create your Tullia Tea account and start your wellness journey.",
-  openGraph: { title: `Create Account | ${siteConfig.name}` },
-}
-
-export default function RegisterPage() {
-  return <RegisterForm />
+export default function OldRegisterRedirect() {
+  redirect("/account/register")
 }
