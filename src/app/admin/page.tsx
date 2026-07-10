@@ -15,9 +15,21 @@ import { Card } from "@/components/ui/card"
 import { PageHeader } from "@/components/ui/page-header"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
+import { cn } from "@/lib/utils"
 import { formatPrice } from "@/lib/utils"
 import Link from "next/link"
 import { routes } from "@/config/routes"
+
+const iconStyles = [
+  { bg: "bg-primary/10 text-primary" },
+  { bg: "bg-secondary/20 text-secondary" },
+  { bg: "bg-accent/15 text-accent" },
+  { bg: "bg-amber-100 text-amber-700" },
+  { bg: "bg-purple-100 text-purple-700" },
+  { bg: "bg-emerald-100 text-emerald-700" },
+  { bg: "bg-red-100 text-red-700" },
+  { bg: "bg-cyan-100 text-cyan-700" },
+]
 
 export default async function AdminDashboard() {
   const today = new Date()
@@ -60,59 +72,23 @@ export default async function AdminDashboard() {
       label: "Total Revenue",
       value: formatPrice(totalRevenue),
       icon: DollarSign,
-      color: "text-green-600 bg-green-100",
     },
-    {
-      label: "Total Orders",
-      value: totalOrders,
-      icon: ShoppingBag,
-      color: "text-blue-600 bg-blue-100",
-    },
-    {
-      label: "Today's Orders",
-      value: todayOrders,
-      icon: TrendingUp,
-      color: "text-indigo-600 bg-indigo-100",
-    },
-    {
-      label: "Pending",
-      value: pendingOrders,
-      icon: Clock,
-      color: "text-amber-600 bg-amber-100",
-    },
-    {
-      label: "Processing",
-      value: processingOrders,
-      icon: Package,
-      color: "text-purple-600 bg-purple-100",
-    },
-    {
-      label: "Delivered",
-      value: deliveredOrders,
-      icon: CheckCircle,
-      color: "text-green-600 bg-green-100",
-    },
-    {
-      label: "Cancelled",
-      value: cancelledOrders,
-      icon: XCircle,
-      color: "text-red-600 bg-red-100",
-    },
-    {
-      label: "Customers",
-      value: totalCustomers,
-      icon: Users,
-      color: "text-cyan-600 bg-cyan-100",
-    },
+    { label: "Total Orders", value: totalOrders, icon: ShoppingBag },
+    { label: "Today's Orders", value: todayOrders, icon: TrendingUp },
+    { label: "Pending", value: pendingOrders, icon: Clock },
+    { label: "Processing", value: processingOrders, icon: Package },
+    { label: "Delivered", value: deliveredOrders, icon: CheckCircle },
+    { label: "Cancelled", value: cancelledOrders, icon: XCircle },
+    { label: "Customers", value: totalCustomers, icon: Users },
   ]
 
   const orderStatusColors: Record<string, string> = {
-    PENDING: "bg-amber-100 text-amber-700",
-    CONFIRMED: "bg-blue-100 text-blue-700",
-    PROCESSING: "bg-purple-100 text-purple-700",
-    SHIPPED: "bg-cyan-100 text-cyan-700",
-    DELIVERED: "bg-green-100 text-green-700",
-    CANCELLED: "bg-red-100 text-red-700",
+    PENDING: "bg-amber-100 text-amber-700 border-amber-200",
+    CONFIRMED: "bg-blue-100 text-blue-700 border-blue-200",
+    PROCESSING: "bg-purple-100 text-purple-700 border-purple-200",
+    SHIPPED: "bg-cyan-100 text-cyan-700 border-cyan-200",
+    DELIVERED: "bg-emerald-100 text-emerald-700 border-emerald-200",
+    CANCELLED: "bg-red-100 text-red-700 border-red-200",
   }
 
   return (
@@ -127,10 +103,16 @@ export default async function AdminDashboard() {
       </PageHeader>
 
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-        {stats.map((s) => (
-          <Card key={s.label} className="p-4 flex items-center gap-4">
+        {stats.map((s, i) => (
+          <Card
+            key={s.label}
+            className="p-4 flex items-center gap-4 border-l-4 border-l-primary/20"
+          >
             <div
-              className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-lg ${s.color}`}
+              className={cn(
+                "flex h-10 w-10 shrink-0 items-center justify-center rounded-lg",
+                iconStyles[i % iconStyles.length].bg
+              )}
             >
               <s.icon className="h-5 w-5" />
             </div>
@@ -143,23 +125,23 @@ export default async function AdminDashboard() {
       </div>
 
       <div className="grid gap-6 lg:grid-cols-2">
-        <Card className="p-5">
+        <Card className="p-6">
           <div className="flex items-center justify-between mb-4">
             <h2 className="font-heading text-lg font-semibold">
               Recent Orders
             </h2>
             <Link href={routes.admin.orders}>
-              <Button variant="link" size="sm">
+              <Button variant="outline" size="sm">
                 View All
               </Button>
             </Link>
           </div>
-          <div className="space-y-3">
+          <div className="space-y-2">
             {recentOrders.map((o) => (
               <Link
                 key={o.id}
                 href={`/admin/orders/${o.id}`}
-                className="flex items-center justify-between text-sm hover:bg-muted/50 rounded-lg p-2 -mx-2 transition-colors"
+                className="flex items-center justify-between text-sm rounded-lg bg-muted/30 p-3 hover:bg-muted/60 transition-colors"
               >
                 <div className="min-w-0 flex-1">
                   <p className="font-medium truncate">{o.orderNumber}</p>
@@ -172,7 +154,10 @@ export default async function AdminDashboard() {
                 <div className="text-right shrink-0 ml-4">
                   <Badge
                     variant="outline"
-                    className={`text-[10px] ${orderStatusColors[o.status] || ""}`}
+                    className={cn(
+                      "text-[10px] px-2",
+                      orderStatusColors[o.status] || ""
+                    )}
                   >
                     {o.status}
                   </Badge>
@@ -185,7 +170,7 @@ export default async function AdminDashboard() {
           </div>
         </Card>
 
-        <Card className="p-5">
+        <Card className="p-6">
           <h2 className="font-heading text-lg font-semibold mb-4">
             Quick Actions
           </h2>

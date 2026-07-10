@@ -8,9 +8,9 @@ export function Footer() {
   const year = new Date().getFullYear()
 
   return (
-    <footer className="mt-auto border-t bg-muted/30">
-      <Container className="py-12">
-        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+    <footer className="mt-auto border-t bg-gradient-to-b from-background to-primary/[0.02]">
+      <Container className="py-14">
+        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
           <div className="space-y-4">
             <Link
               href={routes.home}
@@ -22,13 +22,13 @@ export function Footer() {
             <p className="text-sm leading-relaxed text-muted-foreground">
               {siteConfig.tagline}
             </p>
-            <div className="flex gap-3">
+            <div className="flex gap-2.5 pt-1">
               {siteConfig.social.instagram && (
                 <a
                   href={`https://instagram.com/${siteConfig.social.instagram.replace("@", "")}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex h-9 w-9 items-center justify-center rounded-lg border transition-colors hover:bg-muted"
+                  className="flex h-9 w-9 items-center justify-center rounded-full border border-primary/20 text-primary/60 hover:text-primary hover:border-primary/40 hover:bg-primary/5 transition-all"
                   aria-label="Instagram"
                 >
                   <Camera className="h-4 w-4" />
@@ -39,7 +39,7 @@ export function Footer() {
                   href={`https://wa.me/${siteConfig.social.whatsapp.replace(/\D/g, "")}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex h-9 w-9 items-center justify-center rounded-lg border transition-colors hover:bg-muted"
+                  className="flex h-9 w-9 items-center justify-center rounded-full border border-primary/20 text-primary/60 hover:text-primary hover:border-primary/40 hover:bg-primary/5 transition-all"
                   aria-label="WhatsApp"
                 >
                   <MessageCircle className="h-4 w-4" />
@@ -47,7 +47,7 @@ export function Footer() {
               )}
               <a
                 href={`mailto:${siteConfig.contact.email}`}
-                className="flex h-9 w-9 items-center justify-center rounded-lg border transition-colors hover:bg-muted"
+                className="flex h-9 w-9 items-center justify-center rounded-full border border-primary/20 text-primary/60 hover:text-primary hover:border-primary/40 hover:bg-primary/5 transition-all"
                 aria-label="Email"
               >
                 <Mail className="h-4 w-4" />
@@ -56,12 +56,12 @@ export function Footer() {
           </div>
 
           <div className="space-y-4">
-            <h3 className="text-sm font-semibold">Quick Links</h3>
-            <ul className="space-y-2 text-sm text-muted-foreground">
+            <h3 className="text-sm font-semibold tracking-wide">Quick Links</h3>
+            <ul className="space-y-2.5 text-sm text-muted-foreground">
               <li>
                 <Link
                   href={routes.home}
-                  className="transition-colors hover:text-foreground"
+                  className="hover:text-primary transition-colors"
                 >
                   Home
                 </Link>
@@ -69,7 +69,7 @@ export function Footer() {
               <li>
                 <Link
                   href={routes.products}
-                  className="transition-colors hover:text-foreground"
+                  className="hover:text-primary transition-colors"
                 >
                   Shop
                 </Link>
@@ -77,7 +77,7 @@ export function Footer() {
               <li>
                 <Link
                   href={routes.static.about}
-                  className="transition-colors hover:text-foreground"
+                  className="hover:text-primary transition-colors"
                 >
                   About
                 </Link>
@@ -85,7 +85,7 @@ export function Footer() {
               <li>
                 <Link
                   href={routes.static.contact}
-                  className="transition-colors hover:text-foreground"
+                  className="hover:text-primary transition-colors"
                 >
                   Contact
                 </Link>
@@ -94,12 +94,12 @@ export function Footer() {
           </div>
 
           <div className="space-y-4">
-            <h3 className="text-sm font-semibold">Support</h3>
-            <ul className="space-y-2 text-sm text-muted-foreground">
+            <h3 className="text-sm font-semibold tracking-wide">Support</h3>
+            <ul className="space-y-2.5 text-sm text-muted-foreground">
               <li>
                 <Link
                   href={routes.legal.shipping}
-                  className="transition-colors hover:text-foreground"
+                  className="hover:text-primary transition-colors"
                 >
                   Shipping Info
                 </Link>
@@ -107,7 +107,7 @@ export function Footer() {
               <li>
                 <Link
                   href={routes.legal.returns}
-                  className="transition-colors hover:text-foreground"
+                  className="hover:text-primary transition-colors"
                 >
                   Returns
                 </Link>
@@ -115,7 +115,7 @@ export function Footer() {
               <li>
                 <Link
                   href={routes.legal.privacy}
-                  className="transition-colors hover:text-foreground"
+                  className="hover:text-primary transition-colors"
                 >
                   Privacy Policy
                 </Link>
@@ -123,7 +123,7 @@ export function Footer() {
               <li>
                 <Link
                   href={routes.legal.terms}
-                  className="transition-colors hover:text-foreground"
+                  className="hover:text-primary transition-colors"
                 >
                   Terms of Service
                 </Link>
@@ -132,48 +132,50 @@ export function Footer() {
           </div>
 
           <div className="space-y-4">
-            <h3 className="text-sm font-semibold">Get in Touch</h3>
+            <h3 className="text-sm font-semibold tracking-wide">
+              Get in Touch
+            </h3>
             <ul className="space-y-3 text-sm text-muted-foreground">
-              <li className="flex items-center gap-2">
-                <Mail className="h-3.5 w-3.5 shrink-0" />
+              <li className="flex items-center gap-2.5">
+                <Mail className="h-4 w-4 shrink-0 text-primary/60" />
                 <a
                   href={`mailto:${siteConfig.contact.email}`}
-                  className="transition-colors hover:text-foreground"
+                  className="hover:text-primary transition-colors"
                 >
                   {siteConfig.contact.email}
                 </a>
               </li>
-              <li className="flex items-center gap-2">
-                <Phone className="h-3.5 w-3.5 shrink-0" />
+              <li className="flex items-center gap-2.5">
+                <Phone className="h-4 w-4 shrink-0 text-primary/60" />
                 <a
                   href={`tel:${siteConfig.contact.phone.replace(/\s/g, "")}`}
-                  className="transition-colors hover:text-foreground"
+                  className="hover:text-primary transition-colors"
                 >
                   {siteConfig.contact.phone}
                 </a>
               </li>
-              <li className="flex items-center gap-2">
-                <MapPin className="h-3.5 w-3.5 shrink-0" />
+              <li className="flex items-center gap-2.5">
+                <MapPin className="h-4 w-4 shrink-0 text-primary/60" />
                 {siteConfig.contact.address}
               </li>
             </ul>
           </div>
         </div>
 
-        <div className="mt-10 flex flex-col items-center justify-between gap-4 border-t pt-6 text-xs text-muted-foreground sm:flex-row">
+        <div className="mt-12 pt-6 border-t flex flex-col items-center justify-between gap-4 text-xs text-muted-foreground/60 sm:flex-row">
           <p>
             &copy; {year} {siteConfig.legalName}. All rights reserved.
           </p>
-          <div className="flex gap-4">
+          <div className="flex gap-6">
             <Link
               href={routes.legal.privacy}
-              className="transition-colors hover:text-foreground"
+              className="hover:text-primary transition-colors"
             >
               Privacy
             </Link>
             <Link
               href={routes.legal.terms}
-              className="transition-colors hover:text-foreground"
+              className="hover:text-primary transition-colors"
             >
               Terms
             </Link>
