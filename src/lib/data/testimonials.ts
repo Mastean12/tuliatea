@@ -5,31 +5,36 @@ export type Testimonial = {
   avatar: string
   rating: number
   text: string
+  isSample: boolean
 }
 
+// Sample testimonials — replace with real customer reviews when available.
 export const testimonials: Testimonial[] = [
   {
     id: "1",
-    name: "Grace Mwangi",
+    name: "Grace M.",
     location: "Nairobi, Kenya",
     avatar: "GM",
     rating: 5,
-    text: "Tullia Tea has completely transformed my morning ritual. The Serenity Green blend is unlike anything I've had before — smooth, aromatic, and truly calming.",
+    text: "Sample review — Replace with a real customer testimonial. The Kenyan Sunrise Black Tea has a wonderful rich flavor that I look forward to every morning.",
+    isSample: true,
   },
   {
     id: "2",
-    name: "James Ochieng",
+    name: "James O.",
     location: "Kisumu, Kenya",
     avatar: "JO",
     rating: 5,
-    text: "I discovered Tullia Tea through a friend and now I'm hooked. The quality is exceptional and knowing it's locally sourced makes it even better.",
+    text: "Sample review — Replace with a real customer testimonial. I love the Golden Turmeric Infusion. It is warming, soothing, and made with real natural ingredients.",
+    isSample: true,
   },
   {
     id: "3",
-    name: "Sarah Wanjiku",
+    name: "Sarah W.",
     location: "Mombasa, Kenya",
     avatar: "SW",
     rating: 5,
-    text: "The Golden Turmeric blend is my go-to evening tea. It's warming, soothing, and I love that there are no artificial additives — just pure natural ingredients.",
+    text: "Sample review — Replace with a real customer testimonial. The Serenity Green Tea is unlike anything I have had before — smooth, aromatic, and truly calming.",
+    isSample: true,
   },
 ]

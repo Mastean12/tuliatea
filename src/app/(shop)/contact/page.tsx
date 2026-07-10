@@ -9,10 +9,11 @@ import { FAQSection } from "@/components/contact/faq-section"
 export const metadata: Metadata = {
   title: "Contact",
   description:
-    "Get in touch with Tullia Tea. We'd love to hear from you — whether you have a question, feedback, or just want to say hello.",
+    "Get in touch with Tullia Tea. Reach out via email, phone, WhatsApp, or our contact form. We would love to hear from you.",
   openGraph: {
     title: `Contact | ${siteConfig.name}`,
-    description: "Get in touch with Tullia Tea. We'd love to hear from you.",
+    description:
+      "Get in touch with Tullia Tea. Reach out via email, phone, WhatsApp, or our contact form.",
   },
 }
 
@@ -29,7 +30,7 @@ export default function ContactPage() {
                 Send us a Message
               </h2>
               <p className="mb-8 text-sm text-muted-foreground">
-                Fill out the form below and we&apos;ll get back to you within 24
+                Fill out the form below and we will get back to you within 24
                 hours.
               </p>
               <ContactForm />

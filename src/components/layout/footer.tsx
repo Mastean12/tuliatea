@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { Leaf, Mail, Phone, MapPin } from "lucide-react"
+import { Leaf, Mail, Phone, MapPin, Camera, MessageCircle } from "lucide-react"
 import { Container } from "@/components/ui/container"
 import { siteConfig } from "@/config/site"
 import { routes } from "@/config/routes"
@@ -20,8 +20,39 @@ export function Footer() {
               {siteConfig.name}
             </Link>
             <p className="text-sm leading-relaxed text-muted-foreground">
-              Premium Kenyan wellness teas crafted for your daily ritual.
+              {siteConfig.tagline}
             </p>
+            <div className="flex gap-3">
+              {siteConfig.social.instagram && (
+                <a
+                  href={`https://instagram.com/${siteConfig.social.instagram.replace("@", "")}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex h-9 w-9 items-center justify-center rounded-lg border transition-colors hover:bg-muted"
+                  aria-label="Instagram"
+                >
+                  <Camera className="h-4 w-4" />
+                </a>
+              )}
+              {siteConfig.social.whatsapp && (
+                <a
+                  href={`https://wa.me/${siteConfig.social.whatsapp.replace(/\D/g, "")}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex h-9 w-9 items-center justify-center rounded-lg border transition-colors hover:bg-muted"
+                  aria-label="WhatsApp"
+                >
+                  <MessageCircle className="h-4 w-4" />
+                </a>
+              )}
+              <a
+                href={`mailto:${siteConfig.contact.email}`}
+                className="flex h-9 w-9 items-center justify-center rounded-lg border transition-colors hover:bg-muted"
+                aria-label="Email"
+              >
+                <Mail className="h-4 w-4" />
+              </a>
+            </div>
           </div>
 
           <div className="space-y-4">
@@ -57,14 +88,6 @@ export function Footer() {
                   className="transition-colors hover:text-foreground"
                 >
                   Contact
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href={routes.static.blog}
-                  className="transition-colors hover:text-foreground"
-                >
-                  Blog
                 </Link>
               </li>
             </ul>
@@ -105,14 +128,6 @@ export function Footer() {
                   Terms of Service
                 </Link>
               </li>
-              <li>
-                <Link
-                  href={routes.static.faq}
-                  className="transition-colors hover:text-foreground"
-                >
-                  FAQ
-                </Link>
-              </li>
             </ul>
           </div>
 
@@ -120,7 +135,7 @@ export function Footer() {
             <h3 className="text-sm font-semibold">Get in Touch</h3>
             <ul className="space-y-3 text-sm text-muted-foreground">
               <li className="flex items-center gap-2">
-                <Mail className="h-3.5 w-3.5" />
+                <Mail className="h-3.5 w-3.5 shrink-0" />
                 <a
                   href={`mailto:${siteConfig.contact.email}`}
                   className="transition-colors hover:text-foreground"
@@ -129,16 +144,16 @@ export function Footer() {
                 </a>
               </li>
               <li className="flex items-center gap-2">
-                <Phone className="h-3.5 w-3.5" />
+                <Phone className="h-3.5 w-3.5 shrink-0" />
                 <a
-                  href={`tel:${siteConfig.contact.phone}`}
+                  href={`tel:${siteConfig.contact.phone.replace(/\s/g, "")}`}
                   className="transition-colors hover:text-foreground"
                 >
                   {siteConfig.contact.phone}
                 </a>
               </li>
               <li className="flex items-center gap-2">
-                <MapPin className="h-3.5 w-3.5" />
+                <MapPin className="h-3.5 w-3.5 shrink-0" />
                 {siteConfig.contact.address}
               </li>
             </ul>

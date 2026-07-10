@@ -2,7 +2,7 @@ export const homeContent = {
   hero: {
     title: "Elevating Everyday Wellness",
     subtitle:
-      "Premium Kenyan Specialty Teas & Herbal Infusions crafted using natural, preservative-free ingredients.",
+      "Premium Kenyan specialty teas and herbal infusions crafted using natural, preservative-free ingredients.",
     ctaPrimary: "Shop Collection",
     ctaSecondary: "Learn Our Story",
   },
@@ -11,28 +11,28 @@ export const homeContent = {
     subtitle: "Crafted with care from the Kenyan highlands to your cup.",
     items: [
       {
-        title: "100% Natural Ingredients",
+        title: "Kenyan Sourced",
         description:
-          "Every blend is made with pure, natural ingredients grown in Kenya's fertile highlands.",
-        icon: "leaf",
+          "Our tea is sourced directly from local farmers across Kenya's premium tea-growing regions, including the Rift Valley and the central highlands.",
+        icon: "globe",
       },
       {
         title: "Handcrafted in Kenya",
         description:
-          "Small-batch production ensures quality and authenticity in every sip.",
+          "Small-batch production ensures quality and authenticity in every sip. Every blend reflects Kenyan craftsmanship and dedication.",
         icon: "heart",
-      },
-      {
-        title: "Sustainably Sourced",
-        description:
-          "We partner with local farmers who practice sustainable, eco-friendly agriculture.",
-        icon: "globe",
       },
       {
         title: "Preservative Free",
         description:
-          "No artificial additives, flavors, or preservatives. Just pure tea, nature's way.",
+          "No artificial additives, flavors, or preservatives. Just pure natural ingredients grown in Kenya's fertile highlands.",
         icon: "shield",
+      },
+      {
+        title: "Wellness Focused",
+        description:
+          "Every product is designed with your well-being in mind — natural ingredients that nurture both body and mind.",
+        icon: "leaf",
       },
     ],
   },
@@ -40,9 +40,9 @@ export const homeContent = {
     title: "Our Promise",
     subtitle: "Quality, Wellness, Sustainability",
     paragraphs: [
-      "At Tullia Tea, we believe wellness begins with what you consume. That's why every blend we create starts with the finest ingredients sourced directly from Kenyan farmers who share our commitment to quality.",
+      "At Tullia Tea, we believe wellness begins with what you consume. That is why every blend we create starts with the finest ingredients sourced directly from Kenyan farmers who share our commitment to quality.",
       "Our teas are handcrafted in small batches to preserve their natural goodness, ensuring you receive the freshest, most flavorful experience with every cup. From the lush highlands to your kitchen, we bring you the authentic taste of Kenya.",
-      "We are committed to sustainable practices that protect our environment and empower local communities. By choosing Tullia Tea, you're not just nurturing your own wellness — you're supporting a brighter future for Kenyan farmers and their families.",
+      "We are committed to sustainable practices that protect our environment and empower local communities. By choosing Tullia Tea, you are not just nurturing your own wellness — you are supporting a brighter future for Kenyan farmers and their families.",
     ],
   },
   cta: {
@@ -100,14 +100,14 @@ export const aboutContent = {
     paragraphs: [
       "Tullia Tea was born from a simple belief: that the finest wellness teas deserve to be shared with the world. Founded by Rectangular Foods, we set out to create a brand that celebrates Kenya's rich tea-growing heritage while delivering premium quality to health-conscious individuals everywhere.",
       "Our journey begins in the lush, fertile highlands of Kenya, where our tea gardens benefit from rich volcanic soil, abundant rainfall, and the perfect altitude for growing exceptional tea. Working alongside local farmers who have cultivated these lands for generations, we select only the finest leaves for our blends.",
-      "Every blend at Tullia Tea is handcrafted in small batches to preserve its natural goodness. From the bold notes of our Rift Valley Breakfast to the soothing aroma of our Serenity Green, each cup tells a story of Kenyan craftsmanship and dedication to quality.",
+      "Every blend at Tullia Tea is handcrafted in small batches to preserve its natural goodness. From the bold notes of our Kenyan breakfast blends to the soothing aroma of our herbal infusions, each cup tells a story of Kenyan craftsmanship and dedication to quality.",
       "As we grow, our commitment to sustainability and community remains unwavering. We invest in eco-friendly farming practices, support local education initiatives, and strive to create a positive impact that extends far beyond the tea cup.",
     ],
   },
   sustainability: {
     title: "Our Commitment to Sustainability",
     subtitle: "Caring for the land that nurtures us.",
-    body: "Sustainability is at the heart of everything we do. From working with farmers who use organic farming methods to minimizing our packaging waste, we are constantly seeking ways to reduce our environmental footprint. We believe that a brand that gives back to the earth and its people creates not just better tea, but a better future.",
+    body: "Sustainability is at the heart of everything we do. From working with farmers who use responsible farming methods to minimizing our packaging waste, we are constantly seeking ways to reduce our environmental footprint. We believe that a brand that gives back to the earth and its people creates not just better tea, but a better future.",
   },
   cta: {
     title: "Experience the Tullia Difference",
@@ -120,10 +120,10 @@ export const contactContent = {
   hero: {
     title: "Get in Touch",
     subtitle:
-      "We'd love to hear from you. Reach out with questions, feedback, or just to say hello.",
+      "We would love to hear from you. Reach out with questions, feedback, or to place an order.",
   },
   info: {
-    email: "hello@tulliatea.com",
+    email: "info@tulliatea.com",
     phone: "+254 700 000 000",
     address: "Nairobi, Kenya",
     hours: "Monday — Friday: 8:00 AM — 5:00 PM (EAT)",
@@ -132,32 +132,32 @@ export const contactContent = {
     {
       question: "Where do you source your tea?",
       answer:
-        "Our tea is sourced directly from local farmers across Kenya's premium tea-growing regions, including the Rift Valley, Nyeri, and the Kenyan highlands.",
+        "Our tea is sourced directly from local farmers across Kenya's premium tea-growing regions, including the Rift Valley, Nyeri, and the central Kenyan highlands. We work with small-scale farmers who use traditional, responsible farming methods.",
     },
     {
-      question: "Are your products organic?",
+      question: "How should I prepare Tullia Tea?",
       answer:
-        "While we prioritize organic farming practices, we recommend checking individual product descriptions for specific certifications. All our teas are grown without synthetic pesticides and are naturally processed.",
+        "For the best flavor, use freshly boiled water and steep your tea for 3-5 minutes depending on the variety. Green and herbal teas typically require lower temperatures (80-85°C) while black teas can be brewed at full boil. Each package includes specific brewing instructions.",
     },
     {
-      question: "How should I store my tea?",
+      question: "How are deliveries made?",
       answer:
-        "Store your tea in a cool, dry place away from direct sunlight and strong odors. Use an airtight container to maintain freshness and flavor.",
+        "We use trusted courier services for both local and international deliveries. Orders are processed within 24-48 hours and tracking information is provided once shipped.",
     },
     {
-      question: "Do you ship internationally?",
+      question: "Where can I buy Tullia Tea?",
       answer:
-        "Yes, we ship to select international destinations. Shipping costs and delivery times vary by location. Contact us for detailed shipping information.",
+        "Tullia Tea is available through our online store and select retail outlets across Kenya. We are expanding our reach and welcome inquiries from stockists and retailers interested in carrying our products.",
     },
     {
-      question: "What is your return policy?",
+      question: "How long does delivery take?",
       answer:
-        "We want you to love your Tullia Tea experience. If you're not satisfied with your purchase, contact us within 14 days for assistance.",
+        "Local deliveries within Nairobi typically arrive within 1-3 business days. Deliveries to other Kenyan counties take 3-7 business days. International shipping times vary by destination and are calculated at checkout.",
     },
     {
-      question: "Do you offer wholesale or bulk orders?",
+      question: "Can I order online?",
       answer:
-        "Yes, we offer wholesale pricing for businesses, cafes, and retailers. Please contact us with your requirements and we'll provide a tailored quote.",
+        "Yes, you can order directly through our website. We offer secure online payments and deliver to your preferred address. For bulk or wholesale orders, please contact us directly.",
     },
   ],
 } as const

@@ -2,8 +2,7 @@
 
 import { motion } from "framer-motion"
 import Link from "next/link"
-import { cn } from "@/lib/utils"
-import { formatPrice } from "@/lib/utils"
+import { cn, formatPrice } from "@/lib/utils"
 import { PlaceholderImage } from "./placeholder-image"
 import { Badge } from "./badge"
 import { Button } from "./button"
@@ -18,6 +17,8 @@ type ProductCardProps = {
     price: number
     comparePrice?: number
     image: string
+    weight?: string
+    ingredients?: string
     isFeatured?: boolean
     isBestSeller?: boolean
   }
@@ -54,13 +55,13 @@ export function ProductCard({
         >
           <PlaceholderImage
             label={product.name}
-            variant={isCompact ? "product" : "product"}
+            variant="product"
             className={cn(
               "transition-transform duration-500 group-hover:scale-105",
               isCompact ? "h-24" : ""
             )}
           />
-          <div className="absolute top-2 left-2 flex flex-col gap-1">
+          <div className="absolute right-2 top-2 flex flex-col gap-1">
             {product.isBestSeller && (
               <Badge variant="secondary" className="text-[10px] px-1.5 py-0.5">
                 Bestseller
@@ -69,7 +70,7 @@ export function ProductCard({
             {product.comparePrice && (
               <Badge
                 variant="default"
-                className="text-[10px] px-1.5 py-0.5 bg-primary/90"
+                className="bg-accent text-accent-foreground text-[10px] px-1.5 py-0.5"
               >
                 Sale
               </Badge>
@@ -82,9 +83,16 @@ export function ProductCard({
             {product.name}
           </h3>
           {!isCompact && (
-            <p className="text-xs text-muted-foreground line-clamp-2 leading-relaxed">
-              {product.description}
-            </p>
+            <>
+              <p className="text-xs text-muted-foreground line-clamp-2 leading-relaxed">
+                {product.description}
+              </p>
+              {product.weight && (
+                <p className="text-xs text-muted-foreground/70">
+                  {product.weight}
+                </p>
+              )}
+            </>
           )}
           <div className="flex items-center gap-2">
             <span className="font-medium text-sm">

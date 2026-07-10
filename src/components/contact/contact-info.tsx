@@ -1,27 +1,29 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Mail, Phone, MapPin, Clock, MessageCircle } from "lucide-react"
+import { Mail, Phone, MapPin, Clock, MessageCircle, Camera } from "lucide-react"
 import { contactContent } from "@/lib/data/content"
+import { siteConfig } from "@/config/site"
+import { GoogleMaps } from "@/components/ui/google-maps"
 import Link from "next/link"
 
 const contactItems = [
   {
     icon: Mail,
     label: "Email",
-    value: contactContent.info.email,
-    href: `mailto:${contactContent.info.email}`,
+    value: siteConfig.contact.email,
+    href: `mailto:${siteConfig.contact.email}`,
   },
   {
     icon: Phone,
     label: "Phone",
-    value: contactContent.info.phone,
-    href: `tel:${contactContent.info.phone.replace(/\s/g, "")}`,
+    value: siteConfig.contact.phone,
+    href: `tel:${siteConfig.contact.phone.replace(/\s/g, "")}`,
   },
   {
     icon: MapPin,
     label: "Address",
-    value: contactContent.info.address,
+    value: siteConfig.contact.address,
   },
   {
     icon: Clock,
@@ -37,7 +39,7 @@ export function ContactInfo() {
         Contact Information
       </h3>
       <p className="text-sm text-muted-foreground">
-        We&apos;d love to hear from you. Choose your preferred way to reach us.
+        Reach out to us through any of the channels below.
       </p>
 
       <div className="space-y-4">
@@ -70,31 +72,43 @@ export function ContactInfo() {
         ))}
       </div>
 
-      <div className="rounded-xl border bg-card p-4">
-        <div className="flex items-center gap-3">
-          <MessageCircle className="h-5 w-5 text-primary" />
+      <div className="space-y-3">
+        <Link
+          href={`https://wa.me/${siteConfig.contact.whatsapp.replace(/\D/g, "")}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center gap-3 rounded-xl border bg-card p-4 transition-colors hover:bg-muted"
+        >
+          <MessageCircle className="h-5 w-5 text-green-600" />
           <div className="flex-1">
             <p className="text-sm font-medium">WhatsApp</p>
             <p className="text-xs text-muted-foreground">
               Quick responses during business hours
             </p>
           </div>
+          <span className="text-xs font-medium text-primary">Chat Now</span>
+        </Link>
+
+        {siteConfig.social.instagram && (
           <Link
-            href={`https://wa.me/${contactContent.info.phone.replace(/\D/g, "")}`}
-            className="inline-flex h-7 items-center justify-center rounded-lg border border-input bg-background px-2.5 text-[0.8rem] font-medium text-foreground shadow-sm transition-colors hover:bg-muted hover:text-foreground"
+            href={`https://instagram.com/${siteConfig.social.instagram.replace("@", "")}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-3 rounded-xl border bg-card p-4 transition-colors hover:bg-muted"
           >
-            Chat Now
+            <Camera className="h-5 w-5 text-pink-600" />
+            <div className="flex-1">
+              <p className="text-sm font-medium">Instagram</p>
+              <p className="text-xs text-muted-foreground">
+                Follow us for updates and tea inspiration
+              </p>
+            </div>
+            <span className="text-xs font-medium text-primary">Follow</span>
           </Link>
-        </div>
+        )}
       </div>
 
-      {/* Map placeholder */}
-      <div className="h-48 rounded-xl bg-muted flex items-center justify-center text-sm text-muted-foreground">
-        <div className="text-center">
-          <MapPin className="mx-auto mb-2 h-6 w-6 text-muted-foreground/50" />
-          <span>Map — {contactContent.info.address}</span>
-        </div>
-      </div>
+      <GoogleMaps address={siteConfig.contact.address} />
     </div>
   )
 }

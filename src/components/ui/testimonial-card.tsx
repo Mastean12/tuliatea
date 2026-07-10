@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion"
 import { cn } from "@/lib/utils"
-import { Star } from "lucide-react"
+import { Star, Info } from "lucide-react"
 
 type TestimonialCardProps = {
   name: string
@@ -10,6 +10,7 @@ type TestimonialCardProps = {
   avatar: string
   rating: number
   text: string
+  isSample?: boolean
   index?: number
 }
 
@@ -19,6 +20,7 @@ export function TestimonialCard({
   avatar,
   rating,
   text,
+  isSample,
   index = 0,
 }: TestimonialCardProps) {
   return (
@@ -29,6 +31,13 @@ export function TestimonialCard({
       transition={{ duration: 0.5, delay: index * 0.15 }}
       className="flex flex-col rounded-2xl border bg-card p-6 transition-all duration-300 hover:shadow-md"
     >
+      {isSample && (
+        <div className="mb-3 flex items-center gap-1.5 rounded-lg bg-amber-50 px-3 py-1.5 text-xs text-amber-700 dark:bg-amber-950 dark:text-amber-300">
+          <Info className="h-3 w-3" />
+          <span>Sample review — replace with real customer story</span>
+        </div>
+      )}
+
       <div className="mb-4 flex gap-1">
         {Array.from({ length: 5 }).map((_, i) => (
           <Star
@@ -43,7 +52,7 @@ export function TestimonialCard({
         ))}
       </div>
 
-      <blockquote className="mb-6 flex-1 text-sm leading-relaxed text-muted-foreground">
+      <blockquote className="mb-6 flex-1 text-sm leading-relaxed text-muted-foreground italic">
         &ldquo;{text}&rdquo;
       </blockquote>
 

@@ -22,6 +22,7 @@ export function Testimonials() {
               avatar={t.avatar}
               rating={t.rating}
               text={t.text}
+              isSample={t.isSample}
               index={i}
             />
           ))}

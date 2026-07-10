@@ -3,6 +3,8 @@ export type Product = {
   name: string
   slug: string
   description: string
+  ingredients: string
+  weight: string
   price: number
   comparePrice?: number
   image: string
@@ -14,76 +16,116 @@ export type Product = {
 export const products: Product[] = [
   {
     id: "1",
-    name: "Serenity Green",
-    slug: "serenity-green",
+    name: "Kenyan Sunrise Black Tea",
+    slug: "kenyan-sunrise-black-tea",
     description:
-      "A calming blend of premium Kenyan green tea leaves with hints of chamomile and lavender.",
+      "A bold, full-bodied black tea from the highlands of Kenya. Rich in flavor with a bright copper liquor and smooth finish.",
+    ingredients: "100% premium Kenyan black tea leaves",
+    weight: "100g",
+    price: 1500,
+    image: "kenyan-sunrise",
+    category: "Black Tea",
+    isFeatured: true,
+    isBestSeller: true,
+  },
+  {
+    id: "2",
+    name: "Serenity Green Tea",
+    slug: "serenity-green-tea",
+    description:
+      "A delicate, soothing green tea with grassy notes and a clean finish. Sourced from the finest tea gardens in Kenya.",
+    ingredients: "100% premium Kenyan green tea leaves",
+    weight: "80g",
     price: 1800,
+    comparePrice: 2200,
     image: "serenity-green",
     category: "Green Tea",
     isFeatured: true,
     isBestSeller: true,
   },
   {
-    id: "2",
-    name: "Golden Turmeric",
-    slug: "golden-turmeric",
-    description:
-      "Warming turmeric and ginger infusion blended with Kenyan black tea and a touch of honey.",
-    price: 2200,
-    comparePrice: 2600,
-    image: "golden-turmeric",
-    category: "Herbal Infusion",
-    isFeatured: true,
-    isBestSeller: true,
-  },
-  {
     id: "3",
-    name: "Moringa Bliss",
-    slug: "moringa-bliss",
+    name: "Golden Turmeric Infusion",
+    slug: "golden-turmeric-infusion",
     description:
-      "Pure Kenyan moringa leaf tea packed with antioxidants and natural energy.",
-    price: 1600,
-    image: "moringa-bliss",
+      "A warming, golden blend of turmeric, ginger, and lemongrass. Naturally caffeine-free and perfect for any time of day.",
+    ingredients: "Turmeric, ginger, lemongrass, black pepper, cinnamon",
+    weight: "100g",
+    price: 2200,
+    image: "golden-turmeric",
     category: "Herbal Infusion",
     isFeatured: true,
     isBestSeller: false,
   },
   {
     id: "4",
+    name: "Moringa Wellness Tea",
+    slug: "moringa-wellness-tea",
+    description:
+      "Pure Kenyan moringa leaf tea packed with natural antioxidants and nutrients. A vibrant green infusion that supports daily wellness.",
+    ingredients: "100% organic Kenyan moringa leaves",
+    weight: "75g",
+    price: 1600,
+    image: "moringa-wellness",
+    category: "Herbal Infusion",
+    isFeatured: true,
+    isBestSeller: false,
+  },
+  {
+    id: "5",
     name: "Rift Valley Breakfast",
     slug: "rift-valley-breakfast",
     description:
-      "Bold full-bodied black tea from the Great Rift Valley. A perfect morning brew.",
-    price: 1500,
+      "A robust, full-bodied breakfast blend from the Great Rift Valley. Malty notes with a satisfying finish — the perfect start to your day.",
+    ingredients: "100% premium Kenyan black tea leaves",
+    weight: "120g",
+    price: 1800,
     image: "rift-valley-breakfast",
     category: "Black Tea",
     isFeatured: false,
     isBestSeller: true,
   },
   {
-    id: "5",
-    name: "Lemongrass Zest",
-    slug: "lemongrass-zest",
+    id: "6",
+    name: "Lemongrass & Ginger Zest",
+    slug: "lemongrass-ginger-zest",
     description:
-      "Refreshing lemongrass and lemon verbena blend grown in the Kenyan highlands.",
+      "A refreshing, zesty herbal infusion made from Kenyan-grown lemongrass and ginger. Naturally caffeine-free and invigorating.",
+    ingredients: "Lemongrass, ginger, lemon verbena",
+    weight: "80g",
     price: 1900,
-    image: "lemongrass-zest",
+    image: "lemongrass-ginger",
     category: "Herbal Infusion",
-    isFeatured: true,
-    isBestSeller: false,
+    isFeatured: false,
+    isBestSeller: true,
   },
   {
-    id: "6",
+    id: "7",
     name: "Earl Grey Lavender",
     slug: "earl-grey-lavender",
     description:
-      "Classic Earl Grey with a twist of Kenyan lavender. Bergamot notes meet floral elegance.",
+      "Classic Earl Grey with a twist of Kenyan lavender. Bergamot notes meet floral elegance for a truly premium cup.",
+    ingredients: "Kenyan black tea, bergamot oil, lavender flowers",
+    weight: "100g",
     price: 2100,
     image: "earl-grey-lavender",
     category: "Black Tea",
     isFeatured: false,
-    isBestSeller: true,
+    isBestSeller: false,
+  },
+  {
+    id: "8",
+    name: "Chamomile & Honeybush",
+    slug: "chamomile-honeybush",
+    description:
+      "A calming, caffeine-free blend of chamomile and honeybush. Sweet, floral, and perfect for evening relaxation.",
+    ingredients: "Chamomile flowers, honeybush, natural flavor",
+    weight: "75g",
+    price: 2000,
+    image: "chamomile-honeybush",
+    category: "Herbal Infusion",
+    isFeatured: true,
+    isBestSeller: false,
   },
 ]
 
