@@ -1,72 +1,132 @@
 export const dynamic = "force-dynamic"
 
-import { Package, Tags, Star, AlertTriangle } from "lucide-react"
+import {
+  DollarSign,
+  ShoppingBag,
+  Users,
+  Package,
+  Clock,
+  CheckCircle,
+  XCircle,
+  TrendingUp,
+} from "lucide-react"
 import { prisma } from "@/lib/prisma"
 import { Card } from "@/components/ui/card"
 import { PageHeader } from "@/components/ui/page-header"
 import { Button } from "@/components/ui/button"
-import { formatDate } from "@/lib/utils"
+import { Badge } from "@/components/ui/badge"
+import { formatPrice } from "@/lib/utils"
 import Link from "next/link"
 import { routes } from "@/config/routes"
 
 export default async function AdminDashboard() {
+  const today = new Date()
+  today.setHours(0, 0, 0, 0)
+
   const [
+    totalOrders,
+    todayOrders,
+    pendingOrders,
+    processingOrders,
+    deliveredOrders,
+    cancelledOrders,
     totalProducts,
-    totalCategories,
-    featuredCount,
-    outOfStock,
-    _discounted,
-    recentProducts,
+    totalCustomers,
+    recentOrders,
   ] = await Promise.all([
+    prisma.order.count(),
+    prisma.order.count({ where: { createdAt: { gte: today } } }),
+    prisma.order.count({ where: { status: "PENDING" } }),
+    prisma.order.count({ where: { status: "PROCESSING" } }),
+    prisma.order.count({ where: { status: "DELIVERED" } }),
+    prisma.order.count({ where: { status: "CANCELLED" } }),
     prisma.product.count(),
-    prisma.category.count(),
-    prisma.product.count({ where: { isFeatured: true, status: "PUBLISHED" } }),
-    prisma.product.count({ where: { stock: 0, status: "PUBLISHED" } }),
-    prisma.product.count({
-      where: { comparePrice: { not: null }, status: "PUBLISHED" },
-    }),
-    prisma.product.findMany({
+    prisma.user.count({ where: { role: "CUSTOMER" } }),
+    prisma.order.findMany({
       take: 5,
       orderBy: { createdAt: "desc" },
-      include: { category: { select: { name: true } } },
+      include: { shippingAddress: true },
     }),
   ])
 
+  const revenueResult = await prisma.order.aggregate({
+    _sum: { total: true },
+    where: { status: { notIn: ["CANCELLED", "REFUNDED"] } },
+  })
+  const totalRevenue = Number(revenueResult._sum.total || 0)
+
   const stats = [
     {
-      label: "Total Products",
-      value: totalProducts,
-      icon: Package,
+      label: "Total Revenue",
+      value: formatPrice(totalRevenue),
+      icon: DollarSign,
+      color: "text-green-600 bg-green-100",
+    },
+    {
+      label: "Total Orders",
+      value: totalOrders,
+      icon: ShoppingBag,
       color: "text-blue-600 bg-blue-100",
     },
     {
-      label: "Categories",
-      value: totalCategories,
-      icon: Tags,
-      color: "text-purple-600 bg-purple-100",
+      label: "Today's Orders",
+      value: todayOrders,
+      icon: TrendingUp,
+      color: "text-indigo-600 bg-indigo-100",
     },
     {
-      label: "Featured",
-      value: featuredCount,
-      icon: Star,
+      label: "Pending",
+      value: pendingOrders,
+      icon: Clock,
       color: "text-amber-600 bg-amber-100",
     },
     {
-      label: "Out of Stock",
-      value: outOfStock,
-      icon: AlertTriangle,
+      label: "Processing",
+      value: processingOrders,
+      icon: Package,
+      color: "text-purple-600 bg-purple-100",
+    },
+    {
+      label: "Delivered",
+      value: deliveredOrders,
+      icon: CheckCircle,
+      color: "text-green-600 bg-green-100",
+    },
+    {
+      label: "Cancelled",
+      value: cancelledOrders,
+      icon: XCircle,
       color: "text-red-600 bg-red-100",
     },
+    {
+      label: "Customers",
+      value: totalCustomers,
+      icon: Users,
+      color: "text-cyan-600 bg-cyan-100",
+    },
   ]
+
+  const orderStatusColors: Record<string, string> = {
+    PENDING: "bg-amber-100 text-amber-700",
+    CONFIRMED: "bg-blue-100 text-blue-700",
+    PROCESSING: "bg-purple-100 text-purple-700",
+    SHIPPED: "bg-cyan-100 text-cyan-700",
+    DELIVERED: "bg-green-100 text-green-700",
+    CANCELLED: "bg-red-100 text-red-700",
+  }
 
   return (
     <div className="space-y-8">
       <PageHeader
         title="Dashboard"
-        description="Overview of your Tullia Tea store"
-      />
+        description={`${totalProducts} products · ${totalOrders} orders`}
+      >
+        <Link href="/admin/products/new">
+          <Button>Add Product</Button>
+        </Link>
+      </PageHeader>
 
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         {stats.map((s) => (
           <Card key={s.label} className="p-4 flex items-center gap-4">
             <div
@@ -86,35 +146,41 @@ export default async function AdminDashboard() {
         <Card className="p-5">
           <div className="flex items-center justify-between mb-4">
             <h2 className="font-heading text-lg font-semibold">
-              Recent Products
+              Recent Orders
             </h2>
-            <Link href={routes.admin.products}>
+            <Link href={routes.admin.orders}>
               <Button variant="link" size="sm">
                 View All
               </Button>
             </Link>
           </div>
           <div className="space-y-3">
-            {recentProducts.map((p) => (
-              <div
-                key={p.id}
-                className="flex items-center justify-between text-sm"
+            {recentOrders.map((o) => (
+              <Link
+                key={o.id}
+                href={`/admin/orders/${o.id}`}
+                className="flex items-center justify-between text-sm hover:bg-muted/50 rounded-lg p-2 -mx-2 transition-colors"
               >
                 <div className="min-w-0 flex-1">
-                  <Link
-                    href={`/admin/products/${p.id}`}
-                    className="font-medium hover:text-primary transition-colors truncate block"
-                  >
-                    {p.name}
-                  </Link>
+                  <p className="font-medium truncate">{o.orderNumber}</p>
                   <p className="text-xs text-muted-foreground">
-                    {p.category.name}
+                    {o.shippingAddress
+                      ? `${o.shippingAddress.firstName} ${o.shippingAddress.lastName}`
+                      : o.email}
                   </p>
                 </div>
-                <span className="text-xs text-muted-foreground shrink-0 ml-4">
-                  {formatDate(p.createdAt)}
-                </span>
-              </div>
+                <div className="text-right shrink-0 ml-4">
+                  <Badge
+                    variant="outline"
+                    className={`text-[10px] ${orderStatusColors[o.status] || ""}`}
+                  >
+                    {o.status}
+                  </Badge>
+                  <p className="text-xs font-semibold mt-0.5 tabular-nums">
+                    {formatPrice(Number(o.total))}
+                  </p>
+                </div>
+              </Link>
             ))}
           </div>
         </Card>
@@ -127,19 +193,19 @@ export default async function AdminDashboard() {
             <Link href="/admin/products/new">
               <Button className="w-full">Add Product</Button>
             </Link>
-            <Link href={routes.admin.categories}>
+            <Link href={routes.admin.orders}>
               <Button variant="outline" className="w-full">
-                Manage Categories
+                View Orders
               </Button>
             </Link>
-            <Link href={routes.products} target="_blank">
+            <Link href={routes.admin.categories}>
               <Button variant="outline" className="w-full">
-                View Store
+                Categories
               </Button>
             </Link>
             <Link href={routes.admin.products}>
               <Button variant="outline" className="w-full">
-                All Products
+                Products
               </Button>
             </Link>
           </div>

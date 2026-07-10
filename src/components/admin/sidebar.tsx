@@ -8,24 +8,51 @@ import {
   LayoutDashboard,
   Package,
   Tags,
+  ShoppingCart,
   Menu,
   X,
   Leaf,
   LogOut,
+  FileText,
+  Settings,
+  Image,
+  ChevronDown,
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { routes } from "@/config/routes"
 
-const links = [
+const mainLinks = [
   { label: "Dashboard", href: routes.admin.root, icon: LayoutDashboard },
+  { label: "Orders", href: routes.admin.orders, icon: ShoppingCart },
   { label: "Products", href: routes.admin.products, icon: Package },
   { label: "Categories", href: routes.admin.categories, icon: Tags },
+]
+
+const cmsLinks = [
+  { label: "Homepage", href: "/admin/cms/homepage", icon: FileText },
+  { label: "About", href: "/admin/cms/about", icon: FileText },
+  { label: "Contact", href: "/admin/cms/contact", icon: FileText },
+  { label: "Footer", href: "/admin/cms/footer", icon: FileText },
+  { label: "Settings", href: "/admin/cms/settings", icon: Settings },
+  { label: "Media", href: "/admin/cms/media", icon: Image },
 ]
 
 export function AdminSidebar() {
   const pathname = usePathname()
   const [open, setOpen] = useState(false)
+  const [cmsOpen, setCmsOpen] = useState(pathname.startsWith("/admin/cms"))
+
+  const isActive = (href: string) =>
+    pathname === href || (href !== "/admin" && pathname.startsWith(href + "/"))
+
+  const linkClass = (href: string) =>
+    cn(
+      "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors",
+      isActive(href)
+        ? "bg-primary/10 text-primary"
+        : "text-muted-foreground hover:text-foreground hover:bg-muted"
+    )
 
   return (
     <>
@@ -69,44 +96,71 @@ export function AdminSidebar() {
             </Button>
           </div>
 
-          <nav className="flex-1 space-y-1 p-3">
-            {links.map((link) => {
-              const isActive =
-                pathname === link.href ||
-                (link.href !== "/admin" && pathname.startsWith(link.href + "/"))
-              return (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  onClick={() => setOpen(false)}
+          <nav className="flex-1 space-y-1 overflow-y-auto p-3">
+            {mainLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                onClick={() => setOpen(false)}
+                className={linkClass(link.href)}
+              >
+                <link.icon className="h-4 w-4" />
+                {link.label}
+              </Link>
+            ))}
+
+            {/* CMS section */}
+            <div className="pt-3">
+              <button
+                onClick={() => setCmsOpen(!cmsOpen)}
+                className="flex w-full items-center justify-between rounded-lg px-3 py-2.5 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+              >
+                <span className="flex items-center gap-3">
+                  <FileText className="h-4 w-4" />
+                  Content
+                </span>
+                <ChevronDown
                   className={cn(
-                    "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors",
-                    isActive
-                      ? "bg-primary/10 text-primary"
-                      : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                    "h-4 w-4 transition-transform",
+                    cmsOpen && "rotate-180"
                   )}
-                >
-                  <link.icon className="h-4 w-4" />
-                  {link.label}
-                </Link>
-              )
-            })}
+                />
+              </button>
+              {cmsOpen && (
+                <div className="ml-3 mt-1 space-y-1 border-l pl-3">
+                  {cmsLinks.map((link) => (
+                    <Link
+                      key={link.href}
+                      href={link.href}
+                      onClick={() => setOpen(false)}
+                      className={cn(
+                        "flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors",
+                        isActive(link.href)
+                          ? "bg-primary/10 text-primary"
+                          : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                      )}
+                    >
+                      <link.icon className="h-3.5 w-3.5" />
+                      {link.label}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
           </nav>
 
           <div className="border-t p-3 space-y-1">
             <Link
               href={routes.home}
-              className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground hover:bg-muted"
+              className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
             >
-              <Leaf className="h-4 w-4" />
-              View Site
+              <Leaf className="h-4 w-4" /> View Site
             </Link>
             <button
               onClick={() => signOut({ callbackUrl: routes.home })}
-              className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground hover:bg-muted"
+              className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
             >
-              <LogOut className="h-4 w-4" />
-              Sign Out
+              <LogOut className="h-4 w-4" /> Sign Out
             </button>
           </div>
         </div>
