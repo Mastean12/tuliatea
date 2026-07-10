@@ -13,13 +13,15 @@ const loginSchema = z.object({
 })
 
 const registerSchema = z.object({
-  name: z.string().min(2, "Name must be at least 2 characters"),
+  firstName: z.string().min(1, "First name is required"),
+  lastName: z.string().min(1, "Last name is required"),
   email: z.string().email("Invalid email address"),
   password: z
     .string()
     .min(8, "Password must be at least 8 characters")
     .regex(/[A-Z]/, "Password must contain an uppercase letter")
     .regex(/[0-9]/, "Password must contain a number"),
+  phone: z.string().optional(),
 })
 
 export type LoginState = {
@@ -39,10 +41,7 @@ export async function login(
 
   const parsed = loginSchema.safeParse(raw)
   if (!parsed.success) {
-    return {
-      error: parsed.error.issues[0].message,
-      fields: raw,
-    }
+    return { error: parsed.error.issues[0].message, fields: raw }
   }
 
   try {
@@ -68,25 +67,25 @@ export async function login(
 export type RegisterState = {
   success?: boolean
   error?: string
-  fields?: Record<string, string>
+  fields?: Record<string, string | undefined>
 }
 
 export async function register(
   prevState: RegisterState,
   formData: FormData
 ): Promise<RegisterState> {
-  const raw = {
-    name: formData.get("name") as string,
+  const phone = formData.get("phone") as string | null
+  const raw: Record<string, string | undefined> = {
+    firstName: formData.get("firstName") as string,
+    lastName: formData.get("lastName") as string,
     email: formData.get("email") as string,
     password: formData.get("password") as string,
+    phone: phone || undefined,
   }
 
   const parsed = registerSchema.safeParse(raw)
   if (!parsed.success) {
-    return {
-      error: parsed.error.issues[0].message,
-      fields: raw,
-    }
+    return { error: parsed.error.issues[0].message, fields: raw }
   }
 
   try {
@@ -102,8 +101,11 @@ export async function register(
 
     await prisma.user.create({
       data: {
-        name: parsed.data.name,
+        firstName: parsed.data.firstName,
+        lastName: parsed.data.lastName,
+        name: `${parsed.data.firstName} ${parsed.data.lastName}`,
         email: parsed.data.email,
+        phone: parsed.data.phone || null,
         passwordHash,
       },
     })

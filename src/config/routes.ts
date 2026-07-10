@@ -15,6 +15,7 @@ export const routes = {
     login: "/login",
     register: "/register",
     forgotPassword: "/forgot-password",
+    resetPassword: "/reset-password",
   },
   admin: {
     root: "/admin",
