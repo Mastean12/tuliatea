@@ -1,15 +1,13 @@
 import type { Metadata } from "next"
-import { siteConfig } from "@/config/site"
 import { ResetPasswordForm } from "@/components/auth/reset-password-form"
+
+type Props = {
+  searchParams: Promise<{ token?: string; email?: string }>
+}
 
 export const metadata: Metadata = {
   title: "Reset Password",
   description: "Set a new password for your Tullia Tea account.",
-  openGraph: { title: `Reset Password | ${siteConfig.name}` },
-}
-
-type Props = {
-  searchParams: Promise<{ token?: string; email?: string }>
 }
 
 export default async function ResetPasswordPage({ searchParams }: Props) {

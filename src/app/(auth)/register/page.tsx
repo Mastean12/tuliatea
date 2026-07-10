@@ -1,5 +1,12 @@
-import { redirect } from "next/navigation"
+import type { Metadata } from "next"
+import { RegisterForm } from "@/components/auth/register-form"
 
-export default function OldRegisterRedirect() {
-  redirect("/account/register")
+export const metadata: Metadata = {
+  title: "Create Account",
+  description:
+    "Create your Tullia Tea account and start your wellness journey.",
+}
+
+export default function RegisterPage() {
+  return <RegisterForm />
 }

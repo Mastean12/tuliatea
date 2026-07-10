@@ -30,20 +30,11 @@ export async function proxy(request: NextRequest) {
     return NextResponse.next()
   }
 
-  // ── Account routes — CUSTOMER only ──────────────────
+  // ── Account dashboard routes — CUSTOMER only ──────
   if (pathname.startsWith("/account")) {
-    // Allow access to login/register pages without auth
-    if (pathname === "/account/login" || pathname === "/account/register") {
-      // Redirect already-authenticated customers away from auth pages
-      if (session?.user && session.user.role === "CUSTOMER") {
-        return NextResponse.redirect(new URL("/account", request.url))
-      }
-      return NextResponse.next()
-    }
-
-    // All other account routes require CUSTOMER role
+    // All account routes require CUSTOMER role
     if (!session?.user) {
-      return NextResponse.redirect(new URL("/account/login", request.url))
+      return NextResponse.redirect(new URL("/login", request.url))
     }
     // Admins cannot access customer account pages
     if (session.user.role !== "CUSTOMER") {
@@ -52,24 +43,16 @@ export async function proxy(request: NextRequest) {
     return NextResponse.next()
   }
 
-  // ── Legacy auth pages — redirect to new paths ──────
-  if (pathname === "/login") {
-    return NextResponse.redirect(new URL("/account/login", request.url))
-  }
-  if (pathname === "/register") {
-    return NextResponse.redirect(new URL("/account/register", request.url))
-  }
-
-  // ── Customer auth pages — redirect if already authed ──
-  if (
-    session?.user &&
-    (pathname === "/account/login" || pathname === "/account/register")
-  ) {
-    return NextResponse.redirect(
-      session.user.role === "CUSTOMER"
-        ? new URL("/account", request.url)
-        : new URL("/admin", request.url)
-    )
+  // ── Auth pages (login, register, forgot-password, reset-password) — redirect if already authed ──
+  const authPaths = [
+    "/login",
+    "/register",
+    "/forgot-password",
+    "/reset-password",
+  ]
+  if (authPaths.includes(pathname) && session?.user) {
+    const target = session.user.role === "CUSTOMER" ? "/account" : "/admin"
+    return NextResponse.redirect(new URL(target, request.url))
   }
 
   return NextResponse.next()

@@ -1,5 +1,11 @@
-import { redirect } from "next/navigation"
+import type { Metadata } from "next"
+import { LoginForm } from "@/components/auth/login-form"
 
-export default function OldLoginRedirect() {
-  redirect("/account/login")
+export const metadata: Metadata = {
+  title: "Sign In",
+  description: "Sign in to your Tullia Tea account.",
+}
+
+export default function LoginPage() {
+  return <LoginForm />
 }
