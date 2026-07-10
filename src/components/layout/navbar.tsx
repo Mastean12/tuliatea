@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useSyncExternalStore } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { ShoppingBag, Menu, X, Leaf } from "lucide-react"
@@ -23,6 +23,11 @@ const navLinks = [
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
   const [cartOpen, setCartOpen] = useState(false)
+  const mounted = useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false
+  )
   const pathname = usePathname()
   const { data: session } = useSession()
   const itemCount = useCart((s) => s.getItemCount())
@@ -68,7 +73,7 @@ export function Navbar() {
                 aria-label={`Shopping cart with ${itemCount} items`}
               >
                 <ShoppingBag className="h-5 w-5" />
-                {itemCount > 0 && (
+                {mounted && itemCount > 0 && (
                   <Badge className="absolute -right-1 -top-1 h-5 w-5 rounded-full p-0 text-[10px] font-medium flex items-center justify-center">
                     {itemCount > 99 ? "99+" : itemCount}
                   </Badge>
