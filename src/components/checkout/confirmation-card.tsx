@@ -33,7 +33,7 @@ export type OrderData = {
     line2: string | null
     city: string
     state: string | null
-    phone: string
+    phone: string | null
   } | null
 }
 

@@ -19,12 +19,46 @@ export default async function ConfirmationPage({ searchParams }: Props) {
   const { order } = await searchParams
   if (!order) notFound()
 
-  const orderData = await getOrderByNumber(order)
-  if (!orderData) notFound()
+  const raw = await getOrderByNumber(order)
+  if (!raw) notFound()
+
+  const orderData: OrderData = {
+    orderNumber: raw.orderNumber,
+    email: raw.email,
+    status: raw.status,
+    subtotal: Number(raw.subtotal),
+    shipping: Number(raw.shipping),
+    total: Number(raw.total),
+    currency: raw.currency,
+    deliveryMethod: raw.deliveryMethod,
+    paymentMethod: raw.paymentMethod,
+    createdAt: raw.createdAt,
+    deliveryNotes: raw.deliveryNotes,
+    items: raw.items.map((i) => ({
+      quantity: i.quantity,
+      price: Number(i.price),
+      product: {
+        name: i.product.name,
+        slug: i.product.slug,
+        weight: i.product.weight || null,
+      },
+    })),
+    shippingAddress: raw.shippingAddress
+      ? {
+          firstName: raw.shippingAddress.firstName,
+          lastName: raw.shippingAddress.lastName,
+          line1: raw.shippingAddress.line1,
+          line2: raw.shippingAddress.line2,
+          city: raw.shippingAddress.city,
+          state: raw.shippingAddress.state,
+          phone: raw.shippingAddress.phone,
+        }
+      : null,
+  }
 
   return (
     <Container className="py-8 sm:py-12">
-      <ConfirmationCard order={orderData as unknown as OrderData} />
+      <ConfirmationCard order={orderData} />
     </Container>
   )
 }

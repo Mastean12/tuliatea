@@ -70,7 +70,7 @@ export function Navbar() {
               <button
                 onClick={() => setCartOpen(true)}
                 className="relative flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground/70 transition-colors hover:text-foreground hover:bg-muted/60"
-                aria-label={`Shopping cart with ${itemCount} items`}
+                aria-label={`Shopping cart${mounted ? ` with ${itemCount} items` : ""}`}
               >
                 <ShoppingBag className="h-5 w-5" />
                 {mounted && itemCount > 0 && (
