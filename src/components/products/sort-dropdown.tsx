@@ -26,11 +26,11 @@ type SortDropdownProps = {
 export function SortDropdown({ value, onChange, total }: SortDropdownProps) {
   return (
     <div className="flex items-center gap-3">
-      <p className="hidden text-sm text-muted-foreground sm:block">
+      <p className="hidden text-xs text-muted-foreground/60 tabular-nums sm:block">
         {total} product{total !== 1 ? "s" : ""}
       </p>
       <Select value={value} onValueChange={(v) => v && onChange(v)}>
-        <SelectTrigger className="w-[180px]">
+        <SelectTrigger className="w-[170px] h-10 text-sm rounded-xl border-border/70 bg-card">
           <SelectValue />
         </SelectTrigger>
         <SelectContent>

@@ -1,11 +1,9 @@
 "use client"
 
 import { motion, AnimatePresence } from "framer-motion"
-import { SlidersHorizontal, X } from "lucide-react"
+import { SlidersHorizontal, X, RotateCcw } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
-import { Checkbox } from "@/components/ui/checkbox"
 import { Badge } from "@/components/ui/badge"
 import { cn } from "@/lib/utils"
 
@@ -58,116 +56,143 @@ export function ProductFilters({
     <div className="space-y-6">
       {/* Categories */}
       <div>
-        <h4 className="mb-3 text-sm font-semibold">Category</h4>
-        <div className="space-y-2">
+        <h4 className="mb-3.5 text-[11px] font-semibold uppercase tracking-widest text-muted-foreground/70">
+          Category
+        </h4>
+        <div className="flex flex-wrap gap-2">
           <button
             onClick={() => onCategoryChange(undefined)}
             className={cn(
-              "w-full rounded-lg px-3 py-2 text-left text-sm transition-colors",
+              "rounded-full px-3.5 py-1.5 text-xs font-medium transition-all duration-200 border",
               !selectedCategory
-                ? "bg-primary/10 text-primary font-medium"
-                : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                ? "bg-primary text-primary-foreground border-primary shadow-sm"
+                : "bg-card text-muted-foreground border-border hover:border-primary/30 hover:text-foreground"
             )}
           >
-            All Categories
+            All
           </button>
           {categories.map((cat) => (
             <button
               key={cat.slug}
               onClick={() => onCategoryChange(cat.slug)}
               className={cn(
-                "w-full rounded-lg px-3 py-2 text-left text-sm transition-colors",
+                "rounded-full px-3.5 py-1.5 text-xs font-medium transition-all duration-200 border",
                 selectedCategory === cat.slug
-                  ? "bg-primary/10 text-primary font-medium"
-                  : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                  ? "bg-primary text-primary-foreground border-primary shadow-sm"
+                  : "bg-card text-muted-foreground border-border hover:border-primary/30 hover:text-foreground"
               )}
             >
-              <span className="flex items-center justify-between">
-                {cat.name}
-                <span className="text-xs text-muted-foreground">
-                  ({cat._count.products})
-                </span>
-              </span>
+              {cat.name}
+              <span className="ml-1 opacity-60">({cat._count.products})</span>
             </button>
           ))}
         </div>
       </div>
 
+      <div className="h-px bg-border/60" />
+
       {/* Price range */}
       <div>
-        <h4 className="mb-3 text-sm font-semibold">Price Range (KES)</h4>
+        <h4 className="mb-3.5 text-[11px] font-semibold uppercase tracking-widest text-muted-foreground/70">
+          Price Range (KES)
+        </h4>
         <div className="flex items-center gap-2">
-          <Input
-            type="number"
-            placeholder="Min"
-            value={minPrice}
-            onChange={(e) => onMinPriceChange(e.target.value)}
-            className="h-9"
-            aria-label="Minimum price"
-          />
-          <span className="text-muted-foreground">—</span>
-          <Input
-            type="number"
-            placeholder="Max"
-            value={maxPrice}
-            onChange={(e) => onMaxPriceChange(e.target.value)}
-            className="h-9"
-            aria-label="Maximum price"
-          />
+          <div className="relative flex-1">
+            <span className="absolute left-2.5 top-1/2 -translate-y-1/2 text-xs text-muted-foreground/50">
+              KES
+            </span>
+            <Input
+              type="number"
+              placeholder="Min"
+              value={minPrice}
+              onChange={(e) => onMinPriceChange(e.target.value)}
+              className="h-9 pl-9 text-sm"
+              aria-label="Minimum price"
+            />
+          </div>
+          <span className="text-muted-foreground/30 text-xs">—</span>
+          <div className="relative flex-1">
+            <span className="absolute left-2.5 top-1/2 -translate-y-1/2 text-xs text-muted-foreground/50">
+              KES
+            </span>
+            <Input
+              type="number"
+              placeholder="Max"
+              value={maxPrice}
+              onChange={(e) => onMaxPriceChange(e.target.value)}
+              className="h-9 pl-9 text-sm"
+              aria-label="Maximum price"
+            />
+          </div>
         </div>
       </div>
 
-      {/* Checkboxes */}
-      <div className="space-y-3">
-        <div className="flex items-center gap-2">
-          <Checkbox
-            id="filter-in-stock"
-            checked={inStock}
-            onCheckedChange={(v) => onInStockChange(v === true)}
-          />
-          <Label
-            htmlFor="filter-in-stock"
-            className="text-sm font-normal cursor-pointer"
+      <div className="h-px bg-border/60" />
+
+      {/* Toggle filters */}
+      <div className="space-y-3.5">
+        {(
+          [
+            {
+              id: "filter-in-stock",
+              label: "In Stock Only",
+              value: inStock,
+              onChange: onInStockChange,
+            },
+            {
+              id: "filter-featured",
+              label: "Featured Products",
+              value: featured,
+              onChange: onFeaturedChange,
+            },
+            {
+              id: "filter-discounted",
+              label: "On Sale",
+              value: discounted,
+              onChange: onDiscountedChange,
+            },
+          ] as const
+        ).map(({ id, label, value, onChange }) => (
+          <label
+            key={id}
+            htmlFor={id}
+            className="flex items-center justify-between cursor-pointer group"
           >
-            In Stock Only
-          </Label>
-        </div>
-        <div className="flex items-center gap-2">
-          <Checkbox
-            id="filter-featured"
-            checked={featured}
-            onCheckedChange={(v) => onFeaturedChange(v === true)}
-          />
-          <Label
-            htmlFor="filter-featured"
-            className="text-sm font-normal cursor-pointer"
-          >
-            Featured Products
-          </Label>
-        </div>
-        <div className="flex items-center gap-2">
-          <Checkbox
-            id="filter-discounted"
-            checked={discounted}
-            onCheckedChange={(v) => onDiscountedChange(v === true)}
-          />
-          <Label
-            htmlFor="filter-discounted"
-            className="text-sm font-normal cursor-pointer"
-          >
-            On Sale
-          </Label>
-        </div>
+            <span className="text-sm text-muted-foreground group-hover:text-foreground transition-colors">
+              {label}
+            </span>
+            <button
+              id={id}
+              role="switch"
+              aria-checked={value}
+              onClick={() => onChange(!value)}
+              className={cn(
+                "relative h-5 w-9 rounded-full transition-all duration-200",
+                value ? "bg-primary" : "bg-input"
+              )}
+            >
+              <span
+                className={cn(
+                  "absolute top-0.5 left-0.5 h-4 w-4 rounded-full bg-white shadow-sm transition-all duration-200",
+                  value ? "translate-x-4" : "translate-x-0"
+                )}
+              />
+            </button>
+          </label>
+        ))}
       </div>
+
+      <div className="h-px bg-border/60" />
 
       {hasActiveFilters && (
         <Button
           variant="outline"
           size="sm"
           onClick={onClear}
-          className="w-full"
+          className="w-full gap-1.5 text-xs h-9"
         >
-          Clear All Filters
+          <RotateCcw className="h-3 w-3" />
+          Reset Filters
         </Button>
       )}
     </div>
@@ -181,14 +206,14 @@ export function ProductFilters({
           variant="outline"
           size="sm"
           onClick={onToggle}
-          className="relative"
+          className="relative gap-2"
         >
-          <SlidersHorizontal className="mr-2 h-4 w-4" />
+          <SlidersHorizontal className="h-4 w-4" />
           Filters
           {hasActiveFilters && (
             <Badge
               variant="secondary"
-              className="ml-1 h-5 w-5 rounded-full p-0 text-[10px]"
+              className="ml-0.5 h-5 w-5 rounded-full p-0 text-[10px]"
             >
               !
             </Badge>
@@ -205,14 +230,14 @@ export function ProductFilters({
             exit={{ height: 0, opacity: 0 }}
             className="overflow-hidden lg:hidden"
           >
-            <div className="border rounded-xl bg-card p-4">
-              <div className="mb-3 flex items-center justify-between">
-                <h3 className="font-semibold">Filters</h3>
+            <div className="rounded-2xl border bg-card p-5 shadow-sm">
+              <div className="mb-4 flex items-center justify-between">
+                <h3 className="font-heading text-sm font-semibold">Filters</h3>
                 <Button
                   variant="ghost"
                   size="icon"
                   onClick={onToggle}
-                  className="h-8 w-8"
+                  className="h-7 w-7"
                 >
                   <X className="h-4 w-4" />
                 </Button>
@@ -225,7 +250,9 @@ export function ProductFilters({
 
       {/* Desktop sidebar */}
       <div className="hidden lg:block">
-        <div className="rounded-xl border bg-card p-5">{filterContent}</div>
+        <div className="rounded-2xl bg-card p-5 shadow-[0_1px_3px_rgba(0,0,0,0.04)] border">
+          {filterContent}
+        </div>
       </div>
     </>
   )

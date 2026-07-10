@@ -272,7 +272,11 @@ export function ProductsPageClient() {
         </div>
 
         <div className="flex-1 min-w-0">
-          <ProductGrid products={products} isLoading={isLoading} />
+          <ProductGrid
+            products={products}
+            isLoading={isLoading}
+            onClearFilters={handleClear}
+          />
           <Pagination
             page={page}
             totalPages={totalPages}

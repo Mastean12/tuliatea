@@ -2,7 +2,6 @@
 
 import { ChevronLeft, ChevronRight } from "lucide-react"
 import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
 
 type PaginationProps = {
   page: number
@@ -31,46 +30,47 @@ export function Pagination({
       className="mt-10 flex items-center justify-center gap-1"
       aria-label="Pagination"
     >
-      <Button
-        variant="ghost"
-        size="icon"
+      <button
         disabled={page <= 1}
         onClick={() => onPageChange(page - 1)}
+        className="flex h-9 w-9 items-center justify-center rounded-xl text-muted-foreground/60 hover:text-foreground hover:bg-muted transition-all disabled:opacity-30 disabled:pointer-events-none"
         aria-label="Previous page"
       >
         <ChevronLeft className="h-4 w-4" />
-      </Button>
+      </button>
 
       {pages.map((p, i) =>
         p === "..." ? (
           <span
             key={`ellipsis-${i}`}
-            className="px-2 text-sm text-muted-foreground"
+            className="flex h-9 w-9 items-center justify-center text-xs text-muted-foreground/40"
           >
             ...
           </span>
         ) : (
-          <Button
+          <button
             key={p}
-            variant={p === page ? "default" : "ghost"}
-            size="sm"
             onClick={() => onPageChange(p)}
-            className={cn("min-w-9", p === page ? "" : "text-muted-foreground")}
+            className={cn(
+              "flex h-9 w-9 items-center justify-center rounded-xl text-sm font-medium transition-all",
+              p === page
+                ? "bg-primary text-primary-foreground shadow-sm"
+                : "text-muted-foreground/60 hover:text-foreground hover:bg-muted"
+            )}
           >
             {p}
-          </Button>
+          </button>
         )
       )}
 
-      <Button
-        variant="ghost"
-        size="icon"
+      <button
         disabled={page >= totalPages}
         onClick={() => onPageChange(page + 1)}
+        className="flex h-9 w-9 items-center justify-center rounded-xl text-muted-foreground/60 hover:text-foreground hover:bg-muted transition-all disabled:opacity-30 disabled:pointer-events-none"
         aria-label="Next page"
       >
         <ChevronRight className="h-4 w-4" />
-      </Button>
+      </button>
     </nav>
   )
 }

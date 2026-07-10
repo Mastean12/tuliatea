@@ -18,15 +18,18 @@ type ProductGridProps = {
   }>
   isLoading?: boolean
   isEmpty?: boolean
+  onClearFilters?: () => void
 }
 
 export function ProductGrid({
   products,
   isLoading,
   isEmpty,
+  onClearFilters,
 }: ProductGridProps) {
   if (isLoading) return <LoadingProducts />
-  if (isEmpty || products.length === 0) return <EmptyProducts />
+  if (isEmpty || products.length === 0)
+    return <EmptyProducts onClear={onClearFilters} />
 
   return (
     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
