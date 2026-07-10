@@ -6,8 +6,8 @@ import { ArrowLeft, MessageCircle, Mail, Printer, Phone } from "lucide-react"
 import { prisma } from "@/lib/prisma"
 import { Card } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
-import { Button } from "@/components/ui/button"
 import { formatDate, formatPrice } from "@/lib/utils"
+import { PrintButton } from "@/components/admin/print-button"
 import { OrderStatusUpdater } from "./order-status-updater"
 import { AdminNotesSection } from "./admin-notes-section"
 
@@ -261,14 +261,7 @@ export default async function AdminOrderDetailPage({ params }: Props) {
           </Card>
 
           <div className="flex gap-2">
-            <Button
-              variant="outline"
-              size="sm"
-              className="flex-1"
-              onClick={() => window.print()}
-            >
-              <Printer className="mr-1.5 h-4 w-4" /> Print
-            </Button>
+            <PrintButton />
           </div>
         </div>
       </div>
