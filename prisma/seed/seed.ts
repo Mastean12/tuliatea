@@ -1,284 +1,313 @@
-import { PrismaClient } from "@prisma/client"
+import { PrismaClient, ProductStatus } from "@prisma/client"
+import bcrypt from "bcryptjs"
 
 const prisma = new PrismaClient()
 
-async function main() {
-  console.log("🌱 Seeding database...")
+function img(label: string, bg = "2E7D32"): string {
+  return `https://placehold.co/600x600/${bg}/FFFFFF/png?text=${encodeURIComponent(label)}`
+}
 
-  const categories = [
+async function main() {
+  console.log("🌱 Seeding database...\n")
+
+  // ── Users ─────────────────────────────────────────────
+  const adminPassword = await bcrypt.hash("Admin123!", 12)
+  const customerPassword = await bcrypt.hash("Customer1!", 12)
+
+  const _admin = await prisma.user.upsert({
+    where: { email: "admin@tulliatea.com" },
+    update: {},
+    create: {
+      firstName: "Admin",
+      lastName: "Tullia",
+      name: "Admin Tullia",
+      email: "admin@tulliatea.com",
+      passwordHash: adminPassword,
+      role: "ADMIN",
+      phone: "+254 793 509 510",
+    },
+  })
+
+  const _customer = await prisma.user.upsert({
+    where: { email: "customer@test.com" },
+    update: {},
+    create: {
+      firstName: "Jane",
+      lastName: "Kamau",
+      name: "Jane Kamau",
+      email: "customer@test.com",
+      passwordHash: customerPassword,
+      role: "CUSTOMER",
+      phone: "+254 712 345 678",
+    },
+  })
+
+  console.log("  ✅ Users created:")
+  console.log(`     Admin:    admin@tulliatea.com / Admin123!`)
+  console.log(`     Customer: customer@test.com / Customer1!`)
+
+  // ── Categories ────────────────────────────────────────
+  const categoryData = [
     {
       name: "Green Tea",
       slug: "green-tea",
-      description: "Premium Kenyan green teas",
+      description: "Premium Kenyan green teas packed with antioxidants",
       sortOrder: 1,
     },
     {
       name: "Purple Tea",
       slug: "purple-tea",
-      description: "Antioxidant-rich purple teas",
+      description: "Rare antioxidant-rich purple tea from Kenya",
       sortOrder: 2,
     },
     {
       name: "Herbal Infusion",
       slug: "herbal-infusion",
-      description: "Naturally caffeine-free herbal blends",
+      description: "Naturally caffeine-free wellness herbal blends",
       sortOrder: 3,
     },
     {
       name: "Honey",
       slug: "honey",
-      description: "Pure Kenyan honey",
+      description: "Pure raw Kenyan honey",
       sortOrder: 4,
     },
     {
       name: "Black Tea",
       slug: "black-tea",
-      description: "Full-bodied Kenyan black teas",
+      description: "Full-bodied premium Kenyan black teas",
       sortOrder: 5,
     },
   ]
 
-  for (const cat of categories) {
+  for (const cat of categoryData) {
     await prisma.category.upsert({
       where: { slug: cat.slug },
       update: cat,
       create: cat,
     })
   }
+  console.log("  ✅ Categories created")
 
-  const catMap = new Map<string, string>()
-  for (const cat of categories) {
-    const c = await prisma.category.findUnique({ where: { slug: cat.slug } })
-    if (c) catMap.set(cat.slug, c.id)
+  // ── Get category IDs ──────────────────────────────────
+  const cats = new Map<string, string>()
+  for (const c of categoryData) {
+    const cat = await prisma.category.findUnique({ where: { slug: c.slug } })
+    if (cat) cats.set(c.slug, cat.id)
   }
 
+  // ── Products ──────────────────────────────────────────
   const products = [
-    {
-      name: "Kenyan Sunrise Black Tea",
-      slug: "kenyan-sunrise-black-tea",
-      description:
-        "A bold, full-bodied black tea from the highlands of Kenya. Rich in flavor with a bright copper liquor and smooth finish. Perfect for breakfast or anytime you need a robust cup.",
-      ingredients: "100% premium Kenyan black tea leaves",
-      benefits:
-        "Rich in antioxidants, natural energy boost, supports heart health",
-      brewingGuide:
-        "Boil fresh water to 100°C. Steep 1 teaspoon per cup for 3-5 minutes. Serve plain or with milk.",
-      deliveryInfo:
-        "Delivered within 1-3 business days in Nairobi, 3-7 days nationwide. International shipping available.",
-      returnInfo:
-        "If unsatisfied, contact us within 14 days of delivery for a full refund or exchange.",
-      tags: "black-tea,breakfast,classic,kenyan",
-      price: 1500,
-      stock: 50,
-      isFeatured: true,
-      weight: "100g",
-      categorySlug: "black-tea",
-    },
     {
       name: "Serenity Green Tea",
       slug: "serenity-green-tea",
+      shortDesc: "A delicate, soothing green tea with grassy notes",
       description:
-        "A delicate, soothing green tea with grassy notes and a clean finish. Sourced from the finest tea gardens in Kenya. Light, refreshing, and packed with natural goodness.",
+        "A delicate, soothing green tea with grassy notes and a clean finish. Sourced from the finest tea gardens in Kenya. Light, refreshing, and packed with natural antioxidants that support overall wellness.",
       ingredients: "100% premium Kenyan green tea leaves",
       benefits:
         "High in catechins, boosts metabolism, supports brain function, rich in antioxidants",
       brewingGuide:
         "Heat water to 80°C. Steep 1 teaspoon per cup for 2-3 minutes. Do not use boiling water.",
       deliveryInfo:
-        "Delivered within 1-3 business days in Nairobi, 3-7 days nationwide. International shipping available.",
+        "Delivered within 1-3 business days in Nairobi, 3-7 days nationwide.",
       returnInfo:
         "If unsatisfied, contact us within 14 days of delivery for a full refund or exchange.",
-      tags: "green-tea,antioxidant,light,refreshing",
+      tags: "green-tea,antioxidant,light,refreshing,kenyan",
       price: 1800,
       comparePrice: 2200,
       stock: 35,
       isFeatured: true,
+      status: ProductStatus.PUBLISHED,
       weight: "80g",
+      servings: "25-30 cups",
       categorySlug: "green-tea",
+      image: img("Serenity+Green"),
+    },
+    {
+      name: "Kenyan Purple Tea",
+      slug: "kenyan-purple-tea",
+      shortDesc: "A rare, antioxidant-rich purple tea from Kenya",
+      description:
+        "A rare and exquisite purple tea from Kenya. Naturally rich in anthocyanins — the same antioxidants found in blueberries. Smooth, slightly sweet, with a unique earthy flavor profile you won't find anywhere else.",
+      ingredients: "100% Kenyan purple tea leaves",
+      benefits:
+        "High in anthocyanins, supports heart health, rich in antioxidants, unique flavor",
+      brewingGuide:
+        "Heat water to 85°C. Steep 1 teaspoon per cup for 2-3 minutes. Watch the color transform from green to purple.",
+      deliveryInfo:
+        "Delivered within 1-3 business days in Nairobi, 3-7 days nationwide.",
+      returnInfo:
+        "If unsatisfied, contact us within 14 days of delivery for a full refund or exchange.",
+      tags: "purple-tea,antioxidant,rare,premium,kenyan",
+      price: 2800,
+      comparePrice: 3200,
+      stock: 15,
+      isFeatured: true,
+      status: ProductStatus.PUBLISHED,
+      weight: "75g",
+      servings: "20-25 cups",
+      categorySlug: "purple-tea",
+      image: img("Purple+Tea", "6A0DAD"),
     },
     {
       name: "Golden Turmeric Infusion",
       slug: "golden-turmeric-infusion",
+      shortDesc: "Warming turmeric, ginger & lemongrass blend",
       description:
-        "A warming, golden blend of turmeric, ginger, and lemongrass. Naturally caffeine-free and perfect for any time of day. Soothing, aromatic, and deeply nourishing.",
+        "A warming, golden blend of turmeric, ginger, and lemongrass. Naturally caffeine-free and perfect for any time of day. This aromatic infusion is deeply nourishing and supports natural immunity.",
       ingredients: "Turmeric, ginger, lemongrass, black pepper, cinnamon",
       benefits:
         "Anti-inflammatory, supports immunity, aids digestion, warming and soothing",
       brewingGuide:
         "Boil water to 100°C. Steep 1 tablespoon per cup for 5-7 minutes. Add honey to taste.",
       deliveryInfo:
-        "Delivered within 1-3 business days in Nairobi, 3-7 days nationwide. International shipping available.",
+        "Delivered within 1-3 business days in Nairobi, 3-7 days nationwide.",
       returnInfo:
         "If unsatisfied, contact us within 14 days of delivery for a full refund or exchange.",
-      tags: "herbal,turmeric,wellness,caffeine-free",
+      tags: "herbal,turmeric,wellness,caffeine-free,immunity",
       price: 2200,
       stock: 25,
       isFeatured: true,
+      status: ProductStatus.PUBLISHED,
       weight: "100g",
+      servings: "20-25 cups",
       categorySlug: "herbal-infusion",
-    },
-    {
-      name: "Moringa Wellness Tea",
-      slug: "moringa-wellness-tea",
-      description:
-        "Pure Kenyan moringa leaf tea packed with natural antioxidants and nutrients. A vibrant green infusion that supports daily wellness and natural energy.",
-      ingredients: "100% organic Kenyan moringa leaves",
-      benefits:
-        "High in vitamins A, C, and E, supports energy, rich in iron and calcium",
-      brewingGuide:
-        "Heat water to 85°C. Steep 1 teaspoon per cup for 3-4 minutes. Enjoy plain or with a touch of honey.",
-      deliveryInfo:
-        "Delivered within 1-3 business days in Nairobi, 3-7 days nationwide. International shipping available.",
-      returnInfo:
-        "If unsatisfied, contact us within 14 days of delivery for a full refund or exchange.",
-      tags: "moringa,superfood,wellness,nutritious",
-      price: 1600,
-      stock: 40,
-      isFeatured: true,
-      weight: "75g",
-      categorySlug: "herbal-infusion",
+      image: img("Golden+Turmeric", "CC7722"),
     },
     {
       name: "Rift Valley Breakfast",
       slug: "rift-valley-breakfast",
+      shortDesc: "Bold, malty black tea from the Great Rift Valley",
       description:
-        "A robust, full-bodied breakfast blend from the Great Rift Valley. Malty notes with a satisfying finish. The perfect start to your day.",
+        "A robust, full-bodied breakfast blend from the Great Rift Valley. Malty notes with a satisfying finish. The perfect start to your day. This classic Kenyan black tea is beloved by tea connoisseurs worldwide.",
       ingredients: "100% premium Kenyan black tea leaves",
       benefits: "Natural energy, rich flavor, supports focus and alertness",
       brewingGuide:
         "Boil water to 100°C. Steep 1 teaspoon per cup for 3-4 minutes. Serve with milk and sugar to taste.",
       deliveryInfo:
-        "Delivered within 1-3 business days in Nairobi, 3-7 days nationwide. International shipping available.",
+        "Delivered within 1-3 business days in Nairobi, 3-7 days nationwide.",
       returnInfo:
         "If unsatisfied, contact us within 14 days of delivery for a full refund or exchange.",
-      tags: "black-tea,breakfast,classic,malty",
+      tags: "black-tea,breakfast,classic,malty,kenyan",
       price: 1800,
       stock: 60,
       isFeatured: true,
+      status: ProductStatus.PUBLISHED,
       weight: "120g",
+      servings: "40-45 cups",
       categorySlug: "black-tea",
+      image: img("Rift+Valley+Breakfast", "3E2723"),
     },
     {
       name: "Lemongrass & Ginger Zest",
       slug: "lemongrass-ginger-zest",
+      shortDesc: "Refreshing, zesty herbal infusion",
       description:
-        "A refreshing, zesty herbal infusion made from Kenyan-grown lemongrass and ginger. Naturally caffeine-free and invigorating. Perfect hot or iced.",
+        "A refreshing, zesty herbal infusion made from Kenyan-grown lemongrass and ginger. Naturally caffeine-free and invigorating. Perfect served hot or iced on a warm day.",
       ingredients: "Lemongrass, ginger, lemon verbena",
       benefits: "Aids digestion, reduces inflammation, refreshing and calming",
       brewingGuide:
         "Boil water to 100°C. Steep 1 tablespoon per cup for 5 minutes. Enjoy plain or with honey.",
       deliveryInfo:
-        "Delivered within 1-3 business days in Nairobi, 3-7 days nationwide. International shipping available.",
+        "Delivered within 1-3 business days in Nairobi, 3-7 days nationwide.",
       returnInfo:
         "If unsatisfied, contact us within 14 days of delivery for a full refund or exchange.",
-      tags: "herbal,ginger,caffeine-free,refreshing",
+      tags: "herbal,ginger,caffeine-free,refreshing,zesty",
       price: 1900,
       stock: 30,
       isFeatured: false,
+      status: ProductStatus.PUBLISHED,
       weight: "80g",
+      servings: "20-25 cups",
       categorySlug: "herbal-infusion",
-    },
-    {
-      name: "Earl Grey Lavender",
-      slug: "earl-grey-lavender",
-      description:
-        "Classic Earl Grey with a twist of Kenyan lavender. Bergamot notes meet floral elegance for a truly premium cup. A sophisticated blend for tea connoisseurs.",
-      ingredients: "Kenyan black tea, bergamot oil, lavender flowers",
-      benefits: "Calming, aromatic, supports relaxation, rich in antioxidants",
-      brewingGuide:
-        "Boil water to 100°C. Steep 1 teaspoon per cup for 3-4 minutes. Serve plain to appreciate the floral notes.",
-      deliveryInfo:
-        "Delivered within 1-3 business days in Nairobi, 3-7 days nationwide. International shipping available.",
-      returnInfo:
-        "If unsatisfied, contact us within 14 days of delivery for a full refund or exchange.",
-      tags: "black-tea,floral,premium,earl-grey",
-      price: 2100,
-      stock: 20,
-      isFeatured: false,
-      weight: "100g",
-      categorySlug: "black-tea",
-    },
-    {
-      name: "Chamomile & Honeybush",
-      slug: "chamomile-honeybush",
-      description:
-        "A calming, caffeine-free blend of chamomile and honeybush. Sweet, floral, and perfect for evening relaxation. Naturally soothing and gently sweet.",
-      ingredients: "Chamomile flowers, honeybush, natural flavor",
-      benefits:
-        "Promotes sleep, reduces anxiety, supports digestion, caffeine-free",
-      brewingGuide:
-        "Boil water to 100°C. Steep 1 tablespoon per cup for 5-7 minutes. Enjoy before bed for best results.",
-      deliveryInfo:
-        "Delivered within 1-3 business days in Nairobi, 3-7 days nationwide. International shipping available.",
-      returnInfo:
-        "If unsatisfied, contact us within 14 days of delivery for a full refund or exchange.",
-      tags: "herbal,chamomile,bedtime,caffeine-free",
-      price: 2000,
-      stock: 25,
-      isFeatured: true,
-      weight: "75g",
-      categorySlug: "herbal-infusion",
-    },
-    {
-      name: "Kenyan Purple Tea",
-      slug: "kenyan-purple-tea",
-      description:
-        "A rare and exquisite purple tea from Kenya. Naturally rich in anthocyanins — the same antioxidants found in blueberries. Smooth, slightly sweet, with a unique earthy flavor.",
-      ingredients: "100% Kenyan purple tea leaves",
-      benefits:
-        "High in anthocyanins, supports heart health, rich in antioxidants, unique flavor profile",
-      brewingGuide:
-        "Heat water to 85°C. Steep 1 teaspoon per cup for 2-3 minutes. Watch the color transform from green to purple.",
-      deliveryInfo:
-        "Delivered within 1-3 business days in Nairobi, 3-7 days nationwide. International shipping available.",
-      returnInfo:
-        "If unsatisfied, contact us within 14 days of delivery for a full refund or exchange.",
-      tags: "purple-tea,antioxidant,rare,premium",
-      price: 2800,
-      comparePrice: 3200,
-      stock: 15,
-      isFeatured: true,
-      weight: "75g",
-      categorySlug: "purple-tea",
+      image: img("Lemongrass+Ginger", "8BC34A"),
     },
     {
       name: "Pure Kenyan Honey",
       slug: "pure-kenyan-honey",
+      shortDesc: "Raw, pure honey from Kenyan beekeepers",
       description:
-        "Pure, raw honey sourced from Kenyan beekeepers. Naturally sweet, rich in flavor, and packed with natural enzymes. Perfect with tea or on its own.",
+        "Pure, raw honey sourced directly from Kenyan beekeepers. Naturally sweet, rich in flavor, and packed with natural enzymes. The perfect natural sweetener for your tea or on its own. Unfiltered and unprocessed.",
       ingredients: "100% pure raw Kenyan honey",
       benefits:
         "Natural sweetener, rich in antioxidants, supports immunity, soothes sore throats",
       brewingGuide:
-        "Enjoy a spoonful in your tea, on toast, or straight from the jar. Store at room temperature.",
+        "Enjoy a spoonful in your tea, on toast, or straight from the jar. Store at room temperature away from direct sunlight.",
       deliveryInfo:
-        "Delivered within 1-3 business days in Nairobi, 3-7 days nationwide. International shipping available.",
+        "Delivered within 1-3 business days in Nairobi, 3-7 days nationwide.",
       returnInfo:
         "If unsatisfied, contact us within 14 days of delivery for a full refund or exchange.",
-      tags: "honey,natural,sweetener,raw",
+      tags: "honey,natural,sweetener,raw,kenyan",
       price: 1200,
+      comparePrice: 1500,
       stock: 45,
       isFeatured: false,
+      status: ProductStatus.PUBLISHED,
       weight: "250g",
+      servings: "Approx. 50 servings",
       categorySlug: "honey",
+      image: img("Pure+Kenyan+Honey", "D4A017"),
     },
   ]
 
   for (const p of products) {
-    const categoryId = catMap.get(p.categorySlug)
+    const categoryId = cats.get(p.categorySlug)
     if (!categoryId) {
-      console.warn(`  ⚠ Category not found for ${p.name}, skipping`)
+      console.warn(`  ⚠ Category not found for ${p.name}`)
       continue
     }
-    const { categorySlug: _catSlug, ...data } = p
+
+    const { categorySlug: _catSlug, image, ...productData } = p
+
     await prisma.product.upsert({
       where: { slug: p.slug },
-      update: { ...data, categoryId },
-      create: { ...data, categoryId },
+      update: { ...productData, categoryId },
+      create: { ...productData, categoryId },
+    })
+
+    // Create a primary product image
+    const existingProduct = await prisma.product.findUnique({
+      where: { slug: p.slug },
+    })
+    if (existingProduct) {
+      const existingImages = await prisma.productImage.count({
+        where: { productId: existingProduct.id },
+      })
+      if (existingImages === 0) {
+        await prisma.productImage.create({
+          data: {
+            url: image,
+            alt: p.name,
+            sortOrder: 0,
+            isPrimary: true,
+            productId: existingProduct.id,
+          },
+        })
+      }
+    }
+
+    // Mark all products as PUBLISHED with status field
+    await prisma.product.update({
+      where: { slug: p.slug },
+      data: { status: ProductStatus.PUBLISHED, isActive: true },
     })
   }
 
-  console.log("✅ Seeding complete.")
+  console.log("  ✅ 6 products created with images\n")
+  console.log("╔══════════════════════════════════════════════════════╗")
+  console.log("║              TEST ACCOUNTS                          ║")
+  console.log("╠══════════════════════════════════════════════════════╣")
+  console.log("║                                                     ║")
+  console.log("║  ADMIN:                                            ║")
+  console.log("║    Email:    admin@tulliatea.com                    ║")
+  console.log("║    Password: Admin123!                              ║")
+  console.log("║                                                     ║")
+  console.log("║  CUSTOMER:                                         ║")
+  console.log("║    Email:    customer@test.com                      ║")
+  console.log("║    Password: Customer1!                             ║")
+  console.log("║                                                     ║")
+  console.log("╚══════════════════════════════════════════════════════╝")
 }
 
 main()
