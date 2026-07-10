@@ -110,6 +110,9 @@ model Product {
   ingredients   String?
   benefits      String?
   brewingGuide  String?
+  deliveryInfo  String?
+  returnInfo    String?
+  tags          String?
   price         Decimal        @db.Decimal(10, 2)
   comparePrice  Decimal?       @db.Decimal(10, 2)
   costPrice     Decimal?       @db.Decimal(10, 2)
