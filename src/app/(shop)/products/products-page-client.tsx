@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useRef } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
-import { SearchBar } from "@/components/products/search-bar"
 import { ProductFilters } from "@/components/products/product-filters"
 import { SortDropdown } from "@/components/products/sort-dropdown"
 import { ProductGrid } from "@/components/products/product-grid"
@@ -82,11 +81,10 @@ export function ProductsPageClient() {
       try {
         const res = await fetch(`${routes.api.categories}`)
         const json = await res.json()
-        if (json.success && json.data && mounted.current) {
+        if (json.success && json.data && mounted.current)
           setCategories(json.data)
-        }
       } catch {
-        // ignore
+        /* ignore */
       }
     }
     load()
@@ -110,7 +108,6 @@ export function ProductsPageClient() {
 
         const res = await fetch(`${routes.api.products}?${params.toString()}`)
         const json = await res.json()
-
         if (json.success && json.data && mounted.current) {
           setProducts(json.data.items)
           setTotal(json.data.total)
@@ -149,7 +146,6 @@ export function ProductsPageClient() {
     if (inStock) params.set("inStock", "true")
     if (featured) params.set("featured", "true")
     if (discounted) params.set("discounted", "true")
-
     const qs = params.toString()
     router.replace(`/products${qs ? `?${qs}` : ""}`, { scroll: false })
   }, [
@@ -177,112 +173,120 @@ export function ProductsPageClient() {
     setSort("newest")
   }
 
+  // Desktop: 25% filters sidebar | 75% grid
   return (
-    <div>
-      <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center">
-        <div className="flex-1">
-          <SearchBar
-            value={search}
-            onChange={(v) => {
-              setSearch(v)
-              setPage(1)
-            }}
-          />
+    <div className="flex flex-col lg:flex-row lg:gap-8">
+      {/* Sidebar — desktop */}
+      <aside className="hidden lg:block w-full lg:w-[260px] shrink-0">
+        <div className="sticky top-24 space-y-4">
+          {categories.length > 0 && (
+            <ProductFilters
+              categories={categories}
+              selectedCategory={selectedCategory}
+              minPrice={minPrice}
+              maxPrice={maxPrice}
+              inStock={inStock}
+              featured={featured}
+              discounted={discounted}
+              searchQuery={search}
+              onSearchChange={(v) => {
+                setSearch(v)
+                setPage(1)
+              }}
+              onCategoryChange={(s) => {
+                setSelectedCategory(s)
+                setPage(1)
+              }}
+              onMinPriceChange={setMinPrice}
+              onMaxPriceChange={setMaxPrice}
+              onInStockChange={(v) => {
+                setInStock(v)
+                setPage(1)
+              }}
+              onFeaturedChange={(v) => {
+                setFeatured(v)
+                setPage(1)
+              }}
+              onDiscountedChange={(v) => {
+                setDiscounted(v)
+                setPage(1)
+              }}
+              onClear={handleClear}
+              isOpen={filterOpen}
+              onToggle={() => setFilterOpen(!filterOpen)}
+              hasActiveFilters={hasActiveFilters}
+            />
+          )}
         </div>
-        <div className="flex items-center gap-3">
-          <ProductFilters
-            categories={categories}
-            selectedCategory={selectedCategory}
-            minPrice={minPrice}
-            maxPrice={maxPrice}
-            inStock={inStock}
-            featured={featured}
-            discounted={discounted}
-            onCategoryChange={(s) => {
-              setSelectedCategory(s)
-              setPage(1)
-            }}
-            onMinPriceChange={setMinPrice}
-            onMaxPriceChange={setMaxPrice}
-            onInStockChange={(v) => {
-              setInStock(v)
-              setPage(1)
-            }}
-            onFeaturedChange={(v) => {
-              setFeatured(v)
-              setPage(1)
-            }}
-            onDiscountedChange={(v) => {
-              setDiscounted(v)
-              setPage(1)
-            }}
-            onClear={handleClear}
-            isOpen={filterOpen}
-            onToggle={() => setFilterOpen(!filterOpen)}
-            hasActiveFilters={hasActiveFilters}
-          />
-          <SortDropdown
-            value={sort}
-            onChange={(v) => {
-              setSort(v)
-              setPage(1)
-            }}
-            total={total}
-          />
-        </div>
-      </div>
+      </aside>
 
-      <div className="flex gap-8">
-        <div className="hidden w-60 shrink-0 lg:block">
-          <div className="sticky top-24">
-            {categories.length > 0 && (
-              <ProductFilters
-                categories={categories}
-                selectedCategory={selectedCategory}
-                minPrice={minPrice}
-                maxPrice={maxPrice}
-                inStock={inStock}
-                featured={featured}
-                discounted={discounted}
-                onCategoryChange={(s) => {
-                  setSelectedCategory(s)
-                  setPage(1)
-                }}
-                onMinPriceChange={setMinPrice}
-                onMaxPriceChange={setMaxPrice}
-                onInStockChange={(v) => {
-                  setInStock(v)
-                  setPage(1)
-                }}
-                onFeaturedChange={(v) => {
-                  setFeatured(v)
-                  setPage(1)
-                }}
-                onDiscountedChange={(v) => {
-                  setDiscounted(v)
-                  setPage(1)
-                }}
-                onClear={handleClear}
-                isOpen={filterOpen}
-                onToggle={() => setFilterOpen(!filterOpen)}
-                hasActiveFilters={hasActiveFilters}
-              />
-            )}
+      {/* Main content */}
+      <div className="flex-1 min-w-0">
+        {/* Toolbar */}
+        <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center gap-3">
+            <ProductFilters
+              categories={categories}
+              selectedCategory={selectedCategory}
+              minPrice={minPrice}
+              maxPrice={maxPrice}
+              inStock={inStock}
+              featured={featured}
+              discounted={discounted}
+              searchQuery={search}
+              onSearchChange={(v) => {
+                setSearch(v)
+                setPage(1)
+              }}
+              onCategoryChange={(s) => {
+                setSelectedCategory(s)
+                setPage(1)
+              }}
+              onMinPriceChange={setMinPrice}
+              onMaxPriceChange={setMaxPrice}
+              onInStockChange={(v) => {
+                setInStock(v)
+                setPage(1)
+              }}
+              onFeaturedChange={(v) => {
+                setFeatured(v)
+                setPage(1)
+              }}
+              onDiscountedChange={(v) => {
+                setDiscounted(v)
+                setPage(1)
+              }}
+              onClear={handleClear}
+              isOpen={filterOpen}
+              onToggle={() => setFilterOpen(!filterOpen)}
+              hasActiveFilters={hasActiveFilters}
+            />
+          </div>
+          <div className="flex items-center gap-3 ml-auto">
+            <p className="hidden sm:block text-xs text-muted-foreground/50 tabular-nums whitespace-nowrap">
+              {total} product{total !== 1 ? "s" : ""}
+            </p>
+            <SortDropdown
+              value={sort}
+              onChange={(v) => {
+                setSort(v)
+                setPage(1)
+              }}
+              total={total}
+            />
           </div>
         </div>
 
-        <div className="flex-1 min-w-0">
-          <ProductGrid
-            products={products}
-            isLoading={isLoading}
-            onClearFilters={handleClear}
-          />
-          <Pagination
-            page={page}
-            totalPages={totalPages}
-            onPageChange={setPage}
-          />
-        </div>
+        <ProductGrid
+          products={products}
+          isLoading={isLoading}
+          onClearFilters={handleClear}
+        />
+        <Pagination
+          page={page}
+          totalPages={totalPages}
+          onPageChange={setPage}
+        />
       </div>
     </div>
   )

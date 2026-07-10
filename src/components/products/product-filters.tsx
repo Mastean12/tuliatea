@@ -1,10 +1,10 @@
 "use client"
 
 import { motion, AnimatePresence } from "framer-motion"
-import { SlidersHorizontal, X, RotateCcw } from "lucide-react"
+import { SlidersHorizontal, X, RotateCcw, Search } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
+import { Input } from "@/components/ui/input"
 import { cn } from "@/lib/utils"
 
 type FilterCategory = {
@@ -12,6 +12,14 @@ type FilterCategory = {
   name: string
   _count: { products: number }
 }
+
+const PRICE_PRESETS = [
+  { label: "Any Price", min: "", max: "" },
+  { label: "Under KES 1,000", min: "", max: "1000" },
+  { label: "KES 1,000 - 2,000", min: "1000", max: "2000" },
+  { label: "KES 2,000 - 3,000", min: "2000", max: "3000" },
+  { label: "Over KES 3,000", min: "3000", max: "" },
+]
 
 type ProductFiltersProps = {
   categories: FilterCategory[]
@@ -21,6 +29,8 @@ type ProductFiltersProps = {
   inStock: boolean
   featured: boolean
   discounted: boolean
+  searchQuery: string
+  onSearchChange: (value: string) => void
   onCategoryChange: (slug: string | undefined) => void
   onMinPriceChange: (value: string) => void
   onMaxPriceChange: (value: string) => void
@@ -41,6 +51,8 @@ export function ProductFilters({
   inStock,
   featured,
   discounted,
+  searchQuery,
+  onSearchChange,
   onCategoryChange,
   onMinPriceChange,
   onMaxPriceChange,
@@ -54,19 +66,40 @@ export function ProductFilters({
 }: ProductFiltersProps) {
   const filterContent = (
     <div className="space-y-6">
+      {/* Search */}
+      <div className="relative">
+        <Search className="pointer-events-none absolute left-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-muted-foreground/40" />
+        <Input
+          value={searchQuery}
+          onChange={(e) => onSearchChange(e.target.value)}
+          placeholder="Search teas..."
+          className="h-9 pl-9 pr-8 text-xs rounded-lg border-border/60 bg-muted/30 placeholder:text-muted-foreground/40"
+        />
+        {searchQuery && (
+          <button
+            onClick={() => onSearchChange("")}
+            className="absolute right-2.5 top-1/2 -translate-y-1/2 text-muted-foreground/40 hover:text-foreground"
+          >
+            <X className="h-3 w-3" />
+          </button>
+        )}
+      </div>
+
+      <div className="h-px bg-border/50" />
+
       {/* Categories */}
       <div>
-        <h4 className="mb-3.5 text-[11px] font-semibold uppercase tracking-widest text-muted-foreground/70">
+        <h4 className="mb-3 text-[11px] font-semibold uppercase tracking-widest text-muted-foreground/50">
           Category
         </h4>
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-1.5">
           <button
             onClick={() => onCategoryChange(undefined)}
             className={cn(
-              "rounded-full px-3.5 py-1.5 text-xs font-medium transition-all duration-200 border",
+              "rounded-full px-3 py-1 text-[11px] font-medium transition-all border",
               !selectedCategory
-                ? "bg-primary text-primary-foreground border-primary shadow-sm"
-                : "bg-card text-muted-foreground border-border hover:border-primary/30 hover:text-foreground"
+                ? "bg-primary text-primary-foreground border-primary"
+                : "bg-muted/50 text-muted-foreground border-transparent hover:bg-muted hover:text-foreground"
             )}
           >
             All
@@ -76,61 +109,58 @@ export function ProductFilters({
               key={cat.slug}
               onClick={() => onCategoryChange(cat.slug)}
               className={cn(
-                "rounded-full px-3.5 py-1.5 text-xs font-medium transition-all duration-200 border",
+                "rounded-full px-3 py-1 text-[11px] font-medium transition-all border",
                 selectedCategory === cat.slug
-                  ? "bg-primary text-primary-foreground border-primary shadow-sm"
-                  : "bg-card text-muted-foreground border-border hover:border-primary/30 hover:text-foreground"
+                  ? "bg-primary text-primary-foreground border-primary"
+                  : "bg-muted/50 text-muted-foreground border-transparent hover:bg-muted hover:text-foreground"
               )}
             >
               {cat.name}
-              <span className="ml-1 opacity-60">({cat._count.products})</span>
             </button>
           ))}
         </div>
       </div>
 
-      <div className="h-px bg-border/60" />
+      <div className="h-px bg-border/50" />
 
       {/* Price range */}
       <div>
-        <h4 className="mb-3.5 text-[11px] font-semibold uppercase tracking-widest text-muted-foreground/70">
-          Price Range (KES)
+        <h4 className="mb-3 text-[11px] font-semibold uppercase tracking-widest text-muted-foreground/50">
+          Price Range
         </h4>
-        <div className="flex items-center gap-2">
-          <div className="relative flex-1">
-            <span className="absolute left-2.5 top-1/2 -translate-y-1/2 text-xs text-muted-foreground/50">
-              KES
-            </span>
-            <Input
-              type="number"
-              placeholder="Min"
-              value={minPrice}
-              onChange={(e) => onMinPriceChange(e.target.value)}
-              className="h-9 pl-9 text-sm"
-              aria-label="Minimum price"
-            />
-          </div>
-          <span className="text-muted-foreground/30 text-xs">—</span>
-          <div className="relative flex-1">
-            <span className="absolute left-2.5 top-1/2 -translate-y-1/2 text-xs text-muted-foreground/50">
-              KES
-            </span>
-            <Input
-              type="number"
-              placeholder="Max"
-              value={maxPrice}
-              onChange={(e) => onMaxPriceChange(e.target.value)}
-              className="h-9 pl-9 text-sm"
-              aria-label="Maximum price"
-            />
-          </div>
+        <div className="flex flex-wrap gap-1.5">
+          {PRICE_PRESETS.map((preset) => {
+            const isActive =
+              (preset.min === minPrice && preset.max === maxPrice) ||
+              (preset.min === "" &&
+                preset.max === "" &&
+                minPrice === "" &&
+                maxPrice === "")
+            return (
+              <button
+                key={preset.label}
+                onClick={() => {
+                  onMinPriceChange(preset.min)
+                  onMaxPriceChange(preset.max)
+                }}
+                className={cn(
+                  "rounded-full px-3 py-1 text-[11px] font-medium transition-all border",
+                  isActive
+                    ? "bg-primary text-primary-foreground border-primary"
+                    : "bg-muted/50 text-muted-foreground border-transparent hover:bg-muted hover:text-foreground"
+                )}
+              >
+                {preset.label}
+              </button>
+            )
+          })}
         </div>
       </div>
 
-      <div className="h-px bg-border/60" />
+      <div className="h-px bg-border/50" />
 
       {/* Toggle filters */}
-      <div className="space-y-3.5">
+      <div className="space-y-3">
         {(
           [
             {
@@ -141,7 +171,7 @@ export function ProductFilters({
             },
             {
               id: "filter-featured",
-              label: "Featured Products",
+              label: "Featured",
               value: featured,
               onChange: onFeaturedChange,
             },
@@ -155,26 +185,24 @@ export function ProductFilters({
         ).map(({ id, label, value, onChange }) => (
           <label
             key={id}
-            htmlFor={id}
             className="flex items-center justify-between cursor-pointer group"
           >
-            <span className="text-sm text-muted-foreground group-hover:text-foreground transition-colors">
+            <span className="text-xs text-muted-foreground group-hover:text-foreground transition-colors">
               {label}
             </span>
             <button
-              id={id}
               role="switch"
               aria-checked={value}
               onClick={() => onChange(!value)}
               className={cn(
-                "relative h-5 w-9 rounded-full transition-all duration-200",
+                "relative h-4 w-7 rounded-full transition-all duration-200 shrink-0",
                 value ? "bg-primary" : "bg-input"
               )}
             >
               <span
                 className={cn(
-                  "absolute top-0.5 left-0.5 h-4 w-4 rounded-full bg-white shadow-sm transition-all duration-200",
-                  value ? "translate-x-4" : "translate-x-0"
+                  "absolute top-0.5 left-0.5 h-3 w-3 rounded-full bg-white shadow-sm transition-all duration-200",
+                  value ? "translate-x-3" : "translate-x-0"
                 )}
               />
             </button>
@@ -182,18 +210,14 @@ export function ProductFilters({
         ))}
       </div>
 
-      <div className="h-px bg-border/60" />
-
       {hasActiveFilters && (
-        <Button
-          variant="outline"
-          size="sm"
+        <button
           onClick={onClear}
-          className="w-full gap-1.5 text-xs h-9"
+          className="flex items-center gap-1.5 text-xs text-muted-foreground/60 hover:text-foreground transition-colors pt-1"
         >
           <RotateCcw className="h-3 w-3" />
-          Reset Filters
-        </Button>
+          Clear Filters
+        </button>
       )}
     </div>
   )
@@ -206,14 +230,14 @@ export function ProductFilters({
           variant="outline"
           size="sm"
           onClick={onToggle}
-          className="relative gap-2"
+          className="relative gap-2 text-xs h-9"
         >
-          <SlidersHorizontal className="h-4 w-4" />
+          <SlidersHorizontal className="h-3.5 w-3.5" />
           Filters
           {hasActiveFilters && (
             <Badge
               variant="secondary"
-              className="ml-0.5 h-5 w-5 rounded-full p-0 text-[10px]"
+              className="ml-0.5 h-4 w-4 rounded-full p-0 text-[8px]"
             >
               !
             </Badge>
@@ -230,17 +254,15 @@ export function ProductFilters({
             exit={{ height: 0, opacity: 0 }}
             className="overflow-hidden lg:hidden"
           >
-            <div className="rounded-2xl border bg-card p-5 shadow-sm">
-              <div className="mb-4 flex items-center justify-between">
+            <div className="rounded-xl border bg-card p-5 shadow-sm mb-4">
+              <div className="mb-3 flex items-center justify-between">
                 <h3 className="font-heading text-sm font-semibold">Filters</h3>
-                <Button
-                  variant="ghost"
-                  size="icon"
+                <button
                   onClick={onToggle}
-                  className="h-7 w-7"
+                  className="text-muted-foreground/50 hover:text-foreground"
                 >
                   <X className="h-4 w-4" />
-                </Button>
+                </button>
               </div>
               {filterContent}
             </div>
@@ -250,7 +272,7 @@ export function ProductFilters({
 
       {/* Desktop sidebar */}
       <div className="hidden lg:block">
-        <div className="rounded-2xl bg-card p-5 shadow-[0_1px_3px_rgba(0,0,0,0.04)] border">
+        <div className="rounded-xl bg-card p-5 border shadow-sm">
           {filterContent}
         </div>
       </div>
