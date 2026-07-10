@@ -19,17 +19,17 @@ export const siteConfig = {
     "organic tea Kenya",
   ] as string[],
   social: {
-    instagram: "@tulliatea",
-    whatsapp: "+254700000000",
-    email: "info@tulliatea.com",
+    instagram: "Tullia_tea",
+    whatsapp: "+254793509510",
+    email: "rectangularfoods@gmail.com",
     facebook: "",
     twitter: "",
     linkedin: "",
   },
   contact: {
-    email: "info@tulliatea.com",
-    phone: "+254 700 000 000",
-    whatsapp: "+254700000000",
+    email: "rectangularfoods@gmail.com",
+    phone: "+254 793 509 510",
+    whatsapp: "+254793509510",
     address: "Nairobi, Kenya",
   },
 } as const

@@ -123,8 +123,8 @@ export const contactContent = {
       "We would love to hear from you. Reach out with questions, feedback, or to place an order.",
   },
   info: {
-    email: "info@tulliatea.com",
-    phone: "+254 700 000 000",
+    email: "rectangularfoods@gmail.com",
+    phone: "+254 793 509 510",
     address: "Nairobi, Kenya",
     hours: "Monday — Friday: 8:00 AM — 5:00 PM (EAT)",
   },
