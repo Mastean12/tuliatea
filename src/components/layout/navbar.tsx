@@ -3,7 +3,7 @@
 import { useState, useSyncExternalStore } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { ShoppingBag, Menu, X, Leaf } from "lucide-react"
+import { ShoppingCart, Menu, X, Leaf } from "lucide-react"
 import { useSession, signOut } from "next-auth/react"
 import { Container } from "@/components/ui/container"
 import { Button } from "@/components/ui/button"
@@ -72,7 +72,7 @@ export function Navbar() {
                 className="relative flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground/70 transition-colors hover:text-foreground hover:bg-muted/60"
                 aria-label={`Shopping cart${mounted ? ` with ${itemCount} items` : ""}`}
               >
-                <ShoppingBag className="h-5 w-5" />
+                <ShoppingCart className="h-5 w-5" />
                 {mounted && itemCount > 0 && (
                   <Badge className="absolute -right-1 -top-1 h-5 w-5 rounded-full p-0 text-[10px] font-medium flex items-center justify-center bg-primary text-primary-foreground">
                     {itemCount > 99 ? "99+" : itemCount}
