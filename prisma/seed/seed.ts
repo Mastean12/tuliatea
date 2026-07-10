@@ -1,7 +1,11 @@
+import "dotenv/config"
 import { PrismaClient, ProductStatus } from "@prisma/client"
+import { PrismaPg } from "@prisma/adapter-pg"
 import bcrypt from "bcryptjs"
 
-const prisma = new PrismaClient()
+const prisma = new PrismaClient({
+  adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL! }),
+})
 
 function img(label: string, bg = "2E7D32"): string {
   return `https://placehold.co/600x600/${bg}/FFFFFF/png?text=${encodeURIComponent(label)}`
