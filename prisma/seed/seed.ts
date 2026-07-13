@@ -19,8 +19,8 @@ const productImages: Record<string, string[]> = {
     `${UNSPLASH_BASE}/photo-1594631252845-29fc4cc8cde9?w=600&h=600&fit=crop&auto=format`,
   ],
   "golden-turmeric-infusion": [
-    `${UNSPLASH_BASE}/photo-1615485290382-441e4b049d5e?w=600&h=600&fit=crop&auto=format`,
     `${UNSPLASH_BASE}/photo-1616671016440-2d0b5eefb6b9?w=600&h=600&fit=crop&auto=format`,
+    `${UNSPLASH_BASE}/photo-1563911892437-1feda0179e1b?w=600&h=600&fit=crop&auto=format`,
   ],
   "rift-valley-breakfast": [
     `${UNSPLASH_BASE}/photo-1571939228382-b2f2b585ce15?w=600&h=600&fit=crop&auto=format`,

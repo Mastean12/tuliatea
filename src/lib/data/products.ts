@@ -54,7 +54,7 @@ export const products: Product[] = [
     ingredients: "Turmeric, ginger, lemongrass, black pepper, cinnamon",
     weight: "100g",
     price: 2200,
-    image: `${U}-1615485290382-441e4b049d5e?w=600&h=600&fit=crop&auto=format`,
+    image: `${U}-1616671016440-2d0b5eefb6b9?w=600&h=600&fit=crop&auto=format`,
     category: "Herbal Infusion",
     isFeatured: true,
     isBestSeller: false,
