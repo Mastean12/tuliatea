@@ -17,6 +17,8 @@ import {
   Settings,
   Image,
   ChevronDown,
+  PanelLeftClose,
+  PanelLeft,
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
@@ -41,18 +43,11 @@ const cmsLinks = [
 export function AdminSidebar() {
   const pathname = usePathname()
   const [open, setOpen] = useState(false)
+  const [collapsed, setCollapsed] = useState(false)
   const [cmsOpen, setCmsOpen] = useState(pathname.startsWith("/admin/cms"))
 
   const isActive = (href: string) =>
     pathname === href || (href !== "/admin" && pathname.startsWith(href + "/"))
-
-  const linkClass = (href: string) =>
-    cn(
-      "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors",
-      isActive(href)
-        ? "bg-primary/10 text-primary"
-        : "text-muted-foreground hover:text-foreground hover:bg-muted"
-    )
 
   return (
     <>
@@ -73,94 +68,155 @@ export function AdminSidebar() {
 
       <aside
         className={cn(
-          "fixed inset-y-0 left-0 z-50 w-64 border-r bg-background transition-transform duration-300 lg:translate-x-0",
-          open ? "translate-x-0" : "-translate-x-full"
+          "fixed inset-y-0 left-0 z-50 border-r bg-background transition-all duration-300 lg:sticky lg:top-0 lg:z-0 lg:h-screen",
+          collapsed ? "w-16" : "w-64",
+          open ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
         )}
       >
         <div className="flex h-full flex-col">
-          <div className="flex items-center justify-between border-b px-4 py-4">
-            <Link
-              href={routes.admin.root}
-              className="flex items-center gap-2 font-heading text-lg font-semibold"
+          <div
+            className={cn(
+              "flex items-center border-b",
+              collapsed
+                ? "justify-center px-0 py-4"
+                : "justify-between px-4 py-4"
+            )}
+          >
+            {!collapsed && (
+              <Link
+                href={routes.admin.root}
+                className="flex items-center gap-2 font-heading text-lg font-semibold"
+              >
+                <Leaf className="h-5 w-5 text-primary shrink-0" /> Admin
+              </Link>
+            )}
+            {collapsed && (
+              <Link
+                href={routes.admin.root}
+                className="flex items-center justify-center"
+              >
+                <Leaf className="h-5 w-5 text-primary shrink-0" />
+              </Link>
+            )}
+            <button
+              onClick={() => setCollapsed(!collapsed)}
+              className="hidden lg:flex h-7 w-7 items-center justify-center rounded-md text-muted-foreground/50 hover:text-foreground hover:bg-muted transition-colors"
+              aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
             >
-              <Leaf className="h-5 w-5 text-primary" />
-              Admin
-            </Link>
+              {collapsed ? (
+                <PanelLeft className="h-4 w-4" />
+              ) : (
+                <PanelLeftClose className="h-4 w-4" />
+              )}
+            </button>
             <Button
               variant="ghost"
               size="icon"
-              className="lg:hidden"
+              className="lg:hidden h-7 w-7"
               onClick={() => setOpen(false)}
             >
-              <X className="h-5 w-5" />
+              <X className="h-4 w-4" />
             </Button>
           </div>
 
-          <nav className="flex-1 space-y-1 overflow-y-auto p-3">
-            {mainLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                onClick={() => setOpen(false)}
-                className={linkClass(link.href)}
-              >
-                <link.icon className="h-4 w-4" />
-                {link.label}
-              </Link>
-            ))}
-
-            {/* CMS section */}
-            <div className="pt-3">
-              <button
-                onClick={() => setCmsOpen(!cmsOpen)}
-                className="flex w-full items-center justify-between rounded-lg px-3 py-2.5 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
-              >
-                <span className="flex items-center gap-3">
-                  <FileText className="h-4 w-4" />
-                  Content
-                </span>
-                <ChevronDown
+          <nav className="flex-1 space-y-1 overflow-y-auto p-2">
+            {mainLinks.map((link) => {
+              const active = isActive(link.href)
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setOpen(false)}
                   className={cn(
-                    "h-4 w-4 transition-transform",
-                    cmsOpen && "rotate-180"
+                    "flex items-center gap-3 rounded-lg text-sm font-medium transition-colors",
+                    collapsed ? "justify-center px-0 py-2.5" : "px-3 py-2.5",
+                    active
+                      ? "bg-primary/10 text-primary"
+                      : "text-muted-foreground hover:text-foreground hover:bg-muted"
                   )}
-                />
-              </button>
-              {cmsOpen && (
-                <div className="ml-3 mt-1 space-y-1 border-l pl-3">
-                  {cmsLinks.map((link) => (
-                    <Link
-                      key={link.href}
-                      href={link.href}
-                      onClick={() => setOpen(false)}
-                      className={cn(
-                        "flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors",
-                        isActive(link.href)
-                          ? "bg-primary/10 text-primary"
-                          : "text-muted-foreground hover:text-foreground hover:bg-muted"
-                      )}
-                    >
-                      <link.icon className="h-3.5 w-3.5" />
-                      {link.label}
-                    </Link>
-                  ))}
-                </div>
-              )}
-            </div>
+                  title={collapsed ? link.label : undefined}
+                >
+                  <link.icon className="h-4 w-4 shrink-0" />
+                  {!collapsed && <span>{link.label}</span>}
+                </Link>
+              )
+            })}
+
+            {!collapsed && (
+              <div className="pt-3">
+                <button
+                  onClick={() => setCmsOpen(!cmsOpen)}
+                  className="flex w-full items-center justify-between rounded-lg px-3 py-2.5 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+                >
+                  <span className="flex items-center gap-3">
+                    <FileText className="h-4 w-4" /> Content
+                  </span>
+                  <ChevronDown
+                    className={cn(
+                      "h-4 w-4 transition-transform",
+                      cmsOpen && "rotate-180"
+                    )}
+                  />
+                </button>
+                {cmsOpen && (
+                  <div className="ml-3 mt-1 space-y-1 border-l pl-3">
+                    {cmsLinks.map((link) => (
+                      <Link
+                        key={link.href}
+                        href={link.href}
+                        onClick={() => setOpen(false)}
+                        className={cn(
+                          "flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors",
+                          isActive(link.href)
+                            ? "bg-primary/10 text-primary"
+                            : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                        )}
+                      >
+                        <link.icon className="h-3.5 w-3.5" /> {link.label}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
           </nav>
 
-          <div className="border-t p-3 space-y-1">
+          <div
+            className={cn(
+              "border-t",
+              collapsed ? "p-2 space-y-1" : "p-3 space-y-1"
+            )}
+          >
+            {collapsed && (
+              <Link
+                href="/admin/cms/homepage"
+                className="flex items-center justify-center rounded-lg py-2.5 text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+                title="Content"
+              >
+                <FileText className="h-4 w-4" />
+              </Link>
+            )}
             <Link
               href={routes.home}
-              className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+              className={cn(
+                "flex items-center gap-3 rounded-lg text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted transition-colors",
+                collapsed ? "justify-center px-0 py-2.5" : "px-3 py-2.5"
+              )}
+              title={collapsed ? "View Site" : undefined}
             >
-              <Leaf className="h-4 w-4" /> View Site
+              <Leaf className="h-4 w-4 shrink-0" />{" "}
+              {!collapsed && <span>View Site</span>}
             </Link>
             <button
               onClick={() => signOut({ callbackUrl: routes.home })}
-              className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+              className={cn(
+                "flex w-full items-center gap-3 rounded-lg text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted transition-colors",
+                collapsed ? "justify-center px-0 py-2.5" : "px-3 py-2.5"
+              )}
+              title={collapsed ? "Sign Out" : undefined}
             >
-              <LogOut className="h-4 w-4" /> Sign Out
+              <LogOut className="h-4 w-4 shrink-0" />{" "}
+              {!collapsed && <span>Sign Out</span>}
             </button>
           </div>
         </div>
