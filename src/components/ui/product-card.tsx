@@ -51,7 +51,9 @@ export function ProductCard({
         <div
           className={cn(
             "relative overflow-hidden",
-            isCompact ? "h-24 w-24 shrink-0 rounded-lg" : "rounded-t-xl"
+            isCompact
+              ? "h-24 w-24 shrink-0 rounded-lg"
+              : "aspect-[4/3] rounded-t-xl"
           )}
         >
           {product.image?.startsWith("http") ? (
