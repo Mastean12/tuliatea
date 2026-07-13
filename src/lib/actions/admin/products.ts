@@ -72,6 +72,19 @@ export async function createProduct(
 
     const data = parsed.data
 
+    // Parse images from JSON string
+    let imageData: Array<{
+      url: string
+      alt?: string | null
+      isPrimary: boolean
+    }> = []
+    try {
+      const imagesRaw = formData.get("images") as string
+      if (imagesRaw) imageData = JSON.parse(imagesRaw)
+    } catch {
+      /* ignore invalid JSON */
+    }
+
     await prisma.product.create({
       data: {
         name: data.name,
@@ -97,6 +110,14 @@ export async function createProduct(
         categoryId: data.categoryId,
         createdBy: admin.id,
         updatedBy: admin.id,
+        images: {
+          create: imageData.map((img, i) => ({
+            url: img.url,
+            alt: img.alt || null,
+            sortOrder: i,
+            isPrimary: img.isPrimary,
+          })),
+        },
       },
     })
 
@@ -149,6 +170,22 @@ export async function updateProduct(
 
     const data = parsed.data
 
+    // Parse images from JSON string
+    let imageData: Array<{
+      url: string
+      alt?: string | null
+      isPrimary: boolean
+    }> = []
+    try {
+      const imagesRaw = formData.get("images") as string
+      if (imagesRaw) imageData = JSON.parse(imagesRaw)
+    } catch {
+      /* ignore invalid JSON */
+    }
+
+    // Replace all images
+    await prisma.productImage.deleteMany({ where: { productId: id } })
+
     await prisma.product.update({
       where: { id },
       data: {
@@ -174,6 +211,14 @@ export async function updateProduct(
         status: (data.status || "DRAFT") as "DRAFT" | "PUBLISHED" | "ARCHIVED",
         categoryId: data.categoryId,
         updatedBy: admin.id,
+        images: {
+          create: imageData.map((img, i) => ({
+            url: img.url,
+            alt: img.alt || null,
+            sortOrder: i,
+            isPrimary: img.isPrimary,
+          })),
+        },
       },
     })
 

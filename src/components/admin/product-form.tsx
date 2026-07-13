@@ -1,6 +1,6 @@
 "use client"
 
-import { useActionState, useCallback } from "react"
+import { useActionState, useCallback, useState } from "react"
 import { useRouter } from "next/navigation"
 import { Loader2, ArrowLeft } from "lucide-react"
 import Link from "next/link"
@@ -24,6 +24,7 @@ import {
 } from "@/lib/actions/admin/products"
 import { slugify } from "@/lib/utils"
 import { routes } from "@/config/routes"
+import { ImageUploader } from "./image-uploader"
 
 type CategoryItem = { id: string; name: string }
 
@@ -74,6 +75,16 @@ export function AdminProductForm({
     ProductFormState,
     FormData
   >(action, {})
+  const [images, setImages] = useState<
+    Array<{ id: string; url: string; alt: string | null; isPrimary: boolean }>
+  >(
+    product?.images?.map((img) => ({
+      id: img.id,
+      url: img.url,
+      alt: img.alt,
+      isPrimary: img.isPrimary,
+    })) || []
+  )
 
   const handleSlugify = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -356,6 +367,26 @@ export function AdminProductForm({
               defaultValue={product?.metaDesc || ""}
             />
           </div>
+        </Card>
+
+        {/* Images */}
+        <Card className="p-6">
+          <ImageUploader
+            images={images}
+            productId={product?.id}
+            onImagesChange={setImages}
+          />
+          <input
+            type="hidden"
+            name="images"
+            value={JSON.stringify(
+              images.map((img) => ({
+                url: img.url,
+                alt: img.alt,
+                isPrimary: img.isPrimary,
+              }))
+            )}
+          />
         </Card>
 
         <div className="flex gap-3">
