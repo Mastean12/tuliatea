@@ -6,6 +6,7 @@ import { Providers } from "@/providers/providers"
 import { Toaster } from "sonner"
 import { Navbar } from "@/components/layout/navbar"
 import { Footer } from "@/components/layout/footer"
+import { PageTransition } from "@/components/ui/page-transition"
 
 const fontSans = Inter({
   variable: "--font-sans",
@@ -65,7 +66,9 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col">
         <Providers>
           <Navbar />
-          <main className="flex-1">{children}</main>
+          <main className="flex-1">
+            <PageTransition>{children}</PageTransition>
+          </main>
           <Footer />
         </Providers>
         <Toaster richColors closeButton position="top-right" />
