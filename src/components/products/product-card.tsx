@@ -81,7 +81,7 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
               </Badge>
             )}
             {discount > 0 && (
-              <Badge className="bg-accent text-accent-foreground text-[10px] px-2 py-0.5 font-semibold shadow-sm">
+              <Badge className="bg-warm text-warm-foreground text-[10px] px-2 py-0.5 font-semibold shadow-sm">
                 {discount}% OFF
               </Badge>
             )}

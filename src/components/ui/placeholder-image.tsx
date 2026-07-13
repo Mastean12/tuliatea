@@ -9,35 +9,22 @@ type PlaceholderImageProps = {
 }
 
 const variantStyles = {
-  product: "h-64",
+  product: "aspect-[4/3]",
   hero: "h-[70vh]",
   avatar: "h-12 w-12 rounded-full",
 }
 
 function hashColor(seed: string): { from: string; via: string; to: string } {
   const palettes = [
-    {
-      from: "from-emerald-800/40",
-      via: "via-emerald-700/20",
-      to: "to-amber-800/30",
-    },
-    { from: "from-green-900/40", via: "via-teal-700/20", to: "to-lime-800/30" },
-    { from: "from-primary/30", via: "via-primary/15", to: "to-accent/25" },
-    {
-      from: "from-emerald-700/40",
-      via: "via-green-600/20",
-      to: "to-yellow-700/30",
-    },
-    {
-      from: "from-teal-800/35",
-      via: "via-green-700/15",
-      to: "to-amber-700/25",
-    },
+    { from: "from-primary/30", via: "via-accent/15", to: "to-secondary/25" },
+    { from: "from-primary/25", via: "via-secondary/15", to: "to-warm/20" },
+    { from: "from-accent/20", via: "via-primary/10", to: "to-warm/15" },
+    { from: "from-secondary/25", via: "via-primary/15", to: "to-accent/20" },
+    { from: "from-warm/20", via: "via-accent/10", to: "to-primary/20" },
   ]
   let hash = 0
-  for (let i = 0; i < seed.length; i++) {
+  for (let i = 0; i < seed.length; i++)
     hash = (hash << 5) - hash + seed.charCodeAt(i)
-  }
   return palettes[Math.abs(hash) % palettes.length]
 }
 
@@ -62,7 +49,7 @@ export function PlaceholderImage({
       role="img"
       aria-label={label || "Placeholder image"}
     >
-      <div className="flex flex-col items-center gap-2 text-white/30">
+      <div className="flex flex-col items-center gap-2 text-white/35">
         <Leaf className="h-12 w-12" />
         {label && (
           <span className="text-xs font-medium text-white/50">{label}</span>
