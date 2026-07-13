@@ -1,67 +1,123 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Container } from "@/components/ui/container"
-import { SectionHeading } from "@/components/ui/section-heading"
+import Image from "next/image"
 import { aboutContent } from "@/lib/data/content"
+
+const KENYA_HIGHLANDS =
+  "https://images.unsplash.com/photo-1564890369478-c89ca6d9cde9?w=800&h=600&fit=crop&auto=format"
+const TEA_FARMING =
+  "https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=800&h=600&fit=crop&auto=format"
 
 export function StorySection() {
   const { story, mission, vision } = aboutContent
 
   return (
-    <section className="py-20 sm:py-28">
-      <Container>
-        <div className="mx-auto max-w-3xl">
-          <SectionHeading title={story.title} subtitle={story.subtitle} />
-
-          <div className="space-y-5">
-            {story.paragraphs.map((paragraph, i) => (
-              <motion.p
-                key={i}
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
-                className="text-base leading-relaxed text-muted-foreground"
-              >
-                {paragraph}
-              </motion.p>
-            ))}
-          </div>
-
-          <div className="mt-16 grid gap-8 sm:grid-cols-2">
+    <>
+      {/* Story */}
+      <section className="py-16 sm:py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
               transition={{ duration: 0.5 }}
-              className="rounded-2xl border bg-card p-8"
             >
-              <h3 className="font-heading mb-3 text-xl font-semibold">
-                {mission.title}
-              </h3>
-              <p className="leading-relaxed text-muted-foreground">
-                {mission.body}
+              <h2 className="font-heading text-3xl font-semibold tracking-tight sm:text-4xl">
+                {story.title}
+              </h2>
+              <p className="mt-2 text-sm text-muted-foreground mb-6">
+                {story.subtitle}
               </p>
+              <div className="space-y-4">
+                {story.paragraphs.slice(0, 2).map((p, i) => (
+                  <p
+                    key={i}
+                    className="text-sm leading-relaxed text-muted-foreground"
+                  >
+                    {p}
+                  </p>
+                ))}
+              </div>
             </motion.div>
-
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              className="rounded-2xl border bg-card p-8"
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.5 }}
+              className="relative aspect-[4/3] rounded-2xl overflow-hidden"
             >
-              <h3 className="font-heading mb-3 text-xl font-semibold">
-                {vision.title}
-              </h3>
-              <p className="leading-relaxed text-muted-foreground">
-                {vision.body}
-              </p>
+              <Image
+                src={KENYA_HIGHLANDS}
+                alt="Kenyan tea highlands"
+                fill
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                className="object-cover"
+              />
             </motion.div>
           </div>
         </div>
-      </Container>
-    </section>
+      </section>
+
+      {/* Continued story + Mission/Vision */}
+      <section className="bg-muted/50 py-16 sm:py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.5 }}
+              className="relative aspect-[4/3] rounded-2xl overflow-hidden lg:order-2"
+            >
+              <Image
+                src={TEA_FARMING}
+                alt="Tea farming in Kenya"
+                fill
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                className="object-cover"
+              />
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.5 }}
+              className="lg:order-1"
+            >
+              <div className="space-y-4">
+                {story.paragraphs.slice(2).map((p, i) => (
+                  <p
+                    key={i}
+                    className="text-sm leading-relaxed text-muted-foreground"
+                  >
+                    {p}
+                  </p>
+                ))}
+              </div>
+              <div className="mt-8 grid gap-4 sm:grid-cols-2">
+                <div className="rounded-xl border bg-card p-5">
+                  <h3 className="font-heading text-base font-semibold mb-1">
+                    {mission.title}
+                  </h3>
+                  <p className="text-xs text-muted-foreground leading-relaxed">
+                    {mission.body}
+                  </p>
+                </div>
+                <div className="rounded-xl border bg-card p-5">
+                  <h3 className="font-heading text-base font-semibold mb-1">
+                    {vision.title}
+                  </h3>
+                  <p className="text-xs text-muted-foreground leading-relaxed">
+                    {vision.body}
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+    </>
   )
 }
