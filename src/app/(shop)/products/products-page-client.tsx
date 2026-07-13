@@ -2,6 +2,9 @@
 
 import { useState, useEffect, useRef } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
+import { SlidersHorizontal, X } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Badge } from "@/components/ui/badge"
 import { ProductFilters } from "@/components/products/product-filters"
 import { SortDropdown } from "@/components/products/sort-dropdown"
 import { ProductGrid } from "@/components/products/product-grid"
@@ -14,7 +17,6 @@ type FilterCategory = {
   name: string
   _count: { products: number }
 }
-
 type ProductItem = {
   id: string
   name: string
@@ -58,7 +60,6 @@ export function ProductsPageClient() {
   )
 
   const debouncedSearch = useDebounce(search, 300)
-
   const hasActiveFilters = !!(
     selectedCategory ||
     minPrice ||
@@ -105,7 +106,6 @@ export function ProductsPageClient() {
         if (sort !== "newest") params.set("sort", sort)
         params.set("page", String(page))
         params.set("pageSize", "12")
-
         const res = await fetch(`${routes.api.products}?${params.toString()}`)
         const json = await res.json()
         if (json.success && json.data && mounted.current) {
@@ -173,108 +173,123 @@ export function ProductsPageClient() {
     setSort("newest")
   }
 
-  // Desktop: 25% filters sidebar | 75% grid
+  const filterProps = {
+    categories,
+    selectedCategory,
+    minPrice,
+    maxPrice,
+    inStock,
+    featured,
+    discounted,
+    searchQuery: search,
+    onSearchChange: (v: string) => {
+      setSearch(v)
+      setPage(1)
+    },
+    onCategoryChange: (s: string | undefined) => {
+      setSelectedCategory(s)
+      setPage(1)
+    },
+    onMinPriceChange: setMinPrice,
+    onMaxPriceChange: setMaxPrice,
+    onInStockChange: (v: boolean) => {
+      setInStock(v)
+      setPage(1)
+    },
+    onFeaturedChange: (v: boolean) => {
+      setFeatured(v)
+      setPage(1)
+    },
+    onDiscountedChange: (v: boolean) => {
+      setDiscounted(v)
+      setPage(1)
+    },
+    onClear: handleClear,
+    isOpen: filterOpen,
+    onToggle: () => setFilterOpen(!filterOpen),
+    hasActiveFilters,
+  }
+
   return (
     <div className="flex flex-col lg:flex-row lg:gap-8">
-      {/* Sidebar — desktop */}
-      <aside className="hidden lg:block w-full lg:w-[260px] shrink-0">
-        <div className="sticky top-24 space-y-4">
-          {categories.length > 0 && (
-            <ProductFilters
-              categories={categories}
-              selectedCategory={selectedCategory}
-              minPrice={minPrice}
-              maxPrice={maxPrice}
-              inStock={inStock}
-              featured={featured}
-              discounted={discounted}
-              searchQuery={search}
-              onSearchChange={(v) => {
-                setSearch(v)
-                setPage(1)
-              }}
-              onCategoryChange={(s) => {
-                setSelectedCategory(s)
-                setPage(1)
-              }}
-              onMinPriceChange={setMinPrice}
-              onMaxPriceChange={setMaxPrice}
-              onInStockChange={(v) => {
-                setInStock(v)
-                setPage(1)
-              }}
-              onFeaturedChange={(v) => {
-                setFeatured(v)
-                setPage(1)
-              }}
-              onDiscountedChange={(v) => {
-                setDiscounted(v)
-                setPage(1)
-              }}
-              onClear={handleClear}
-              isOpen={filterOpen}
-              onToggle={() => setFilterOpen(!filterOpen)}
-              hasActiveFilters={hasActiveFilters}
-            />
+      {/* Mobile filter toggle (visible only on small screens, outside sidebar) */}
+      <div className="flex items-center justify-between mb-4 lg:hidden">
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() => setFilterOpen(!filterOpen)}
+          className="gap-2 text-xs h-9"
+        >
+          <SlidersHorizontal className="h-3.5 w-3.5" />
+          Filters
+          {hasActiveFilters && (
+            <Badge
+              variant="secondary"
+              className="ml-0.5 h-4 w-4 rounded-full p-0 text-[8px]"
+            >
+              !
+            </Badge>
           )}
+        </Button>
+        <div className="flex items-center gap-3">
+          <p className="text-xs text-muted-foreground/50 tabular-nums">
+            {total} product{total !== 1 ? "s" : ""}
+          </p>
+          <SortDropdown
+            value={sort}
+            onChange={(v) => {
+              setSort(v)
+              setPage(1)
+            }}
+            total={total}
+          />
+        </div>
+      </div>
+
+      {/* Mobile filter drawer */}
+      {filterOpen && (
+        <div className="fixed inset-0 z-50 flex lg:hidden">
+          <div
+            className="fixed inset-0 bg-black/40"
+            onClick={() => setFilterOpen(false)}
+          />
+          <div className="relative ml-auto w-full max-w-sm bg-background p-6 overflow-y-auto shadow-xl animate-in">
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="font-heading text-lg font-semibold">Filters</h2>
+              <button
+                onClick={() => setFilterOpen(false)}
+                className="text-muted-foreground/50 hover:text-foreground"
+              >
+                <X className="h-5 w-5" />
+              </button>
+            </div>
+            {categories.length > 0 && <ProductFilters {...filterProps} />}
+          </div>
+        </div>
+      )}
+
+      {/* Sidebar — desktop */}
+      <aside className="hidden lg:block w-[260px] shrink-0">
+        <div className="sticky top-24">
+          {categories.length > 0 && <ProductFilters {...filterProps} />}
         </div>
       </aside>
 
       {/* Main content */}
       <div className="flex-1 min-w-0">
-        {/* Toolbar */}
-        <div className="flex items-center justify-between mb-6">
-          <div className="flex items-center gap-3">
-            <ProductFilters
-              categories={categories}
-              selectedCategory={selectedCategory}
-              minPrice={minPrice}
-              maxPrice={maxPrice}
-              inStock={inStock}
-              featured={featured}
-              discounted={discounted}
-              searchQuery={search}
-              onSearchChange={(v) => {
-                setSearch(v)
-                setPage(1)
-              }}
-              onCategoryChange={(s) => {
-                setSelectedCategory(s)
-                setPage(1)
-              }}
-              onMinPriceChange={setMinPrice}
-              onMaxPriceChange={setMaxPrice}
-              onInStockChange={(v) => {
-                setInStock(v)
-                setPage(1)
-              }}
-              onFeaturedChange={(v) => {
-                setFeatured(v)
-                setPage(1)
-              }}
-              onDiscountedChange={(v) => {
-                setDiscounted(v)
-                setPage(1)
-              }}
-              onClear={handleClear}
-              isOpen={filterOpen}
-              onToggle={() => setFilterOpen(!filterOpen)}
-              hasActiveFilters={hasActiveFilters}
-            />
-          </div>
-          <div className="flex items-center gap-3 ml-auto">
-            <p className="hidden sm:block text-xs text-muted-foreground/50 tabular-nums whitespace-nowrap">
-              {total} product{total !== 1 ? "s" : ""}
-            </p>
-            <SortDropdown
-              value={sort}
-              onChange={(v) => {
-                setSort(v)
-                setPage(1)
-              }}
-              total={total}
-            />
-          </div>
+        {/* Desktop toolbar */}
+        <div className="hidden lg:flex items-center justify-between mb-6">
+          <p className="text-xs text-muted-foreground/50 tabular-nums">
+            {total} product{total !== 1 ? "s" : ""}
+          </p>
+          <SortDropdown
+            value={sort}
+            onChange={(v) => {
+              setSort(v)
+              setPage(1)
+            }}
+            total={total}
+          />
         </div>
 
         <ProductGrid

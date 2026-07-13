@@ -1,9 +1,6 @@
 "use client"
 
-import { motion, AnimatePresence } from "framer-motion"
-import { SlidersHorizontal, X, RotateCcw, Search } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
+import { RotateCcw, Search, X } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { cn } from "@/lib/utils"
 
@@ -38,8 +35,6 @@ type ProductFiltersProps = {
   onFeaturedChange: (value: boolean) => void
   onDiscountedChange: (value: boolean) => void
   onClear: () => void
-  isOpen: boolean
-  onToggle: () => void
   hasActiveFilters: boolean
 }
 
@@ -60,12 +55,10 @@ export function ProductFilters({
   onFeaturedChange,
   onDiscountedChange,
   onClear,
-  isOpen,
-  onToggle,
   hasActiveFilters,
 }: ProductFiltersProps) {
-  const filterContent = (
-    <div className="space-y-6">
+  return (
+    <div className="space-y-5">
       {/* Search */}
       <div className="relative">
         <Search className="pointer-events-none absolute left-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-muted-foreground/40" />
@@ -92,30 +85,33 @@ export function ProductFilters({
         <h4 className="mb-3 text-[11px] font-semibold uppercase tracking-widest text-muted-foreground/50">
           Category
         </h4>
-        <div className="flex flex-wrap gap-1.5">
+        <div className="space-y-1">
           <button
             onClick={() => onCategoryChange(undefined)}
             className={cn(
-              "rounded-full px-3 py-1 text-[11px] font-medium transition-all border",
+              "w-full rounded-lg px-3 py-1.5 text-left text-xs font-medium transition-colors",
               !selectedCategory
-                ? "bg-primary text-primary-foreground border-primary"
-                : "bg-muted/50 text-muted-foreground border-transparent hover:bg-muted hover:text-foreground"
+                ? "bg-primary/10 text-primary"
+                : "text-muted-foreground hover:text-foreground hover:bg-muted"
             )}
           >
-            All
+            All Categories
           </button>
           {categories.map((cat) => (
             <button
               key={cat.slug}
               onClick={() => onCategoryChange(cat.slug)}
               className={cn(
-                "rounded-full px-3 py-1 text-[11px] font-medium transition-all border",
+                "w-full rounded-lg px-3 py-1.5 text-left text-xs font-medium transition-colors",
                 selectedCategory === cat.slug
-                  ? "bg-primary text-primary-foreground border-primary"
-                  : "bg-muted/50 text-muted-foreground border-transparent hover:bg-muted hover:text-foreground"
+                  ? "bg-primary/10 text-primary"
+                  : "text-muted-foreground hover:text-foreground hover:bg-muted"
               )}
             >
               {cat.name}
+              <span className="ml-1 text-muted-foreground/50">
+                ({cat._count.products})
+              </span>
             </button>
           ))}
         </div>
@@ -159,7 +155,7 @@ export function ProductFilters({
 
       <div className="h-px bg-border/50" />
 
-      {/* Toggle filters */}
+      {/* Toggles */}
       <div className="space-y-3">
         {(
           [
@@ -220,62 +216,5 @@ export function ProductFilters({
         </button>
       )}
     </div>
-  )
-
-  return (
-    <>
-      {/* Mobile toggle */}
-      <div className="lg:hidden">
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={onToggle}
-          className="relative gap-2 text-xs h-9"
-        >
-          <SlidersHorizontal className="h-3.5 w-3.5" />
-          Filters
-          {hasActiveFilters && (
-            <Badge
-              variant="secondary"
-              className="ml-0.5 h-4 w-4 rounded-full p-0 text-[8px]"
-            >
-              !
-            </Badge>
-          )}
-        </Button>
-      </div>
-
-      {/* Mobile panel */}
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            className="overflow-hidden lg:hidden"
-          >
-            <div className="rounded-xl border bg-card p-5 shadow-sm mb-4">
-              <div className="mb-3 flex items-center justify-between">
-                <h3 className="font-heading text-sm font-semibold">Filters</h3>
-                <button
-                  onClick={onToggle}
-                  className="text-muted-foreground/50 hover:text-foreground"
-                >
-                  <X className="h-4 w-4" />
-                </button>
-              </div>
-              {filterContent}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* Desktop sidebar */}
-      <div className="hidden lg:block">
-        <div className="rounded-xl bg-card p-5 border shadow-sm">
-          {filterContent}
-        </div>
-      </div>
-    </>
   )
 }

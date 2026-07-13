@@ -1,16 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import {
-  Check,
-  Leaf,
-  Truck,
-  RotateCcw,
-  Shield,
-  Heart,
-  Sun,
-  Droplets,
-} from "lucide-react"
+import { Check, Leaf, Truck, RotateCcw, Shield, Heart } from "lucide-react"
 import Link from "next/link"
 import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"

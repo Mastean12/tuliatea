@@ -3,7 +3,6 @@
 import { motion } from "framer-motion"
 import { Container } from "@/components/ui/container"
 import { contactContent } from "@/lib/data/content"
-import { MessageSquare } from "lucide-react"
 
 export function ContactHero() {
   const { hero } = contactContent

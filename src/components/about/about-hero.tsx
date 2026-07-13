@@ -3,7 +3,6 @@
 import { motion } from "framer-motion"
 import { Container } from "@/components/ui/container"
 import { aboutContent } from "@/lib/data/content"
-import { Leaf } from "lucide-react"
 
 export function AboutHero() {
   const { hero } = aboutContent
