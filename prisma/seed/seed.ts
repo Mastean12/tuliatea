@@ -7,8 +7,33 @@ const prisma = new PrismaClient({
   adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL! }),
 })
 
-function img(label: string, bg = "2E7D32"): string {
-  return `https://placehold.co/600x600/${bg}/FFFFFF/png?text=${encodeURIComponent(label)}`
+const UNSPLASH_BASE = "https://images.unsplash.com"
+
+const productImages: Record<string, string[]> = {
+  "serenity-green-tea": [
+    `${UNSPLASH_BASE}/photo-1556679343-c7306c1976bc?w=600&h=600&fit=crop&auto=format`,
+    `${UNSPLASH_BASE}/photo-1564890369478-c89ca6d9cde9?w=600&h=600&fit=crop&auto=format`,
+  ],
+  "kenyan-purple-tea": [
+    `${UNSPLASH_BASE}/photo-1563822249366-1ef5b2b2f9c0?w=600&h=600&fit=crop&auto=format`,
+    `${UNSPLASH_BASE}/photo-1594631252845-29fc4cc8cde9?w=600&h=600&fit=crop&auto=format`,
+  ],
+  "golden-turmeric-infusion": [
+    `${UNSPLASH_BASE}/photo-1615485290382-441e4b049d5e?w=600&h=600&fit=crop&auto=format`,
+    `${UNSPLASH_BASE}/photo-1616671016440-2d0b5eefb6b9?w=600&h=600&fit=crop&auto=format`,
+  ],
+  "rift-valley-breakfast": [
+    `${UNSPLASH_BASE}/photo-1571939228382-b2f2b585ce15?w=600&h=600&fit=crop&auto=format`,
+    `${UNSPLASH_BASE}/photo-1556679343-c7306c1976bc?w=600&h=600&fit=crop&auto=format`,
+  ],
+  "lemongrass-ginger-zest": [
+    `${UNSPLASH_BASE}/photo-1563911892437-1feda0179e1b?w=600&h=600&fit=crop&auto=format`,
+    `${UNSPLASH_BASE}/photo-1556881286-fc6915169721?w=600&h=600&fit=crop&auto=format`,
+  ],
+  "pure-kenyan-honey": [
+    `${UNSPLASH_BASE}/photo-1587040283496-5b9c5e2ef5b0?w=600&h=600&fit=crop&auto=format`,
+    `${UNSPLASH_BASE}/photo-1628761643749-64f0e54a1c16?w=600&h=600&fit=crop&auto=format`,
+  ],
 }
 
 async function main() {
@@ -126,7 +151,6 @@ async function main() {
       weight: "80g",
       servings: "25-30 cups",
       categorySlug: "green-tea",
-      image: img("Serenity+Green"),
     },
     {
       name: "Kenyan Purple Tea",
@@ -152,7 +176,6 @@ async function main() {
       weight: "75g",
       servings: "20-25 cups",
       categorySlug: "purple-tea",
-      image: img("Purple+Tea", "6A0DAD"),
     },
     {
       name: "Golden Turmeric Infusion",
@@ -177,7 +200,6 @@ async function main() {
       weight: "100g",
       servings: "20-25 cups",
       categorySlug: "herbal-infusion",
-      image: img("Golden+Turmeric", "CC7722"),
     },
     {
       name: "Rift Valley Breakfast",
@@ -201,7 +223,6 @@ async function main() {
       weight: "120g",
       servings: "40-45 cups",
       categorySlug: "black-tea",
-      image: img("Rift+Valley+Breakfast", "3E2723"),
     },
     {
       name: "Lemongrass & Ginger Zest",
@@ -225,7 +246,6 @@ async function main() {
       weight: "80g",
       servings: "20-25 cups",
       categorySlug: "herbal-infusion",
-      image: img("Lemongrass+Ginger", "8BC34A"),
     },
     {
       name: "Pure Kenyan Honey",
@@ -251,7 +271,6 @@ async function main() {
       weight: "250g",
       servings: "Approx. 50 servings",
       categorySlug: "honey",
-      image: img("Pure+Kenyan+Honey", "D4A017"),
     },
   ]
 
@@ -262,7 +281,7 @@ async function main() {
       continue
     }
 
-    const { categorySlug: _catSlug, image, ...productData } = p
+    const { categorySlug: _catSlug, ...productData } = p
 
     await prisma.product.upsert({
       where: { slug: p.slug },
@@ -270,21 +289,24 @@ async function main() {
       create: { ...productData, categoryId },
     })
 
-    // Create a primary product image
+    // Replace product images with Unsplash photography
     const existingProduct = await prisma.product.findUnique({
       where: { slug: p.slug },
     })
     if (existingProduct) {
-      const existingImages = await prisma.productImage.count({
+      // Remove old placeholder images
+      await prisma.productImage.deleteMany({
         where: { productId: existingProduct.id },
       })
-      if (existingImages === 0) {
+      // Add real Unsplash images
+      const urls = productImages[p.slug] || []
+      for (let i = 0; i < urls.length; i++) {
         await prisma.productImage.create({
           data: {
-            url: image,
+            url: urls[i],
             alt: p.name,
-            sortOrder: 0,
-            isPrimary: true,
+            sortOrder: i,
+            isPrimary: i === 0,
             productId: existingProduct.id,
           },
         })

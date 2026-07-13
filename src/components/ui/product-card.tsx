@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion"
 import Link from "next/link"
+import Image from "next/image"
 import { cn, formatPrice } from "@/lib/utils"
 import { PlaceholderImage } from "./placeholder-image"
 import { Badge } from "./badge"
@@ -53,14 +54,25 @@ export function ProductCard({
             isCompact ? "h-24 w-24 shrink-0 rounded-lg" : "rounded-t-xl"
           )}
         >
-          <PlaceholderImage
-            label={product.name}
-            variant="product"
-            className={cn(
-              "transition-transform duration-500 group-hover:scale-105",
-              isCompact ? "h-24" : ""
-            )}
-          />
+          {product.image?.startsWith("http") ? (
+            <Image
+              src={product.image}
+              alt={product.name}
+              fill
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+              className="object-cover transition-transform duration-500 group-hover:scale-105"
+              loading="lazy"
+            />
+          ) : (
+            <PlaceholderImage
+              label={product.name}
+              variant="product"
+              className={cn(
+                "transition-transform duration-500 group-hover:scale-105",
+                isCompact ? "h-24" : ""
+              )}
+            />
+          )}
           <div className="absolute right-2 top-2 flex flex-col gap-1">
             {product.isBestSeller && (
               <Badge variant="secondary" className="text-[10px] px-1.5 py-0.5">

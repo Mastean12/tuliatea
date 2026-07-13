@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion"
 import Link from "next/link"
+import Image from "next/image"
 import { ShoppingCart } from "lucide-react"
 import { formatPrice } from "@/lib/utils"
 import { PlaceholderImage } from "@/components/ui/placeholder-image"
@@ -60,10 +61,21 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
           href={routes.product(product.slug)}
           className="relative overflow-hidden rounded-t-2xl bg-muted/30 aspect-[4/3]"
         >
-          <PlaceholderImage
-            label={product.name}
-            className="absolute inset-0 h-full w-full transition-all duration-700 group-hover:scale-105"
-          />
+          {product.images[0]?.url ? (
+            <Image
+              src={product.images[0].url}
+              alt={product.images[0].alt || product.name}
+              fill
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+              className="object-cover transition-all duration-700 group-hover:scale-105"
+              loading="lazy"
+            />
+          ) : (
+            <PlaceholderImage
+              label={product.name}
+              className="absolute inset-0 h-full w-full transition-all duration-700 group-hover:scale-105"
+            />
+          )}
           {!inStock && (
             <div className="absolute inset-0 flex items-center justify-center bg-background/70">
               <span className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
