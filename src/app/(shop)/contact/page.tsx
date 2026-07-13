@@ -9,11 +9,10 @@ import { FAQSection } from "@/components/contact/faq-section"
 export const metadata: Metadata = {
   title: "Contact",
   description:
-    "Get in touch with Tullia Tea. Reach out via email, phone, WhatsApp, or our contact form. We would love to hear from you.",
+    "Get in touch with Tullia Tea. Reach out via email, phone, WhatsApp, or our contact form.",
   openGraph: {
     title: `Contact | ${siteConfig.name}`,
-    description:
-      "Get in touch with Tullia Tea. Reach out via email, phone, WhatsApp, or our contact form.",
+    description: "Get in touch with Tullia Tea.",
   },
 }
 
@@ -22,20 +21,20 @@ export default function ContactPage() {
     <>
       <ContactHero />
 
-      <section className="py-16 sm:py-24">
+      {/* Contact form + info */}
+      <section className="py-12 sm:py-16">
         <Container>
-          <div className="grid gap-12 lg:grid-cols-5">
+          <div className="grid gap-10 lg:grid-cols-5 lg:gap-14">
             <div className="lg:col-span-3">
-              <h2 className="font-heading mb-2 text-2xl font-semibold">
+              <h2 className="font-heading text-2xl font-semibold mb-2">
                 Send us a Message
               </h2>
-              <p className="mb-8 text-sm text-muted-foreground">
-                Fill out the form below and we will get back to you within 24
+              <p className="text-sm text-muted-foreground mb-8">
+                Fill out the form below and we&apos;ll get back to you within 24
                 hours.
               </p>
               <ContactForm />
             </div>
-
             <div className="lg:col-span-2">
               <ContactInfo />
             </div>
@@ -43,7 +42,8 @@ export default function ContactPage() {
         </Container>
       </section>
 
-      <section className="border-t bg-muted/30 py-16 sm:py-24">
+      {/* FAQ */}
+      <section className="bg-muted/50 py-12 sm:py-16">
         <Container>
           <div className="mx-auto max-w-3xl">
             <FAQSection />

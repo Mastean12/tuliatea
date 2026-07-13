@@ -1,6 +1,6 @@
 "use client"
 
-import { MapPin } from "lucide-react"
+import { MapPin, ExternalLink } from "lucide-react"
 
 type GoogleMapsProps = {
   address: string
@@ -16,16 +16,17 @@ export function GoogleMaps({ address, className }: GoogleMapsProps) {
       href={mapsUrl}
       target="_blank"
       rel="noopener noreferrer"
-      className={`group relative flex h-48 items-center justify-center overflow-hidden rounded-xl bg-muted transition-shadow hover:shadow-md ${className || ""}`}
+      className={`group flex items-center gap-4 rounded-xl border bg-card p-3.5 transition-all hover:bg-muted hover:border-primary/20 ${className || ""}`}
       aria-label={`View ${address} on Google Maps`}
     >
-      <div className="text-center transition-transform duration-300 group-hover:scale-105">
-        <MapPin className="mx-auto mb-2 h-8 w-8 text-muted-foreground/60" />
-        <p className="px-4 text-sm text-muted-foreground">{address}</p>
-        <p className="mt-1 text-xs text-muted-foreground/60">
-          Click to open in Google Maps
-        </p>
+      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-warm/5">
+        <MapPin className="h-5 w-5 text-warm" />
       </div>
+      <div className="flex-1 min-w-0">
+        <p className="text-xs text-muted-foreground">Find us on Google Maps</p>
+        <p className="text-sm font-medium truncate">{address}</p>
+      </div>
+      <ExternalLink className="h-4 w-4 text-muted-foreground/40 group-hover:text-primary transition-colors shrink-0" />
     </a>
   )
 }
