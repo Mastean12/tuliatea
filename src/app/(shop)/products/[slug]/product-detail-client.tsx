@@ -1,7 +1,16 @@
 "use client"
 
 import { useState } from "react"
-import { Check, Leaf, Truck, RotateCcw } from "lucide-react"
+import {
+  Check,
+  Leaf,
+  Truck,
+  RotateCcw,
+  Shield,
+  Heart,
+  Sun,
+  Droplets,
+} from "lucide-react"
 import Link from "next/link"
 import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
@@ -153,21 +162,31 @@ export function ProductDetailClient({ product, related }: Props) {
 
           <Separator />
 
-          {/* Ingredients */}
+          {/* Storytelling: Ingredients */}
           {product.ingredients && (
-            <div>
-              <h3 className="text-sm font-semibold mb-1">Ingredients</h3>
-              <p className="text-sm text-muted-foreground">
+            <div className="rounded-xl bg-primary/[0.03] border border-primary/5 p-4 space-y-3">
+              <div className="flex items-center gap-2">
+                <Leaf className="h-4 w-4 text-primary" />
+                <h3 className="text-sm font-semibold">What&apos;s Inside</h3>
+              </div>
+              <p className="text-sm text-muted-foreground leading-relaxed">
                 {product.ingredients}
+              </p>
+              <p className="text-xs text-muted-foreground/60 flex items-center gap-1.5">
+                <Shield className="h-3 w-3" />
+                100% natural, preservative-free ingredients sourced from Kenya
               </p>
             </div>
           )}
 
-          {/* Benefits */}
+          {/* Storytelling: Benefits */}
           {product.benefits && (
-            <div>
-              <h3 className="text-sm font-semibold mb-1">Benefits</h3>
-              <p className="text-sm text-muted-foreground">
+            <div className="rounded-xl bg-accent/[0.03] border border-accent/5 p-4 space-y-3">
+              <div className="flex items-center gap-2">
+                <Heart className="h-4 w-4 text-accent" />
+                <h3 className="text-sm font-semibold">Wellness Benefits</h3>
+              </div>
+              <p className="text-sm text-muted-foreground leading-relaxed">
                 {product.benefits}
               </p>
             </div>

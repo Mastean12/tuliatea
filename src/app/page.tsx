@@ -1,6 +1,6 @@
 import { Hero } from "@/components/home/hero"
 import { FeaturedProducts } from "@/components/home/featured-products"
-import { Features } from "@/components/home/features"
+import { WellnessStory } from "@/components/home/wellness-story"
 import { BestSellers } from "@/components/home/best-sellers"
 import {
   OurPromise,
@@ -15,7 +15,7 @@ export default function Home() {
     <>
       <Hero />
       <FeaturedProducts />
-      <Features />
+      <WellnessStory />
       <BestSellers />
       <OurPromise />
       <FarmToCup />
