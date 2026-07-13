@@ -1,6 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
+import Image from "next/image"
 import { aboutContent } from "@/lib/data/content"
 
 export function AboutHero() {
@@ -9,10 +10,13 @@ export function AboutHero() {
   return (
     <section className="relative overflow-hidden min-h-[50vh] sm:min-h-[55vh] flex items-center">
       <div className="absolute inset-0">
-        <img
+        <Image
           src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=1600&h=900&fit=crop&auto=format"
           alt=""
-          className="h-full w-full object-cover"
+          fill
+          sizes="100vw"
+          className="object-cover"
+          priority
           style={{ filter: "brightness(0.45)" }}
         />
       </div>

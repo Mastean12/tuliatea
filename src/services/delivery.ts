@@ -86,11 +86,11 @@ export const DEFAULT_DELIVERY_OPTIONS: DeliveryOption[] = [
   },
 ]
 
-export function getDeliveryPrice(slug: string, _county?: string): number {
+export function getDeliveryPrice(slug: string, county?: string): number {
   const option = DEFAULT_DELIVERY_OPTIONS.find((o) => o.slug === slug)
   if (!option) return 0
 
-  if (slug === "standard" && _county && _county === "Nairobi") {
+  if (slug === "standard" && county === "Nairobi") {
     return 250
   }
 

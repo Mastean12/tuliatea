@@ -205,8 +205,6 @@ export function ProductsPageClient() {
       setPage(1)
     },
     onClear: handleClear,
-    isOpen: filterOpen,
-    onToggle: () => setFilterOpen(!filterOpen),
     hasActiveFilters,
   }
 

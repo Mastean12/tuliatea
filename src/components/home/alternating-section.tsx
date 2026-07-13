@@ -26,12 +26,7 @@ export function AlternatingSection({
   return (
     <section className={cn("py-12 sm:py-16", className)}>
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div
-          className={cn(
-            "grid items-center gap-8 sm:gap-12 lg:grid-cols-2",
-            reverse && "lg:direction-rtl"
-          )}
-        >
+        <div className="grid items-center gap-8 sm:gap-12 lg:grid-cols-2">
           <motion.div
             initial={{ opacity: 0, x: reverse ? 20 : -20 }}
             whileInView={{ opacity: 1, x: 0 }}
