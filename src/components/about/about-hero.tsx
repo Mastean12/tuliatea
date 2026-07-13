@@ -7,15 +7,23 @@ export function AboutHero() {
   const { hero } = aboutContent
 
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-primary/10 via-secondary/5 to-background min-h-[50vh] flex items-center">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,rgba(46,125,50,0.08)_0%,transparent_60%),radial-gradient(ellipse_at_bottom_right,rgba(198,155,60,0.06)_0%,transparent_60%)]" />
+    <section className="relative overflow-hidden min-h-[50vh] sm:min-h-[55vh] flex items-center">
+      <div className="absolute inset-0">
+        <img
+          src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=1600&h=900&fit=crop&auto=format"
+          alt=""
+          className="h-full w-full object-cover"
+          style={{ filter: "brightness(0.45)" }}
+        />
+      </div>
+      <div className="absolute inset-0 bg-gradient-to-r from-primary/80 via-primary/50 to-transparent" />
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
-        <div className="mx-auto max-w-3xl text-center">
+        <div className="max-w-2xl">
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="font-heading text-5xl font-semibold tracking-tight sm:text-6xl lg:text-7xl"
+            className="font-heading text-5xl font-semibold tracking-tight sm:text-6xl lg:text-7xl text-white"
           >
             {hero.title}
           </motion.h1>
@@ -23,7 +31,7 @@ export function AboutHero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="mx-auto mt-4 max-w-2xl text-base sm:text-lg text-muted-foreground leading-relaxed"
+            className="mt-4 max-w-xl text-base sm:text-lg text-white/80 leading-relaxed"
           >
             {hero.subtitle}
           </motion.p>
