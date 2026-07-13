@@ -24,7 +24,7 @@ export function AlternatingSection({
   className,
 }: AlternatingSectionProps) {
   return (
-    <section className={cn("border-t py-12 sm:py-16", className)}>
+    <section className={cn("py-12 sm:py-16", className)}>
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div
           className={cn(
@@ -32,7 +32,6 @@ export function AlternatingSection({
             reverse && "lg:direction-rtl"
           )}
         >
-          {/* Image */}
           <motion.div
             initial={{ opacity: 0, x: reverse ? 20 : -20 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -40,7 +39,7 @@ export function AlternatingSection({
             transition={{ duration: 0.6 }}
             className={cn(reverse && "lg:order-1")}
           >
-            <div className="relative aspect-[4/3] sm:aspect-[4/3] overflow-hidden rounded-2xl">
+            <div className="relative aspect-[4/3] overflow-hidden rounded-2xl">
               <Image
                 src={imageUrl}
                 alt={imageAlt}
@@ -51,7 +50,6 @@ export function AlternatingSection({
             </div>
           </motion.div>
 
-          {/* Text */}
           <motion.div
             initial={{ opacity: 0, x: reverse ? -20 : 20 }}
             whileInView={{ opacity: 1, x: 0 }}
