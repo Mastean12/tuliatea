@@ -9,34 +9,22 @@ export function ContactHero() {
   const { hero } = contactContent
 
   return (
-    <section className="relative flex min-h-[40vh] items-center overflow-hidden border-b bg-gradient-to-b from-background via-primary/[0.02] to-background">
-      <Container className="relative z-10 py-20">
+    <section className="border-b bg-gradient-to-b from-background via-primary/[0.02] to-background">
+      <Container className="py-10 sm:py-12">
         <div className="mx-auto max-w-3xl text-center">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5 }}
-            className="mb-6 flex justify-center"
-          >
-            <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10">
-              <MessageSquare className="h-7 w-7 text-primary" />
-            </div>
-          </motion.div>
-
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="font-heading text-5xl font-semibold tracking-tight sm:text-6xl"
+            transition={{ duration: 0.6 }}
+            className="font-heading text-4xl font-semibold tracking-tight sm:text-5xl"
           >
             {hero.title}
           </motion.h1>
-
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground"
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-muted-foreground sm:text-base"
           >
             {hero.subtitle}
           </motion.p>

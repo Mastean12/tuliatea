@@ -10,7 +10,7 @@ export function OurPromise() {
   const { promise } = homeContent
 
   return (
-    <section className="border-t bg-primary/[0.02] py-20 sm:py-28">
+    <section className="border-t bg-primary/[0.02] py-12 sm:py-16">
       <Container>
         <div className="mx-auto max-w-3xl text-center">
           <motion.div

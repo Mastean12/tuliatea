@@ -7,7 +7,7 @@ import { testimonials } from "@/lib/data/testimonials"
 
 export function Testimonials() {
   return (
-    <section className="border-t bg-muted/30 py-20 sm:py-28">
+    <section className="border-t bg-muted/30 py-12 sm:py-16">
       <Container>
         <SectionHeading
           title="What Our Customers Say"

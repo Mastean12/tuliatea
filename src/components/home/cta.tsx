@@ -9,7 +9,7 @@ export function HomeCTA() {
   const { cta } = homeContent
 
   return (
-    <section className="py-20 sm:py-28">
+    <section className="py-12 sm:py-16">
       <Container>
         <CTABanner
           title={cta.title}
