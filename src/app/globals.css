@@ -192,6 +192,10 @@
   }
 }
 
+.print-receipt {
+  display: none;
+}
+
 @media print {
   @page {
     margin: 1.2cm;
@@ -205,6 +209,9 @@
     background: white !important;
   }
 
+  .print-receipt {
+    display: block;
+  }
   .print-receipt,
   .print-receipt * {
     visibility: visible;
