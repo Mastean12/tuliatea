@@ -2,7 +2,7 @@ export const dynamic = "force-dynamic"
 
 import { notFound } from "next/navigation"
 import Link from "next/link"
-import { ArrowLeft, MessageCircle, Mail, Printer, Phone } from "lucide-react"
+import { ArrowLeft, MessageCircle, Mail, Phone } from "lucide-react"
 import { prisma } from "@/lib/prisma"
 import { Card } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
