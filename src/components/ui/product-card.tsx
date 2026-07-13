@@ -44,16 +44,14 @@ export function ProductCard({
       <Link
         href={routes.product(product.slug)}
         className={cn(
-          "group block rounded-xl border bg-card transition-all duration-300 hover:shadow-lg hover:-translate-y-1",
-          isCompact ? "flex items-center gap-4 p-3" : ""
+          "group block rounded-2xl border bg-card transition-all duration-400 hover:shadow-[0_12px_40px_rgba(0,0,0,0.08)] hover:-translate-y-1 overflow-hidden",
+          isCompact ? "flex items-center gap-3 p-2.5" : ""
         )}
       >
         <div
           className={cn(
-            "relative overflow-hidden",
-            isCompact
-              ? "h-24 w-24 shrink-0 rounded-lg"
-              : "aspect-[4/3] rounded-t-xl"
+            "relative overflow-hidden bg-muted/20",
+            isCompact ? "h-20 w-20 shrink-0 rounded-xl" : "aspect-[1/1]"
           )}
         >
           {product.image?.startsWith("http") ? (
@@ -62,7 +60,7 @@ export function ProductCard({
               alt={product.name}
               fill
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-              className="object-cover transition-transform duration-500 group-hover:scale-105"
+              className="object-cover transition-all duration-700 group-hover:scale-110"
               loading="lazy"
             />
           ) : (
@@ -70,62 +68,75 @@ export function ProductCard({
               label={product.name}
               variant="product"
               className={cn(
-                "transition-transform duration-500 group-hover:scale-105",
-                isCompact ? "h-24" : ""
+                "transition-all duration-700 group-hover:scale-110",
+                isCompact ? "h-20" : ""
               )}
             />
           )}
-          <div className="absolute right-2 top-2 flex flex-col gap-1">
-            {product.isBestSeller && (
-              <Badge variant="secondary" className="text-[10px] px-1.5 py-0.5">
-                Bestseller
-              </Badge>
-            )}
-            {product.comparePrice && (
-              <Badge
-                variant="default"
-                className="bg-accent text-accent-foreground text-[10px] px-1.5 py-0.5"
-              >
-                Sale
-              </Badge>
-            )}
-          </div>
+          {!isCompact && (
+            <div className="absolute top-2.5 left-2.5 flex flex-col gap-1">
+              {product.isBestSeller && (
+                <Badge
+                  variant="secondary"
+                  className="text-[10px] px-2 py-0.5 font-medium bg-white/90 backdrop-blur-sm shadow-sm"
+                >
+                  Bestseller
+                </Badge>
+              )}
+              {product.comparePrice && (
+                <Badge className="bg-warm text-warm-foreground text-[10px] px-2 py-0.5 font-semibold shadow-sm">
+                  Sale
+                </Badge>
+              )}
+            </div>
+          )}
         </div>
 
-        <div className={cn("space-y-1.5", isCompact ? "flex-1" : "p-4")}>
-          <h3 className="font-heading font-semibold leading-tight group-hover:text-primary transition-colors line-clamp-1">
+        <div className={cn(isCompact ? "flex-1 min-w-0" : "p-3.5 sm:p-4")}>
+          <h3 className="font-heading text-sm sm:text-base font-semibold leading-snug group-hover:text-primary transition-colors line-clamp-1">
             {product.name}
           </h3>
-          {!isCompact && (
+          {!isCompact ? (
             <>
-              <p className="text-xs text-muted-foreground line-clamp-2 leading-relaxed">
+              <p className="mt-1 text-xs text-muted-foreground/70 line-clamp-1 leading-relaxed">
                 {product.description}
               </p>
-              {product.weight && (
-                <p className="text-xs text-muted-foreground/70">
-                  {product.weight}
-                </p>
-              )}
+              <div className="mt-2.5 flex items-center justify-between">
+                <div className="flex items-baseline gap-1.5">
+                  <span className="text-sm font-semibold tabular-nums">
+                    {formatPrice(product.price)}
+                  </span>
+                  {product.comparePrice && (
+                    <span className="text-xs text-muted-foreground/50 line-through tabular-nums">
+                      {formatPrice(product.comparePrice)}
+                    </span>
+                  )}
+                </div>
+                {product.weight && (
+                  <span className="text-[10px] text-muted-foreground/50">
+                    {product.weight}
+                  </span>
+                )}
+              </div>
+              <Button
+                variant="outline"
+                size="sm"
+                className="mt-3 w-full opacity-0 group-hover:opacity-100 transition-opacity rounded-xl"
+              >
+                View Product
+              </Button>
             </>
-          )}
-          <div className="flex items-center gap-2">
-            <span className="font-medium text-sm">
-              {formatPrice(product.price)}
-            </span>
-            {product.comparePrice && (
-              <span className="text-xs text-muted-foreground line-through">
-                {formatPrice(product.comparePrice)}
+          ) : (
+            <div className="flex items-center justify-between mt-1">
+              <span className="text-sm font-semibold tabular-nums">
+                {formatPrice(product.price)}
               </span>
-            )}
-          </div>
-          {!isCompact && (
-            <Button
-              variant="outline"
-              size="sm"
-              className="mt-2 w-full opacity-0 group-hover:opacity-100 transition-opacity"
-            >
-              View Product
-            </Button>
+              {product.comparePrice && (
+                <span className="text-xs text-muted-foreground/50 line-through tabular-nums ml-1">
+                  {formatPrice(product.comparePrice)}
+                </span>
+              )}
+            </div>
           )}
         </div>
       </Link>
