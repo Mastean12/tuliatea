@@ -22,6 +22,7 @@ type ProductCardProps = {
     weight?: string | null
     stock: number
     isFeatured?: boolean
+    isBestSeller?: boolean
     category: { name: string; slug: string }
     images: Array<{ url: string; alt?: string | null }>
   }
@@ -85,6 +86,14 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
           )}
           {/* Top badges */}
           <div className="absolute top-3 left-3 flex flex-col gap-1.5">
+            {product.isBestSeller && (
+              <Badge
+                variant="secondary"
+                className="text-[10px] px-2.5 py-0.5 font-medium bg-white/90 backdrop-blur-sm shadow-sm"
+              >
+                Bestseller
+              </Badge>
+            )}
             {product.category && (
               <Badge
                 variant="secondary"

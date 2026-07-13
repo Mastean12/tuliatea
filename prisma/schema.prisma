@@ -139,6 +139,7 @@ model Product {
   status        ProductStatus  @default(DRAFT)
   isActive      Boolean        @default(true)
   isFeatured    Boolean        @default(false)
+  isBestSeller  Boolean        @default(false)
   weight        String?
   servings      String?
   categoryId    String         @db.Uuid
