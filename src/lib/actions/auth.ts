@@ -1,6 +1,5 @@
 "use server"
 
-import { AuthError } from "next-auth"
 import bcrypt from "bcryptjs"
 import { z } from "zod"
 import { prisma } from "@/lib/prisma"
@@ -27,6 +26,7 @@ const registerSchema = z.object({
 export type LoginState = {
   success?: boolean
   error?: string
+  redirectTo?: string
   fields?: Record<string, string>
 }
 
@@ -44,49 +44,32 @@ export async function login(
     return { error: parsed.error.issues[0].message, fields: raw }
   }
 
-  try {
-    // Look up user to determine role for redirect
-    const user = await prisma.user.findUnique({
-      where: { email: parsed.data.email },
-      select: { passwordHash: true, role: true, isActive: true },
-    })
+  const user = await prisma.user.findUnique({
+    where: { email: parsed.data.email },
+    select: { passwordHash: true, role: true, isActive: true },
+  })
 
-    if (!user || !user.passwordHash || !user.isActive) {
-      return { error: "Invalid email or password", fields: raw }
-    }
-
-    const isValid = await bcrypt.compare(
-      parsed.data.password,
-      user.passwordHash
-    )
-    if (!isValid) {
-      return { error: "Invalid email or password", fields: raw }
-    }
-
-    // Role-based redirect target
-    const targetUrl =
-      user.role === "ADMIN" || user.role === "SUPER_ADMIN"
-        ? routes.admin.root
-        : routes.account.root
-
-    await signIn("credentials", {
-      email: parsed.data.email,
-      password: parsed.data.password,
-      redirectTo: targetUrl,
-    })
-
-    return { success: true }
-  } catch (error) {
-    if (error instanceof AuthError) {
-      switch (error.type) {
-        case "CredentialsSignin":
-          return { error: "Invalid email or password", fields: raw }
-        default:
-          return { error: "Authentication failed", fields: raw }
-      }
-    }
-    throw error
+  if (!user || !user.passwordHash || !user.isActive) {
+    return { error: "Invalid email or password", fields: raw }
   }
+
+  const isValid = await bcrypt.compare(parsed.data.password, user.passwordHash)
+  if (!isValid) {
+    return { error: "Invalid email or password", fields: raw }
+  }
+
+  const redirectTo =
+    user.role === "ADMIN" || user.role === "SUPER_ADMIN"
+      ? routes.admin.root
+      : routes.account.root
+
+  await signIn("credentials", {
+    email: parsed.data.email,
+    password: parsed.data.password,
+    redirectTo,
+  })
+
+  return { success: true, redirectTo }
 }
 
 export type RegisterState = {
@@ -135,7 +118,6 @@ export async function register(
       },
     })
 
-    // Customers always redirect to /account after registration
     await signIn("credentials", {
       email: parsed.data.email,
       password: parsed.data.password,
@@ -144,7 +126,7 @@ export async function register(
 
     return { success: true }
   } catch (error) {
-    if (error instanceof AuthError) {
+    if ((error as { name?: string })?.name === "AuthError") {
       return { error: "Registration failed. Please try again.", fields: raw }
     }
     throw error

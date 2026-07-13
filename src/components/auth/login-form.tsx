@@ -1,19 +1,54 @@
 "use client"
 
-import { useActionState } from "react"
+import { useState } from "react"
+import { useRouter } from "next/navigation"
 import Link from "next/link"
+import { signIn } from "next-auth/react"
 import { Loader2, Leaf } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Button } from "@/components/ui/button"
-import { login, type LoginState } from "@/lib/actions/auth"
 import { routes } from "@/config/routes"
 
 export function LoginForm() {
-  const [state, formAction, pending] = useActionState<LoginState, FormData>(
-    login,
-    {}
-  )
+  const router = useRouter()
+  const [error, setError] = useState("")
+  const [loading, setLoading] = useState(false)
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+    setLoading(true)
+    setError("")
+
+    const form = new FormData(e.currentTarget)
+    const email = form.get("email") as string
+    const password = form.get("password") as string
+
+    const result = await signIn("credentials", {
+      email,
+      password,
+      redirect: false,
+    })
+
+    if (result?.error) {
+      setError("Invalid email or password")
+      setLoading(false)
+      return
+    }
+
+    // Fetch session to get role for redirect
+    const res = await fetch("/api/auth/session")
+    const session = await res.json()
+
+    if (
+      session?.user?.role === "ADMIN" ||
+      session?.user?.role === "SUPER_ADMIN"
+    ) {
+      router.push(routes.admin.root)
+    } else {
+      router.push(routes.account.root)
+    }
+  }
 
   return (
     <div className="space-y-6">
@@ -29,13 +64,13 @@ export function LoginForm() {
         </p>
       </div>
 
-      <form action={formAction} className="space-y-4">
-        {state?.error && (
+      <form onSubmit={handleSubmit} className="space-y-4">
+        {error && (
           <div
             className="rounded-lg bg-destructive/10 px-4 py-3 text-sm text-destructive"
             role="alert"
           >
-            {state.error}
+            {error}
           </div>
         )}
 
@@ -48,7 +83,6 @@ export function LoginForm() {
             placeholder="your@email.com"
             required
             autoComplete="email"
-            defaultValue={state?.fields?.email || ""}
           />
         </div>
 
@@ -72,11 +106,10 @@ export function LoginForm() {
           />
         </div>
 
-        <Button type="submit" className="w-full" disabled={pending}>
-          {pending ? (
+        <Button type="submit" className="w-full" disabled={loading}>
+          {loading ? (
             <>
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              Signing in...
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Signing in...
             </>
           ) : (
             "Sign In"
