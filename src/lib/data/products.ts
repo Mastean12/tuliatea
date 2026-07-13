@@ -1,4 +1,5 @@
-const U = "https://images.unsplash.com/photo"
+const U = (id: string) =>
+  `https://images.unsplash.com/photo-${id}?w=600&h=600&fit=crop&auto=format`
 
 export type Product = {
   id: string
@@ -25,7 +26,7 @@ export const products: Product[] = [
     ingredients: "100% premium Kenyan black tea leaves",
     weight: "100g",
     price: 1500,
-    image: `${U}-1571939228382-b2f2b585ce15?w=600&h=600&fit=crop&auto=format`,
+    image: U("1571939228382-b2f2b585ce15"),
     category: "Black Tea",
     isFeatured: true,
     isBestSeller: true,
@@ -40,7 +41,7 @@ export const products: Product[] = [
     weight: "80g",
     price: 1800,
     comparePrice: 2200,
-    image: `${U}-1556679343-c7306c1976bc?w=600&h=600&fit=crop&auto=format`,
+    image: U("1556679343-c7306c1976bc"),
     category: "Green Tea",
     isFeatured: true,
     isBestSeller: true,
@@ -54,7 +55,7 @@ export const products: Product[] = [
     ingredients: "Turmeric, ginger, lemongrass, black pepper, cinnamon",
     weight: "100g",
     price: 2200,
-    image: `${U}-1616671016440-2d0b5eefb6b9?w=600&h=600&fit=crop&auto=format`,
+    image: U("1563911892437-1feda0179e1b"),
     category: "Herbal Infusion",
     isFeatured: true,
     isBestSeller: false,
@@ -68,7 +69,7 @@ export const products: Product[] = [
     ingredients: "100% organic Kenyan moringa leaves",
     weight: "75g",
     price: 1600,
-    image: `${U}-1594631252845-29fc4cc8cde9?w=600&h=600&fit=crop&auto=format`,
+    image: U("1594631252845-29fc4cc8cde9"),
     category: "Herbal Infusion",
     isFeatured: true,
     isBestSeller: false,
@@ -82,7 +83,7 @@ export const products: Product[] = [
     ingredients: "100% premium Kenyan black tea leaves",
     weight: "120g",
     price: 1800,
-    image: `${U}-1556679343-c7306c1976bc?w=600&h=600&fit=crop&auto=format`,
+    image: U("1556679343-c7306c1976bc"),
     category: "Black Tea",
     isFeatured: false,
     isBestSeller: true,
@@ -96,7 +97,7 @@ export const products: Product[] = [
     ingredients: "Lemongrass, ginger, lemon verbena",
     weight: "80g",
     price: 1900,
-    image: `${U}-1563911892437-1feda0179e1b?w=600&h=600&fit=crop&auto=format`,
+    image: U("1556881286-fc6915169721"),
     category: "Herbal Infusion",
     isFeatured: false,
     isBestSeller: true,
@@ -110,7 +111,7 @@ export const products: Product[] = [
     ingredients: "Kenyan black tea, bergamot oil, lavender flowers",
     weight: "100g",
     price: 2100,
-    image: `${U}-1563822249366-1ef5b2b2f9c0?w=600&h=600&fit=crop&auto=format`,
+    image: U("1571939228382-b2f2b585ce15"),
     category: "Black Tea",
     isFeatured: false,
     isBestSeller: false,
@@ -124,7 +125,7 @@ export const products: Product[] = [
     ingredients: "Chamomile flowers, honeybush, natural flavor",
     weight: "75g",
     price: 2000,
-    image: `${U}-1556881286-fc6915169721?w=600&h=600&fit=crop&auto=format`,
+    image: U("1564890369478-c89ca6d9cde9"),
     category: "Herbal Infusion",
     isFeatured: true,
     isBestSeller: false,

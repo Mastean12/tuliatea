@@ -7,32 +7,34 @@ const prisma = new PrismaClient({
   adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL! }),
 })
 
-const UNSPLASH_BASE = "https://images.unsplash.com"
+// Verified working Unsplash photos
+const U = (id: string) =>
+  `https://images.unsplash.com/photo-${id}?w=600&h=600&fit=crop&auto=format`
 
 const productImages: Record<string, string[]> = {
   "serenity-green-tea": [
-    `${UNSPLASH_BASE}/photo-1556679343-c7306c1976bc?w=600&h=600&fit=crop&auto=format`,
-    `${UNSPLASH_BASE}/photo-1564890369478-c89ca6d9cde9?w=600&h=600&fit=crop&auto=format`,
+    U("1556679343-c7306c1976bc"),
+    U("1564890369478-c89ca6d9cde9"),
   ],
   "kenyan-purple-tea": [
-    `${UNSPLASH_BASE}/photo-1563822249366-1ef5b2b2f9c0?w=600&h=600&fit=crop&auto=format`,
-    `${UNSPLASH_BASE}/photo-1594631252845-29fc4cc8cde9?w=600&h=600&fit=crop&auto=format`,
+    U("1594631252845-29fc4cc8cde9"),
+    U("1556881286-fc6915169721"),
   ],
   "golden-turmeric-infusion": [
-    `${UNSPLASH_BASE}/photo-1616671016440-2d0b5eefb6b9?w=600&h=600&fit=crop&auto=format`,
-    `${UNSPLASH_BASE}/photo-1563911892437-1feda0179e1b?w=600&h=600&fit=crop&auto=format`,
+    U("1563911892437-1feda0179e1b"),
+    U("1594631252845-29fc4cc8cde9"),
   ],
   "rift-valley-breakfast": [
-    `${UNSPLASH_BASE}/photo-1571939228382-b2f2b585ce15?w=600&h=600&fit=crop&auto=format`,
-    `${UNSPLASH_BASE}/photo-1556679343-c7306c1976bc?w=600&h=600&fit=crop&auto=format`,
+    U("1571939228382-b2f2b585ce15"),
+    U("1556679343-c7306c1976bc"),
   ],
   "lemongrass-ginger-zest": [
-    `${UNSPLASH_BASE}/photo-1563911892437-1feda0179e1b?w=600&h=600&fit=crop&auto=format`,
-    `${UNSPLASH_BASE}/photo-1556881286-fc6915169721?w=600&h=600&fit=crop&auto=format`,
+    U("1563911892437-1feda0179e1b"),
+    U("1556881286-fc6915169721"),
   ],
   "pure-kenyan-honey": [
-    `${UNSPLASH_BASE}/photo-1587040283496-5b9c5e2ef5b0?w=600&h=600&fit=crop&auto=format`,
-    `${UNSPLASH_BASE}/photo-1628761643749-64f0e54a1c16?w=600&h=600&fit=crop&auto=format`,
+    U("1556881286-fc6915169721"),
+    U("1564890369478-c89ca6d9cde9"),
   ],
 }
 
