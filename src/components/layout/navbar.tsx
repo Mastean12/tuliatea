@@ -112,7 +112,10 @@ export function Navbar() {
                   <Button
                     variant="ghost"
                     size="sm"
-                    onClick={() => signOut({ redirectTo: routes.home })}
+                    onClick={async () => {
+                      await signOut({ redirect: false })
+                      window.location.href = routes.home
+                    }}
                     className="text-muted-foreground/70"
                   >
                     Sign Out
@@ -192,7 +195,10 @@ export function Navbar() {
                       </Link>
                     )}
                     <button
-                      onClick={() => signOut({ redirectTo: routes.home })}
+                      onClick={async () => {
+                        await signOut({ redirect: false })
+                        window.location.href = routes.home
+                      }}
                       className="rounded-lg px-3 py-2.5 text-left text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted"
                     >
                       Sign Out

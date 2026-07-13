@@ -1,7 +1,6 @@
 "use client"
 
 import { useState } from "react"
-import { useRouter } from "next/navigation"
 import Link from "next/link"
 import { signIn } from "next-auth/react"
 import { Loader2, Leaf } from "lucide-react"
@@ -11,7 +10,6 @@ import { Button } from "@/components/ui/button"
 import { routes } from "@/config/routes"
 
 export function LoginForm() {
-  const router = useRouter()
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
 
@@ -36,18 +34,14 @@ export function LoginForm() {
       return
     }
 
-    // Fetch session to get role for redirect
+    // Full page reload to ensure session is picked up by SessionProvider
     const res = await fetch("/api/auth/session")
     const session = await res.json()
-
-    if (
-      session?.user?.role === "ADMIN" ||
-      session?.user?.role === "SUPER_ADMIN"
-    ) {
-      router.push(routes.admin.root)
-    } else {
-      router.push(routes.account.root)
-    }
+    const target =
+      session?.user?.role === "ADMIN" || session?.user?.role === "SUPER_ADMIN"
+        ? routes.admin.root
+        : routes.account.root
+    window.location.href = target
   }
 
   return (
