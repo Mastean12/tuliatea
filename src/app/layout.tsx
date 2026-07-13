@@ -60,6 +60,7 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${fontSans.variable} ${fontHeading.variable} h-full`}
+      data-scroll-behavior="smooth"
     >
       <body className="min-h-full flex flex-col">
         <Providers>

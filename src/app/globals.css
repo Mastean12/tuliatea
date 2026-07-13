@@ -219,7 +219,7 @@
   }
 
   html {
-    @apply scroll-smooth;
+    scroll-behavior: auto;
   }
 
   h1,
