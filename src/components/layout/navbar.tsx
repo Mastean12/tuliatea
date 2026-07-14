@@ -46,7 +46,7 @@ export function Navbar() {
               className="flex items-center gap-2 font-heading text-xl font-semibold tracking-tight"
             >
               <Image
-                src="/images/TulliaTeaLogo.png"
+                src="/images/Tulliatealogo.png"
                 alt="Tullia Tea"
                 width={28}
                 height={28}

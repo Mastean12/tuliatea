@@ -15,7 +15,7 @@ export default function AuthLayout({
           className="flex items-center gap-2 font-heading text-lg font-semibold"
         >
           <Image
-            src="/images/TulliaTeaLogo.png"
+            src="/images/Tulliatealogo.png"
             alt="Tullia Tea"
             width={22}
             height={22}
