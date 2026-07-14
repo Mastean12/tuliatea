@@ -25,7 +25,7 @@ export default function ProductsPage() {
             <span className="mx-1.5">/</span>
             <span className="text-foreground/70">Shop</span>
           </nav>
-          <h1 className="font-heading text-3xl font-semibold tracking-tight sm:text-4xl">
+          <h1 className="font-heading text-3xl font-semibold tracking-tight sm:text-4xl text-primary">
             Our Collection
           </h1>
           <p className="mt-1 max-w-lg text-sm text-muted-foreground/70 leading-relaxed">
