@@ -3,6 +3,7 @@ import { siteConfig } from "@/config/site"
 import { AboutHero } from "@/components/about/about-hero"
 import { StorySection } from "@/components/about/story-section"
 import { ValuesSection } from "@/components/about/values-section"
+import { TimelineSection } from "@/components/about/timeline-section"
 import { AboutCTA } from "@/components/about/about-cta"
 
 export const metadata: Metadata = {
@@ -22,6 +23,7 @@ export default function AboutPage() {
       <AboutHero />
       <StorySection />
       <ValuesSection />
+      <TimelineSection />
       <AboutCTA />
     </>
   )

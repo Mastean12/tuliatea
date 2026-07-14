@@ -1,38 +1,50 @@
 export const homeContent = {
   hero: {
-    title: "Elevating Everyday Wellness",
+    title: "Handcrafted Kenyan Specialty Teas & Herbal Infusions",
     subtitle:
-      "Premium Kenyan specialty teas and herbal infusions crafted using natural, preservative-free ingredients.",
+      "Pure, natural and preservative-free blends crafted from sustainably sourced ingredients to elevate everyday wellness.",
     ctaPrimary: "Shop Collection",
     ctaSecondary: "Learn Our Story",
   },
   features: {
     title: "Why Choose Tullia Tea",
-    subtitle: "Crafted with care from the Kenyan highlands to your cup.",
+    subtitle: "Crafted with integrity from the Kenyan highlands to your cup.",
     items: [
       {
-        title: "Kenyan Sourced",
+        title: "Sustainably Sourced",
         description:
-          "Our tea is sourced directly from local farmers across Kenya's premium tea-growing regions, including the Rift Valley and the central highlands.",
+          "Our ingredients are responsibly sourced from local farmers who practice eco-friendly agriculture.",
         icon: "globe",
+      },
+      {
+        title: "Preservative-Free",
+        description:
+          "No artificial additives, flavors, or preservatives. Just pure, natural ingredients.",
+        icon: "shield",
       },
       {
         title: "Handcrafted in Kenya",
         description:
-          "Small-batch production ensures quality and authenticity in every sip. Every blend reflects Kenyan craftsmanship and dedication.",
+          "Small-batch production ensures quality and authenticity in every sip.",
         icon: "heart",
       },
       {
-        title: "Preservative Free",
+        title: "Predominantly Organic",
         description:
-          "No artificial additives, flavors, or preservatives. Just pure natural ingredients grown in Kenya's fertile highlands.",
-        icon: "shield",
+          "Our teas and infusions are made with predominantly organic ingredients from Kenyan farms.",
+        icon: "leaf",
+      },
+      {
+        title: "Supporting Farmers",
+        description:
+          "We partner directly with small-scale Kenyan farmers, paying fair prices and investing in communities.",
+        icon: "globe",
       },
       {
         title: "Wellness Focused",
         description:
-          "Every product is designed with your well-being in mind — natural ingredients that nurture both body and mind.",
-        icon: "leaf",
+          "Every product is designed with your well-being in mind — natural ingredients that nurture body and mind.",
+        icon: "sun",
       },
     ],
   },
@@ -41,8 +53,8 @@ export const homeContent = {
     subtitle: "Quality, Wellness, Sustainability",
     paragraphs: [
       "At Tullia Tea, we believe wellness begins with what you consume. That is why every blend we create starts with the finest ingredients sourced directly from Kenyan farmers who share our commitment to quality.",
-      "Our teas are handcrafted in small batches to preserve their natural goodness, ensuring you receive the freshest, most flavorful experience with every cup. From the lush highlands to your kitchen, we bring you the authentic taste of Kenya.",
-      "We are committed to sustainable practices that protect our environment and empower local communities. By choosing Tullia Tea, you are not just nurturing your own wellness — you are supporting a brighter future for Kenyan farmers and their families.",
+      "Our teas are handcrafted in small batches to preserve their natural goodness, ensuring you receive the freshest, most flavorful experience with every cup.",
+      "We are committed to sustainable practices that protect our environment and empower local communities. By choosing Tullia Tea, you are supporting a brighter future for Kenyan farmers and their families.",
     ],
   },
   cta: {
@@ -54,6 +66,95 @@ export const homeContent = {
   },
 } as const
 
+export const ingredientsContent = {
+  title: "Our Ingredients",
+  subtitle: "Nature's finest, sourced from the Kenyan highlands.",
+  items: [
+    {
+      name: "Green Tea",
+      desc: "Antioxidant-rich leaves hand-picked from Kenyan highlands.",
+      icon: "leaf",
+    },
+    {
+      name: "Purple Tea",
+      desc: "Rare anthocyanin-rich tea unique to Kenya.",
+      icon: "leaf",
+    },
+    {
+      name: "Chamomile",
+      desc: "Calming floral petals for peaceful relaxation.",
+      icon: "sun",
+    },
+    {
+      name: "Hibiscus",
+      desc: "Vibrant crimson petals packed with vitamin C.",
+      icon: "sun",
+    },
+    {
+      name: "Turmeric",
+      desc: "Golden root known for anti-inflammatory properties.",
+      icon: "star",
+    },
+    {
+      name: "Baobab",
+      desc: "Vitamin-rich fruit powder from the African superfruit.",
+      icon: "star",
+    },
+    {
+      name: "Peppermint",
+      desc: "Cooling leaves that aid digestion and refresh.",
+      icon: "leaf",
+    },
+    {
+      name: "Shell Ginger",
+      desc: "Aromatic ginger variety with a subtle floral note.",
+      icon: "star",
+    },
+    {
+      name: "Lemon Verbena",
+      desc: "Citrusy herb that soothes and invigorates.",
+      icon: "leaf",
+    },
+  ],
+}
+
+export const wellnessBenefits = {
+  title: "Wellness Benefits",
+  subtitle: "Every cup supports your journey to better health.",
+  items: [
+    {
+      title: "Energy & Focus",
+      desc: "Natural caffeine from premium tea leaves provides clean, sustained energy without jitters.",
+      icon: "sun",
+    },
+    {
+      title: "Immune Support",
+      desc: "Rich in antioxidants, vitamins, and minerals that strengthen your body's natural defenses.",
+      icon: "shield",
+    },
+    {
+      title: "Better Digestion",
+      desc: "Soothing herbal blends like peppermint and chamomile support healthy digestion.",
+      icon: "heart",
+    },
+    {
+      title: "Heart Health",
+      desc: "Compounds in green and purple tea may help maintain healthy cardiovascular function.",
+      icon: "heart",
+    },
+    {
+      title: "Weight Management",
+      desc: "Natural metabolism-supporting properties in green tea assist healthy weight management.",
+      icon: "sun",
+    },
+    {
+      title: "Relaxation",
+      desc: "Caffeine-free herbal infusions promote calmness and restful sleep.",
+      icon: "star",
+    },
+  ],
+}
+
 export const aboutContent = {
   hero: {
     title: "Our Story",
@@ -62,20 +163,25 @@ export const aboutContent = {
   },
   mission: {
     title: "Our Mission",
-    body: "To share the finest Kenyan wellness teas with the world, creating moments of tranquility and nourishment through naturally crafted blends.",
+    body: "Build a trusted brand that empowers Kenyan farmers, creates jobs and prioritizes sustainability.",
   },
   vision: {
     title: "Our Vision",
-    body: "To become Africa's most trusted wellness tea brand, recognized globally for quality, sustainability, and authentic Kenyan heritage.",
+    body: "Become a leading African exporter of premium specialty teas and herbal infusions.",
   },
   values: {
     title: "Our Values",
     subtitle: "The principles that guide every blend we create.",
     items: [
       {
-        title: "Quality First",
+        title: "Quality",
         description:
           "We never compromise on quality. Every leaf is carefully selected, every blend taste-tested to ensure perfection.",
+      },
+      {
+        title: "Wellness",
+        description:
+          "Every product is designed with your well-being in mind — natural ingredients, no additives, just pure goodness.",
       },
       {
         title: "Sustainability",
@@ -83,14 +189,19 @@ export const aboutContent = {
           "We are committed to eco-friendly practices that protect Kenya's natural beauty and support local farming communities.",
       },
       {
-        title: "Wellness Focused",
-        description:
-          "Every product is designed with your well-being in mind — natural ingredients, no additives, just pure goodness.",
-      },
-      {
-        title: "Community Driven",
+        title: "Community",
         description:
           "We work directly with small-scale farmers, paying fair prices and investing in local development.",
+      },
+      {
+        title: "Innovation",
+        description:
+          "We continuously explore new blends and ingredients to bring you the finest wellness teas from Africa.",
+      },
+      {
+        title: "Authenticity",
+        description:
+          "Every cup tells the true story of Kenyan craftsmanship, heritage, and dedication to quality.",
       },
     ],
   },
@@ -98,16 +209,16 @@ export const aboutContent = {
     title: "Our Journey",
     subtitle: "Rooted in Kenya, Branched for the World.",
     paragraphs: [
-      "Tullia Tea was born from a simple belief: that the finest wellness teas deserve to be shared with the world. Founded by Rectangular Foods, we set out to create a brand that celebrates Kenya's rich tea-growing heritage while delivering premium quality to health-conscious individuals everywhere.",
+      "Tullia Tea is the signature brand of Rectangular Foods, a Kenyan agribusiness established in 2022 with a vision to share the finest African wellness teas with the world.",
       "Our journey begins in the lush, fertile highlands of Kenya, where our tea gardens benefit from rich volcanic soil, abundant rainfall, and the perfect altitude for growing exceptional tea. Working alongside local farmers who have cultivated these lands for generations, we select only the finest leaves for our blends.",
-      "Every blend at Tullia Tea is handcrafted in small batches to preserve its natural goodness. From the bold notes of our Kenyan breakfast blends to the soothing aroma of our herbal infusions, each cup tells a story of Kenyan craftsmanship and dedication to quality.",
+      "Every blend at Tullia Tea is handcrafted in small batches to preserve its natural goodness. From orthodox green teas to rare purple teas and soothing herbal infusions, each cup tells a story of Kenyan craftsmanship and dedication to quality.",
       "As we grow, our commitment to sustainability and community remains unwavering. We invest in eco-friendly farming practices, support local education initiatives, and strive to create a positive impact that extends far beyond the tea cup.",
     ],
   },
   sustainability: {
     title: "Our Commitment to Sustainability",
     subtitle: "Caring for the land that nurtures us.",
-    body: "Sustainability is at the heart of everything we do. From working with farmers who use responsible farming methods to minimizing our packaging waste, we are constantly seeking ways to reduce our environmental footprint. We believe that a brand that gives back to the earth and its people creates not just better tea, but a better future.",
+    body: "Sustainability is at the heart of everything we do. From working with farmers who use organic farming methods to minimizing our packaging waste, we are constantly seeking ways to reduce our environmental footprint. We believe that a brand that gives back to the earth and its people creates not just better tea, but a better future. Our commitment includes organic sourcing practices, supporting Kenyan farmers through fair trade, responsible farming methods, environmental stewardship, and creating local jobs that strengthen communities.",
   },
   cta: {
     title: "Experience the Tullia Difference",
@@ -161,3 +272,31 @@ export const contactContent = {
     },
   ],
 } as const
+
+export const timelineEvents = [
+  {
+    year: "2022",
+    label: "Company Founded",
+    desc: "Rectangular Foods established, launching Tullia Tea as its signature brand.",
+  },
+  {
+    year: "2023",
+    label: "Product Development",
+    desc: "Developed our range of specialty teas and herbal infusions with Kenyan farmers.",
+  },
+  {
+    year: "2024",
+    label: "Farmer Partnerships",
+    desc: "Built direct partnerships with small-scale farmers across Kenya's tea-growing regions.",
+  },
+  {
+    year: "2025",
+    label: "Online Store",
+    desc: "Launched our e-commerce platform to bring Tullia Tea directly to customers worldwide.",
+  },
+  {
+    year: "2026+",
+    label: "African Expansion",
+    desc: "Expanding our reach across Africa and into international markets.",
+  },
+]

@@ -12,30 +12,39 @@ const U = (id: string) =>
   `https://images.unsplash.com/photo-${id}?w=600&h=600&fit=crop&auto=format`
 
 const productImages: Record<string, string[]> = {
-  "serenity-green-tea": [
+  "pure-orthodox-green-tea": [
     U("1556679343-c7306c1976bc"),
     U("1564890369478-c89ca6d9cde9"),
   ],
-  "kenyan-purple-tea": [
-    U("1594631252845-29fc4cc8cde9"),
-    U("1556881286-fc6915169721"),
-  ],
-  "golden-turmeric-infusion": [
-    U("1563911892437-1feda0179e1b"),
-    U("1594631252845-29fc4cc8cde9"),
-  ],
-  "rift-valley-breakfast": [
-    U("1571939228382-b2f2b585ce15"),
+  "green-tea-with-shell-ginger": [
+    U("1564890369478-c89ca6d9cde9"),
     U("1556679343-c7306c1976bc"),
   ],
-  "lemongrass-ginger-zest": [
+  "pure-green-tea": [
+    U("1556679343-c7306c1976bc"),
+    U("1564890369478-c89ca6d9cde9"),
+  ],
+  "pure-orthodox-purple-tea": [
+    U("1594631252845-29fc4cc8cde9"),
+    U("1556881286-fc6915169721"),
+  ],
+  "purple-tea-with-lemon-verbena": [
+    U("1556881286-fc6915169721"),
+    U("1594631252845-29fc4cc8cde9"),
+  ],
+  "chamomile-with-peppermint": [
+    U("1556881286-fc6915169721"),
+    U("1563911892437-1feda0179e1b"),
+  ],
+  "hibiscus-with-lemongrass": [
     U("1563911892437-1feda0179e1b"),
     U("1556881286-fc6915169721"),
   ],
-  "pure-kenyan-honey": [
-    U("1556881286-fc6915169721"),
-    U("1564890369478-c89ca6d9cde9"),
+  "turmeric-with-baobab": [
+    U("1563911892437-1feda0179e1b"),
+    U("1594631252845-29fc4cc8cde9"),
   ],
+  "pure-honey": [U("1556881286-fc6915169721"), U("1564890369478-c89ca6d9cde9")],
 }
 
 async function main() {
@@ -103,12 +112,6 @@ async function main() {
       description: "Pure raw Kenyan honey",
       sortOrder: 4,
     },
-    {
-      name: "Black Tea",
-      slug: "black-tea",
-      description: "Full-bodied premium Kenyan black teas",
-      sortOrder: 5,
-    },
   ]
 
   for (const cat of categoryData) {
@@ -130,24 +133,23 @@ async function main() {
   // ── Products ──────────────────────────────────────────
   const products = [
     {
-      name: "Serenity Green Tea",
-      slug: "serenity-green-tea",
-      shortDesc: "A delicate, soothing green tea with grassy notes",
+      name: "Pure Orthodox Green Tea",
+      slug: "pure-orthodox-green-tea",
+      shortDesc: "Traditional orthodox green tea from Kenyan highlands",
       description:
-        "A delicate, soothing green tea with grassy notes and a clean finish. Sourced from the finest tea gardens in Kenya. Light, refreshing, and packed with natural antioxidants that support overall wellness.",
+        "A premium orthodox green tea made from carefully selected tea leaves. Light, refreshing, and packed with natural antioxidants. The traditional processing method preserves the leaf's natural character and delicate flavor profile.",
       ingredients: "100% premium Kenyan green tea leaves",
       benefits:
-        "High in catechins, boosts metabolism, supports brain function, rich in antioxidants",
+        "High in catechins, boosts metabolism, supports brain function, rich in antioxidants. Best enjoyed in the morning or early afternoon for a gentle energy lift.",
       brewingGuide:
-        "Heat water to 80°C. Steep 1 teaspoon per cup for 2-3 minutes. Do not use boiling water.",
+        "Heat water to 80°C. Steep 1 teaspoon per cup for 2-3 minutes. Do not use boiling water. Best time to drink: Morning or early afternoon.",
       deliveryInfo:
         "Delivered within 1-3 business days in Nairobi, 3-7 days nationwide.",
       returnInfo:
         "If unsatisfied, contact us within 14 days of delivery for a full refund or exchange.",
-      tags: "green-tea,antioxidant,light,refreshing,kenyan",
+      tags: "green-tea,orthodox,antioxidant,kenyan",
       price: 1800,
-      comparePrice: 2200,
-      stock: 35,
+      stock: 50,
       isFeatured: true,
       isBestSeller: true,
       status: ProductStatus.PUBLISHED,
@@ -156,105 +158,185 @@ async function main() {
       categorySlug: "green-tea",
     },
     {
-      name: "Kenyan Purple Tea",
-      slug: "kenyan-purple-tea",
-      shortDesc: "A rare, antioxidant-rich purple tea from Kenya",
+      name: "Green Tea with Shell Ginger",
+      slug: "green-tea-with-shell-ginger",
+      shortDesc: "Green tea infused with aromatic shell ginger",
       description:
-        "A rare and exquisite purple tea from Kenya. Naturally rich in anthocyanins — the same antioxidants found in blueberries. Smooth, slightly sweet, with a unique earthy flavor profile you won't find anywhere else.",
-      ingredients: "100% Kenyan purple tea leaves",
+        "A fragrant blend of premium Kenyan green tea and shell ginger. The subtle floral and spicy notes of shell ginger complement the grassy freshness of green tea, creating a uniquely aromatic and soothing cup.",
+      ingredients: "Kenyan green tea, shell ginger",
       benefits:
-        "High in anthocyanins, supports heart health, rich in antioxidants, unique flavor",
+        "Aids digestion, reduces inflammation, supports immunity. The shell ginger adds a warming quality that makes this blend ideal for afternoon enjoyment.",
       brewingGuide:
-        "Heat water to 85°C. Steep 1 teaspoon per cup for 2-3 minutes. Watch the color transform from green to purple.",
+        "Heat water to 80°C. Steep 1 teaspoon per cup for 2-3 minutes. Best time to drink: Afternoon.",
       deliveryInfo:
         "Delivered within 1-3 business days in Nairobi, 3-7 days nationwide.",
       returnInfo:
         "If unsatisfied, contact us within 14 days of delivery for a full refund or exchange.",
-      tags: "purple-tea,antioxidant,rare,premium,kenyan",
+      tags: "green-tea,ginger,aromatic,kenyan",
+      price: 2200,
+      stock: 30,
+      isFeatured: true,
+      isBestSeller: false,
+      status: ProductStatus.PUBLISHED,
+      weight: "80g",
+      servings: "25-30 cups",
+      categorySlug: "green-tea",
+    },
+    {
+      name: "Pure Green Tea",
+      slug: "pure-green-tea",
+      shortDesc: "Classic pure Kenyan green tea",
+      description:
+        "A clean, pure green tea from the Kenyan highlands. Bright, vegetal notes with a smooth finish. This everyday green tea delivers consistent quality and refreshing taste in every cup.",
+      ingredients: "100% premium Kenyan green tea leaves",
+      benefits:
+        "Rich in antioxidants, supports heart health, boosts metabolism. Perfect for daily wellness routines.",
+      brewingGuide:
+        "Heat water to 80°C. Steep 1 teaspoon per cup for 2-3 minutes. Best time to drink: Morning or afternoon.",
+      deliveryInfo:
+        "Delivered within 1-3 business days in Nairobi, 3-7 days nationwide.",
+      returnInfo:
+        "If unsatisfied, contact us within 14 days of delivery for a full refund or exchange.",
+      tags: "green-tea,classic,daily,kenyan",
+      price: 1500,
+      stock: 60,
+      isFeatured: true,
+      isBestSeller: true,
+      status: ProductStatus.PUBLISHED,
+      weight: "100g",
+      servings: "30-35 cups",
+      categorySlug: "green-tea",
+    },
+    {
+      name: "Pure Orthodox Purple Tea",
+      slug: "pure-orthodox-purple-tea",
+      shortDesc: "Rare orthodox purple tea from Kenya",
+      description:
+        "A rare and exquisite purple tea from Kenya. Naturally rich in anthocyanins — the same antioxidants found in blueberries. The orthodox processing method preserves the tea's unique purple hue and smooth, slightly sweet flavor.",
+      ingredients: "100% Kenyan purple tea leaves",
+      benefits:
+        "High in anthocyanins, supports heart health, rich in antioxidants, unique flavor profile. A premium tea for connoisseurs.",
+      brewingGuide:
+        "Heat water to 85°C. Steep 1 teaspoon per cup for 2-3 minutes. Watch the color transform from green to purple. Best time to drink: Afternoon.",
+      deliveryInfo:
+        "Delivered within 1-3 business days in Nairobi, 3-7 days nationwide.",
+      returnInfo:
+        "If unsatisfied, contact us within 14 days of delivery for a full refund or exchange.",
+      tags: "purple-tea,orthodox,antioxidant,premium,kenyan",
       price: 2800,
       comparePrice: 3200,
-      stock: 15,
+      stock: 20,
       isFeatured: true,
+      isBestSeller: true,
       status: ProductStatus.PUBLISHED,
       weight: "75g",
       servings: "20-25 cups",
       categorySlug: "purple-tea",
     },
     {
-      name: "Golden Turmeric Infusion",
-      slug: "golden-turmeric-infusion",
-      shortDesc: "Warming turmeric, ginger & lemongrass blend",
+      name: "Purple Tea with Lemon Verbena",
+      slug: "purple-tea-with-lemon-verbena",
+      shortDesc: "Purple tea blended with refreshing lemon verbena",
       description:
-        "A warming, golden blend of turmeric, ginger, and lemongrass. Naturally caffeine-free and perfect for any time of day. This aromatic infusion is deeply nourishing and supports natural immunity.",
-      ingredients: "Turmeric, ginger, lemongrass, black pepper, cinnamon",
+        "A vibrant blend of rare Kenyan purple tea and lemon verbena. The citrusy, refreshing notes of lemon verbena perfectly complement the smooth, earthy character of purple tea. A uniquely uplifting cup.",
+      ingredients: "Kenyan purple tea, lemon verbena",
       benefits:
-        "Anti-inflammatory, supports immunity, aids digestion, warming and soothing",
+        "Rich in anthocyanins, aids digestion, refreshing, supports relaxation. The lemon verbena adds a calming yet uplifting quality.",
       brewingGuide:
-        "Boil water to 100°C. Steep 1 tablespoon per cup for 5-7 minutes. Add honey to taste.",
+        "Heat water to 85°C. Steep 1 teaspoon per cup for 2-3 minutes. Best time to drink: Afternoon or evening.",
       deliveryInfo:
         "Delivered within 1-3 business days in Nairobi, 3-7 days nationwide.",
       returnInfo:
         "If unsatisfied, contact us within 14 days of delivery for a full refund or exchange.",
-      tags: "herbal,turmeric,wellness,caffeine-free,immunity",
-      price: 2200,
+      tags: "purple-tea,lemon-verbena,refreshing,kenyan",
+      price: 2600,
+      stock: 25,
+      isFeatured: false,
+      isBestSeller: false,
+      status: ProductStatus.PUBLISHED,
+      weight: "75g",
+      servings: "20-25 cups",
+      categorySlug: "purple-tea",
+    },
+    {
+      name: "Chamomile with Peppermint",
+      slug: "chamomile-with-peppermint",
+      shortDesc: "Soothing chamomile blended with cooling peppermint",
+      description:
+        "A calming caffeine-free blend of chamomile flowers and peppermint leaves. The sweet, apple-like notes of chamomile are balanced by the cool, refreshing finish of peppermint. Perfect for evening relaxation.",
+      ingredients: "Chamomile flowers, peppermint leaves",
+      benefits:
+        "Promotes relaxation, aids digestion, reduces anxiety, caffeine-free. Ideal for evening wind-down or after meals.",
+      brewingGuide:
+        "Boil water to 100°C. Steep 1 tablespoon per cup for 5-7 minutes. Best time to drink: Evening or before bed.",
+      deliveryInfo:
+        "Delivered within 1-3 business days in Nairobi, 3-7 days nationwide.",
+      returnInfo:
+        "If unsatisfied, contact us within 14 days of delivery for a full refund or exchange.",
+      tags: "herbal,chamomile,peppermint,bedtime,caffeine-free",
+      price: 2000,
+      stock: 35,
+      isFeatured: true,
+      isBestSeller: false,
+      status: ProductStatus.PUBLISHED,
+      weight: "80g",
+      servings: "25-30 cups",
+      categorySlug: "herbal-infusion",
+    },
+    {
+      name: "Hibiscus with Lemongrass",
+      slug: "hibiscus-with-lemongrass",
+      shortDesc: "Vibrant hibiscus with zesty lemongrass",
+      description:
+        "A vibrant, tangy herbal infusion made from hibiscus petals and lemongrass. Naturally caffeine-free and packed with vitamin C. Bright crimson in color with a refreshing citrus finish.",
+      ingredients: "Hibiscus flowers, lemongrass",
+      benefits:
+        "Rich in vitamin C, supports immunity, aids hydration, refreshing. Enjoy hot or iced for a refreshing wellness drink.",
+      brewingGuide:
+        "Boil water to 100°C. Steep 1 tablespoon per cup for 5-7 minutes. Serve hot or chilled over ice. Best time to drink: Any time of day.",
+      deliveryInfo:
+        "Delivered within 1-3 business days in Nairobi, 3-7 days nationwide.",
+      returnInfo:
+        "If unsatisfied, contact us within 14 days of delivery for a full refund or exchange.",
+      tags: "herbal,hibiscus,lemongrass,vitamin-c,caffeine-free",
+      price: 1900,
+      stock: 30,
+      isFeatured: false,
+      isBestSeller: false,
+      status: ProductStatus.PUBLISHED,
+      weight: "80g",
+      servings: "25-30 cups",
+      categorySlug: "herbal-infusion",
+    },
+    {
+      name: "Turmeric with Baobab",
+      slug: "turmeric-with-baobab",
+      shortDesc: "Golden turmeric blended with vitamin-rich baobab",
+      description:
+        "A warming, golden blend of turmeric and baobab fruit powder. Turmeric's earthy, anti-inflammatory properties are complemented by the tangy, vitamin C-rich baobab. Naturally caffeine-free and deeply nourishing.",
+      ingredients: "Turmeric, baobab powder, ginger, black pepper",
+      benefits:
+        "Anti-inflammatory, rich in vitamin C, supports immunity, aids digestion. The black pepper enhances turmeric absorption.",
+      brewingGuide:
+        "Boil water to 100°C. Steep 1 tablespoon per cup for 5-7 minutes. Add honey to taste. Best time to drink: Morning or afternoon.",
+      deliveryInfo:
+        "Delivered within 1-3 business days in Nairobi, 3-7 days nationwide.",
+      returnInfo:
+        "If unsatisfied, contact us within 14 days of delivery for a full refund or exchange.",
+      tags: "herbal,turmeric,baobab,immunity,caffeine-free",
+      price: 2400,
       stock: 25,
       isFeatured: true,
+      isBestSeller: false,
       status: ProductStatus.PUBLISHED,
       weight: "100g",
       servings: "20-25 cups",
       categorySlug: "herbal-infusion",
     },
     {
-      name: "Rift Valley Breakfast",
-      slug: "rift-valley-breakfast",
-      shortDesc: "Bold, malty black tea from the Great Rift Valley",
-      description:
-        "A robust, full-bodied breakfast blend from the Great Rift Valley. Malty notes with a satisfying finish. The perfect start to your day. This classic Kenyan black tea is beloved by tea connoisseurs worldwide.",
-      ingredients: "100% premium Kenyan black tea leaves",
-      benefits: "Natural energy, rich flavor, supports focus and alertness",
-      brewingGuide:
-        "Boil water to 100°C. Steep 1 teaspoon per cup for 3-4 minutes. Serve with milk and sugar to taste.",
-      deliveryInfo:
-        "Delivered within 1-3 business days in Nairobi, 3-7 days nationwide.",
-      returnInfo:
-        "If unsatisfied, contact us within 14 days of delivery for a full refund or exchange.",
-      tags: "black-tea,breakfast,classic,malty,kenyan",
-      price: 1800,
-      stock: 60,
-      isFeatured: true,
-      isBestSeller: true,
-      status: ProductStatus.PUBLISHED,
-      weight: "120g",
-      servings: "40-45 cups",
-      categorySlug: "black-tea",
-    },
-    {
-      name: "Lemongrass & Ginger Zest",
-      slug: "lemongrass-ginger-zest",
-      shortDesc: "Refreshing, zesty herbal infusion",
-      description:
-        "A refreshing, zesty herbal infusion made from Kenyan-grown lemongrass and ginger. Naturally caffeine-free and invigorating. Perfect served hot or iced on a warm day.",
-      ingredients: "Lemongrass, ginger, lemon verbena",
-      benefits: "Aids digestion, reduces inflammation, refreshing and calming",
-      brewingGuide:
-        "Boil water to 100°C. Steep 1 tablespoon per cup for 5 minutes. Enjoy plain or with honey.",
-      deliveryInfo:
-        "Delivered within 1-3 business days in Nairobi, 3-7 days nationwide.",
-      returnInfo:
-        "If unsatisfied, contact us within 14 days of delivery for a full refund or exchange.",
-      tags: "herbal,ginger,caffeine-free,refreshing,zesty",
-      price: 1900,
-      stock: 30,
-      isFeatured: false,
-      status: ProductStatus.PUBLISHED,
-      weight: "80g",
-      servings: "20-25 cups",
-      categorySlug: "herbal-infusion",
-    },
-    {
-      name: "Pure Kenyan Honey",
-      slug: "pure-kenyan-honey",
-      shortDesc: "Raw, pure honey from Kenyan beekeepers",
+      name: "Pure Honey",
+      slug: "pure-honey",
+      shortDesc: "Pure raw honey from Kenyan beekeepers",
       description:
         "Pure, raw honey sourced directly from Kenyan beekeepers. Naturally sweet, rich in flavor, and packed with natural enzymes. The perfect natural sweetener for your tea or on its own. Unfiltered and unprocessed.",
       ingredients: "100% pure raw Kenyan honey",
@@ -271,6 +353,7 @@ async function main() {
       comparePrice: 1500,
       stock: 45,
       isFeatured: false,
+      isBestSeller: false,
       status: ProductStatus.PUBLISHED,
       weight: "250g",
       servings: "Approx. 50 servings",

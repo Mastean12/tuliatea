@@ -1,10 +1,10 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Leaf, Shield, Heart, Globe } from "lucide-react"
+import { Leaf, Shield, Heart, Globe, Sun, Star } from "lucide-react"
 import { aboutContent } from "@/lib/data/content"
 
-const icons = [Shield, Globe, Heart, Leaf]
+const icons = [Shield, Heart, Globe, Leaf, Sun, Star]
 
 export function ValuesSection() {
   const { values, sustainability } = aboutContent

@@ -1,13 +1,14 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Leaf, Heart, Globe, Shield } from "lucide-react"
+import { Leaf, Heart, Globe, Shield, Sun } from "lucide-react"
 
 const iconMap = {
   leaf: Leaf,
   heart: Heart,
   globe: Globe,
   shield: Shield,
+  sun: Sun,
 }
 
 type FeatureCardProps = {

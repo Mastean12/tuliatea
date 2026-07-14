@@ -1,7 +1,9 @@
 import { Hero } from "@/components/home/hero"
 import { FeaturedProducts } from "@/components/home/featured-products"
-import { WellnessStory } from "@/components/home/wellness-story"
+import { Features } from "@/components/home/features"
 import { BestSellers } from "@/components/home/best-sellers"
+import { IngredientsSection } from "@/components/home/ingredients-section"
+import { WellnessBenefitsSection } from "@/components/home/wellness-benefits"
 import {
   OurPromise,
   FarmToCup,
@@ -15,7 +17,9 @@ export default function Home() {
     <>
       <Hero />
       <FeaturedProducts />
-      <WellnessStory />
+      <Features />
+      <IngredientsSection />
+      <WellnessBenefitsSection />
       <BestSellers />
       <OurPromise />
       <FarmToCup />
