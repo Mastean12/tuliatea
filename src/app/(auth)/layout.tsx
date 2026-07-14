@@ -21,7 +21,8 @@ export default function AuthLayout({
             height={22}
             className="h-5 w-5"
           />
-          Tullia Tea
+          <strong className="font-bold">Tullia</strong>{" "}
+          <span className="font-medium">Tea</span>
         </Link>
       </div>
       <div className="flex flex-1 items-center justify-center px-4 py-12">

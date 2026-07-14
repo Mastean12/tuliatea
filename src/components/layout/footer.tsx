@@ -24,7 +24,8 @@ export function Footer() {
                 height={22}
                 className="h-5 w-5"
               />
-              {siteConfig.name}
+              <strong className="font-bold">Tullia</strong>{" "}
+              <span className="font-medium">Tea</span>
             </Link>
             <p className="text-sm leading-relaxed text-muted-foreground/80">
               {siteConfig.tagline}

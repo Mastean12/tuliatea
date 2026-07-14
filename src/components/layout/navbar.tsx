@@ -52,8 +52,11 @@ export function Navbar() {
                 height={28}
                 className="h-7 w-7"
               />
-              <span className="hidden sm:inline">Tullia Tea</span>
-              <span className="sm:hidden">Tullia</span>
+              <span className="hidden sm:inline">
+                <strong className="font-bold">Tullia</strong>{" "}
+                <span className="font-medium">Tea</span>
+              </span>
+              <span className="sm:hidden font-bold">Tullia</span>
             </Link>
 
             <nav className="hidden items-center gap-1 md:flex">
