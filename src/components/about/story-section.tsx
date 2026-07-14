@@ -4,8 +4,8 @@ import { motion } from "framer-motion"
 import Image from "next/image"
 import { aboutContent } from "@/lib/data/content"
 
-const TEA_FIELDS =
-  "https://images.unsplash.com/photo-1542435503-956c469947f6?w=800&h=600&fit=crop&auto=format"
+const TEA_POUR =
+  "https://images.unsplash.com/photo-1571939228382-b2f2b585ce15?w=800&h=600&fit=crop&auto=format"
 
 export function StorySection() {
   const { story, mission, vision } = aboutContent
@@ -47,8 +47,8 @@ export function StorySection() {
               className="relative aspect-[4/3] rounded-2xl overflow-hidden"
             >
               <Image
-                src={TEA_FIELDS}
-                alt="Kenyan tea fields"
+                src={TEA_POUR}
+                alt="Pouring premium Kenyan black tea"
                 fill
                 sizes="(max-width: 1024px) 100vw, 50vw"
                 className="object-cover"
