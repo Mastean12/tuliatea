@@ -43,7 +43,7 @@ export function FarmToCup() {
       imageAlt="Pouring premium Kenyan tea"
       title="From the Highlands to Your Cup"
       reverse
-      className="bg-muted/30"
+      className="bg-gradient-to-b from-soft-sage/50 to-background"
     >
       <p>
         Our journey begins in the lush, fertile highlands of Kenya, where our

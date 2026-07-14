@@ -9,7 +9,7 @@ export function Features() {
   const { features } = homeContent
 
   return (
-    <section className="bg-muted/50 py-12 sm:py-16">
+    <section className="bg-gradient-to-b from-soft-sage via-background to-soft-sage/30 py-12 sm:py-16">
       <Container>
         <SectionHeading title={features.title} subtitle={features.subtitle} />
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">

@@ -29,7 +29,7 @@ const values = [
 
 export function WellnessStory() {
   return (
-    <section className="bg-muted/50 py-12 sm:py-16">
+    <section className="bg-soft-sage/50 py-12 sm:py-16">
       <Container>
         <div className="mx-auto max-w-2xl text-center mb-10">
           <motion.h2
