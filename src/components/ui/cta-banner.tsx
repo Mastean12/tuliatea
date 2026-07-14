@@ -54,7 +54,7 @@ export function CTABanner({
           <Link href={primaryCta.href}>
             <Button
               size="lg"
-              className="bg-primary-foreground text-primary hover:bg-primary-foreground/90"
+              className="bg-white text-primary hover:bg-white/90 shadow-xl border-0"
             >
               {primaryCta.label}
             </Button>
@@ -64,7 +64,7 @@ export function CTABanner({
               <Button
                 size="lg"
                 variant="outline"
-                className="border-primary-foreground/40 text-primary-foreground hover:bg-primary-foreground/15 bg-transparent"
+                className="border-2 border-white/40 text-white hover:bg-white/15 bg-transparent"
               >
                 {secondaryCta.label}
               </Button>
