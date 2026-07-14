@@ -8,7 +8,7 @@ export function Footer() {
   const year = new Date().getFullYear()
 
   return (
-    <footer className="mt-auto border-t bg-gradient-to-b from-background to-primary/[0.02]">
+    <footer className="mt-auto border-t bg-gradient-to-b from-primary/[0.04] via-secondary/[0.03] to-background">
       <Container className="py-14">
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
           <div className="space-y-4">
@@ -19,7 +19,7 @@ export function Footer() {
               <Leaf className="h-5 w-5 text-primary" />
               {siteConfig.name}
             </Link>
-            <p className="text-sm leading-relaxed text-muted-foreground">
+            <p className="text-sm leading-relaxed text-muted-foreground/80">
               {siteConfig.tagline}
             </p>
             <div className="flex gap-2.5 pt-1">
@@ -28,7 +28,7 @@ export function Footer() {
                   href={`https://instagram.com/${siteConfig.social.instagram.replace("@", "")}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex h-9 w-9 items-center justify-center rounded-full border border-primary/20 text-primary/60 hover:text-primary hover:border-primary/40 hover:bg-primary/5 transition-all"
+                  className="flex h-9 w-9 items-center justify-center rounded-full bg-primary/5 text-primary/70 hover:bg-primary hover:text-white transition-all"
                   aria-label="Instagram"
                 >
                   <Camera className="h-4 w-4" />
@@ -39,7 +39,7 @@ export function Footer() {
                   href={`https://wa.me/${siteConfig.social.whatsapp.replace(/\D/g, "")}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex h-9 w-9 items-center justify-center rounded-full border border-primary/20 text-primary/60 hover:text-primary hover:border-primary/40 hover:bg-primary/5 transition-all"
+                  className="flex h-9 w-9 items-center justify-center rounded-full bg-primary/5 text-primary/70 hover:bg-primary hover:text-white transition-all"
                   aria-label="WhatsApp"
                 >
                   <MessageCircle className="h-4 w-4" />
@@ -47,7 +47,7 @@ export function Footer() {
               )}
               <a
                 href={`mailto:${siteConfig.contact.email}`}
-                className="flex h-9 w-9 items-center justify-center rounded-full border border-primary/20 text-primary/60 hover:text-primary hover:border-primary/40 hover:bg-primary/5 transition-all"
+                className="flex h-9 w-9 items-center justify-center rounded-full bg-primary/5 text-primary/70 hover:bg-primary hover:text-white transition-all"
                 aria-label="Email"
               >
                 <Mail className="h-4 w-4" />
@@ -56,8 +56,10 @@ export function Footer() {
           </div>
 
           <div className="space-y-4">
-            <h3 className="text-sm font-semibold tracking-wide">Quick Links</h3>
-            <ul className="space-y-2.5 text-sm text-muted-foreground">
+            <h3 className="text-sm font-semibold tracking-wide text-foreground/80">
+              Quick Links
+            </h3>
+            <ul className="space-y-2.5 text-sm text-muted-foreground/70">
               <li>
                 <Link
                   href={routes.home}
@@ -94,8 +96,10 @@ export function Footer() {
           </div>
 
           <div className="space-y-4">
-            <h3 className="text-sm font-semibold tracking-wide">Support</h3>
-            <ul className="space-y-2.5 text-sm text-muted-foreground">
+            <h3 className="text-sm font-semibold tracking-wide text-foreground/80">
+              Support
+            </h3>
+            <ul className="space-y-2.5 text-sm text-muted-foreground/70">
               <li>
                 <Link
                   href={routes.legal.shipping}
@@ -132,10 +136,10 @@ export function Footer() {
           </div>
 
           <div className="space-y-4">
-            <h3 className="text-sm font-semibold tracking-wide">
+            <h3 className="text-sm font-semibold tracking-wide text-foreground/80">
               Get in Touch
             </h3>
-            <ul className="space-y-3 text-sm text-muted-foreground">
+            <ul className="space-y-3 text-sm text-muted-foreground/70">
               <li className="flex items-center gap-2.5">
                 <Mail className="h-4 w-4 shrink-0 text-primary/60" />
                 <a
@@ -162,7 +166,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 pt-6 border-t flex flex-col items-center justify-between gap-4 text-xs text-muted-foreground/60 sm:flex-row">
+        <div className="mt-12 pt-6 border-t border-primary/5 flex flex-col items-center justify-between gap-4 text-xs text-muted-foreground/50 sm:flex-row">
           <p>
             &copy; {year} {siteConfig.legalName}. All rights reserved.
           </p>
