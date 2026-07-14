@@ -22,10 +22,11 @@ export function Hero() {
           sizes="100vw"
           className="object-cover"
           priority
+          style={{ filter: "brightness(0.45)" }}
         />
       </div>
-      <div className="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/85 to-primary/75" />
-      <div className="absolute inset-0 bg-gradient-to-t from-background/20 via-transparent to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-r from-primary/85 via-primary/55 to-primary/30" />
+      <div className="absolute inset-0 bg-gradient-to-t from-background/10 via-transparent to-transparent" />
 
       <Container className="relative z-10 py-16 sm:py-20">
         <div className="mx-auto max-w-3xl text-center">
