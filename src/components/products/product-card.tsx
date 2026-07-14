@@ -4,7 +4,7 @@ import { motion } from "framer-motion"
 import Link from "next/link"
 import Image from "next/image"
 import { ShoppingCart } from "lucide-react"
-import { formatPrice } from "@/lib/utils"
+import { cn, formatPrice } from "@/lib/utils"
 import { PlaceholderImage } from "@/components/ui/placeholder-image"
 import { Badge } from "@/components/ui/badge"
 import { routes } from "@/config/routes"
@@ -87,23 +87,34 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
           {/* Top badges */}
           <div className="absolute top-3 left-3 flex flex-col gap-1.5">
             {product.isBestSeller && (
-              <Badge
-                variant="secondary"
-                className="text-[10px] px-2.5 py-0.5 font-medium bg-white/90 backdrop-blur-sm shadow-sm"
-              >
+              <Badge className="bg-[#C89B3C] text-white text-[10px] px-2.5 py-0.5 font-semibold shadow-sm rounded-full">
                 Bestseller
               </Badge>
             )}
-            {product.category && (
-              <Badge
-                variant="secondary"
-                className="text-[10px] px-2.5 py-0.5 font-medium uppercase tracking-wider bg-white/90 backdrop-blur-sm shadow-sm"
-              >
-                {product.category.name}
-              </Badge>
-            )}
+            {product.category &&
+              (() => {
+                const catStyles: Record<string, string> = {
+                  "Green Tea": "bg-[#2E7D32] text-white",
+                  "Herbal Infusion": "bg-[#66BB6A] text-black",
+                  "Black Tea": "bg-[#333333] text-white",
+                  Honey: "bg-[#C89B3C] text-white",
+                  "Purple Tea": "bg-[#6A4C93] text-white",
+                }
+                const style =
+                  catStyles[product.category.name] || "bg-[#2E7D32] text-white"
+                return (
+                  <Badge
+                    className={cn(
+                      "text-[10px] px-2.5 py-0.5 font-semibold uppercase tracking-wider shadow-sm rounded-full",
+                      style
+                    )}
+                  >
+                    {product.category.name}
+                  </Badge>
+                )
+              })()}
             {discount > 0 && (
-              <Badge className="bg-warm text-warm-foreground text-[10px] px-2.5 py-0.5 font-semibold shadow-sm">
+              <Badge className="bg-[#B86A3A] text-white text-[10px] px-2.5 py-0.5 font-semibold shadow-sm rounded-full">
                 -{discount}%
               </Badge>
             )}

@@ -76,15 +76,12 @@ export function ProductCard({
           {!isCompact && (
             <div className="absolute top-2.5 left-2.5 flex flex-col gap-1">
               {product.isBestSeller && (
-                <Badge
-                  variant="secondary"
-                  className="text-[10px] px-2 py-0.5 font-medium bg-white/90 backdrop-blur-sm shadow-sm"
-                >
+                <Badge className="bg-[#C89B3C] text-white text-[10px] px-2.5 py-0.5 font-semibold shadow-sm rounded-full">
                   Bestseller
                 </Badge>
               )}
               {product.comparePrice && (
-                <Badge className="bg-warm text-warm-foreground text-[10px] px-2 py-0.5 font-semibold shadow-sm">
+                <Badge className="bg-[#B86A3A] text-white text-[10px] px-2.5 py-0.5 font-semibold shadow-sm rounded-full">
                   Sale
                 </Badge>
               )}
