@@ -24,7 +24,7 @@ export function Hero() {
           priority
         />
       </div>
-      <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/70 to-primary/50" />
+      <div className="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/85 to-primary/75" />
       <div className="absolute inset-0 bg-gradient-to-t from-background/20 via-transparent to-transparent" />
 
       <Container className="relative z-10 py-16 sm:py-20">
