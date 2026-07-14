@@ -41,7 +41,7 @@ export function CartPageClient() {
             Your cart is empty
           </h2>
           <p className="text-sm text-muted-foreground/70 mb-6">
-            Looks like you haven&apos;t added anything yet.
+            {`Looks like you haven't added anything yet.`}
           </p>
           <Link href={routes.products}>
             <Button>

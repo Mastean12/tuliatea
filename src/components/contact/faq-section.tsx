@@ -70,7 +70,7 @@ export function FAQSection() {
           Frequently Asked Questions
         </h2>
         <p className="mt-2 text-sm text-muted-foreground max-w-md mx-auto">
-          Quick answers to common questions. Can&apos;t find what you&apos;re
+          {`Quick answers to common questions. Can't find what you're`}
           looking for? Reach out to us directly.
         </p>
       </div>

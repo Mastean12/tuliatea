@@ -74,7 +74,7 @@ export function Craftsmanship() {
       </p>
       <p>
         No artificial additives, no shortcuts — just pure, natural ingredients
-        grown in Kenya&apos;s fertile highlands and carefully blended to create
+        {`grown in Kenya's fertile highlands and carefully blended to create`}
         moments of tranquility and nourishment.
       </p>
     </AlternatingSection>

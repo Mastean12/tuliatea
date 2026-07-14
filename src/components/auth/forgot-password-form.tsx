@@ -28,7 +28,7 @@ export function ForgotPasswordForm() {
         </div>
         <h2 className="font-heading text-xl font-semibold">Check your email</h2>
         <p className="text-sm text-muted-foreground">
-          If an account exists with that email, we&apos;ve sent password reset
+          {`If an account exists with that email, we've sent password reset`}
           instructions.
         </p>
         <Link href={routes.auth.login}>
@@ -53,7 +53,7 @@ export function ForgotPasswordForm() {
           Forgot password?
         </h1>
         <p className="mt-1 text-sm text-muted-foreground">
-          Enter your email and we&apos;ll send you reset instructions
+          {`Enter your email and we'll send you reset instructions`}
         </p>
       </div>
 

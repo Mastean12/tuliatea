@@ -14,7 +14,7 @@ export function EmptyProducts({ onClear }: EmptyProductsProps) {
         No products found
       </h3>
       <p className="mt-1.5 max-w-xs text-sm text-muted-foreground/70 leading-relaxed">
-        Try adjusting your search or filter criteria to find what you&apos;re
+        {`Try adjusting your search or filter criteria to find what you're`}
         looking for.
       </p>
       {onClear && (

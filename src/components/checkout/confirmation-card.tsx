@@ -59,7 +59,7 @@ export function ConfirmationCard({ order }: { order: OrderData }) {
           Order Confirmed!
         </h1>
         <p className="mt-2 text-muted-foreground">
-          Thank you for your order. We&apos;ll send a confirmation to{" "}
+          {`Thank you for your order. We'll send a confirmation to`}{" "}
           <strong>{order.email}</strong>.
         </p>
       </div>
@@ -180,7 +180,7 @@ export function ConfirmationCard({ order }: { order: OrderData }) {
 
       <Card className="p-6 mb-8">
         <h3 className="font-heading mb-2 text-lg font-semibold">
-          What&apos;s Next?
+          {`What's Next?`}
         </h3>
         <ol className="space-y-2 text-sm text-muted-foreground">
           <li className="flex gap-2">
