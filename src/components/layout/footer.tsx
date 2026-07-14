@@ -15,17 +15,19 @@ export function Footer() {
           <div className="space-y-4">
             <Link
               href={routes.home}
-              className="flex items-center gap-2 font-heading text-lg font-semibold"
+              className="flex items-center gap-3 font-heading"
             >
               <Image
                 src="/images/Tulliatealogo.png"
                 alt="Tullia Tea"
-                width={22}
-                height={22}
-                className="h-5 w-5"
+                width={28}
+                height={28}
+                className="h-7 w-7"
               />
-              <strong className="font-bold">Tullia</strong>{" "}
-              <span className="font-medium">Tea</span>
+              <span className="text-primary tracking-wider">
+                <strong className="font-extrabold">Tullia</strong>{" "}
+                <span className="font-normal">Tea</span>
+              </span>
             </Link>
             <p className="text-sm leading-relaxed text-muted-foreground/80">
               {siteConfig.tagline}

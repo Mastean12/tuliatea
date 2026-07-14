@@ -43,20 +43,22 @@ export function Navbar() {
           <div className="flex h-16 items-center justify-between">
             <Link
               href={routes.home}
-              className="flex items-center gap-2 font-heading text-xl font-semibold tracking-tight"
+              className="flex items-center gap-3 font-heading"
             >
               <Image
                 src="/images/Tulliatealogo.png"
                 alt="Tullia Tea"
-                width={28}
-                height={28}
-                className="h-7 w-7"
+                width={32}
+                height={32}
+                className="h-8 w-8"
               />
-              <span className="hidden sm:inline">
-                <strong className="font-bold">Tullia</strong>{" "}
-                <span className="font-medium">Tea</span>
+              <span className="hidden sm:inline text-primary tracking-wider">
+                <strong className="font-extrabold">Tullia</strong>{" "}
+                <span className="font-normal">Tea</span>
               </span>
-              <span className="sm:hidden font-bold">Tullia</span>
+              <span className="sm:hidden font-extrabold text-primary">
+                Tullia
+              </span>
             </Link>
 
             <nav className="hidden items-center gap-1 md:flex">
