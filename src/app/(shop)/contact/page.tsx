@@ -5,6 +5,8 @@ import { ContactHero } from "@/components/contact/contact-hero"
 import { ContactForm } from "@/components/contact/contact-form"
 import { ContactInfo } from "@/components/contact/contact-info"
 import { FAQSection } from "@/components/contact/faq-section"
+import { contactContent } from "@/lib/data/content"
+import { Store, Truck } from "lucide-react"
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -37,6 +39,44 @@ export default function ContactPage() {
             </div>
             <div className="lg:col-span-2">
               <ContactInfo />
+            </div>
+          </div>
+        </Container>
+      </section>
+
+      {/* Stockists */}
+      <section className="bg-soft-sage py-12 sm:py-16">
+        <Container>
+          <div className="mx-auto max-w-3xl">
+            <h2 className="font-heading text-3xl font-semibold tracking-tight sm:text-4xl text-primary text-center mb-2">
+              Visit Our Stockists
+            </h2>
+            <p className="text-sm text-muted-foreground text-center mb-8">
+              Find Tullia Tea at these Nairobi locations.
+            </p>
+            <div className="grid gap-4 sm:grid-cols-2">
+              {contactContent.stockists.map((s, i) => (
+                <div
+                  key={i}
+                  className="rounded-xl border bg-card p-5 flex items-start gap-4"
+                >
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-accent/10">
+                    <Store className="h-5 w-5 text-accent" />
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold">{s.name}</p>
+                    <p className="text-xs text-muted-foreground leading-relaxed">
+                      {s.location}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="mt-4 rounded-xl border bg-card p-4 flex items-center gap-3">
+              <Truck className="h-5 w-5 text-primary shrink-0" />
+              <p className="text-sm text-muted-foreground">
+                {contactContent.delivery}
+              </p>
             </div>
           </div>
         </Container>

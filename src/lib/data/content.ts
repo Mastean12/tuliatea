@@ -6,6 +6,10 @@ export const homeContent = {
     ctaPrimary: "Shop Collection",
     ctaSecondary: "Learn Our Story",
   },
+  brand: {
+    description:
+      "Tullia Tea is the signature brand of Rectangular Foods. With the intent to enhance wellness, we craft specialty teas and herbal infusions using pure, natural and preservative-free ingredients.",
+  },
   features: {
     title: "Why Choose Tullia Tea",
     subtitle: "Crafted with integrity from the Kenyan highlands to your cup.",
@@ -159,11 +163,13 @@ export const aboutContent = {
   hero: {
     title: "Our Story",
     subtitle:
-      "From the Kenyan highlands to your cup, a journey of quality, wellness, and purpose.",
+      "Tullia Tea is the signature brand of Rectangular Foods, a Kenyan-based agribusiness established in 2022.",
   },
+  brandDescription:
+    "Tullia Tea is the signature brand of Rectangular Foods. With the intent to enhance wellness, we craft specialty teas and herbal infusions using pure, natural and preservative-free ingredients.",
   mission: {
     title: "Our Mission",
-    body: "Build a trusted brand that empowers Kenyan farmers, creates jobs and prioritizes sustainability.",
+    body: "Build a trusted brand that empowers Kenyan farmers, creates jobs, and prioritizes sustainability.",
   },
   vision: {
     title: "Our Vision",
@@ -171,7 +177,8 @@ export const aboutContent = {
   },
   values: {
     title: "Our Values",
-    subtitle: "The principles that guide every blend we create.",
+    subtitle:
+      "Quality, Wellness, Sustainability, Community, Innovation, Authenticity.",
     items: [
       {
         title: "Quality",
@@ -209,16 +216,16 @@ export const aboutContent = {
     title: "Our Journey",
     subtitle: "Rooted in Kenya, Branched for the World.",
     paragraphs: [
-      "Tullia Tea is the signature brand of Rectangular Foods, a Kenyan agribusiness established in 2022 with a vision to share the finest African wellness teas with the world.",
+      "Tullia Tea is the signature brand of Rectangular Foods, a Kenyan-based agribusiness established in 2022. Rectangular Foods is committed to providing healthy food and beverages through premium specialty teas and herbal infusions.",
       "Our journey begins in the lush, fertile highlands of Kenya, where our tea gardens benefit from rich volcanic soil, abundant rainfall, and the perfect altitude for growing exceptional tea. Working alongside local farmers who have cultivated these lands for generations, we select only the finest leaves for our blends.",
-      "Every blend at Tullia Tea is handcrafted in small batches to preserve its natural goodness. From orthodox green teas to rare purple teas and soothing herbal infusions, each cup tells a story of Kenyan craftsmanship and dedication to quality.",
+      "Every blend at Tullia Tea is handcrafted in small batches to preserve its natural goodness. Products are made using sustainably sourced, predominantly organic ingredients from farmers across Kenya.",
       "As we grow, our commitment to sustainability and community remains unwavering. We invest in eco-friendly farming practices, support local education initiatives, and strive to create a positive impact that extends far beyond the tea cup.",
     ],
   },
   sustainability: {
     title: "Our Commitment to Sustainability",
     subtitle: "Caring for the land that nurtures us.",
-    body: "Sustainability is at the heart of everything we do. From working with farmers who use organic farming methods to minimizing our packaging waste, we are constantly seeking ways to reduce our environmental footprint. We believe that a brand that gives back to the earth and its people creates not just better tea, but a better future. Our commitment includes organic sourcing practices, supporting Kenyan farmers through fair trade, responsible farming methods, environmental stewardship, and creating local jobs that strengthen communities.",
+    body: "Sustainability is at the heart of everything we do. From working with farmers who use organic farming methods and responsible practices to minimizing our packaging waste, we are constantly seeking ways to reduce our environmental footprint. We believe that a brand that gives back to the earth and its people creates not just better tea, but a better future. Our commitment includes organic sourcing, supporting Kenyan farmers through fair partnerships, environmental stewardship, creating local jobs, and strengthening communities across Kenya's tea-growing regions.",
   },
   cta: {
     title: "Experience the Tullia Difference",
@@ -239,6 +246,17 @@ export const contactContent = {
     address: "Nairobi, Kenya",
     hours: "Monday — Friday: 8:00 AM — 5:00 PM (EAT)",
   },
+  stockists: [
+    {
+      name: "NairoBee Honey Shop",
+      location: "Cargen House, Along Nkrumah Lane, Behind Electricity House",
+    },
+    {
+      name: "NairoBee Honey Shop",
+      location: "KU Plaza, Along Haile Selassie Avenue, Next to Agip House",
+    },
+  ],
+  delivery: "Deliveries are handled by TuShop at reasonable rates.",
   faqs: [
     {
       question: "Where do you source your tea?",
@@ -277,26 +295,26 @@ export const timelineEvents = [
   {
     year: "2022",
     label: "Company Founded",
-    desc: "Rectangular Foods established, launching Tullia Tea as its signature brand.",
+    desc: "Rectangular Foods was established in Kenya, launching Tullia Tea as its signature brand of premium specialty teas and herbal infusions.",
   },
   {
     year: "2023",
     label: "Product Development",
-    desc: "Developed our range of specialty teas and herbal infusions with Kenyan farmers.",
+    desc: "Developed a diverse range of specialty teas and herbal infusions using sustainably sourced Kenyan ingredients.",
   },
   {
     year: "2024",
     label: "Farmer Partnerships",
-    desc: "Built direct partnerships with small-scale farmers across Kenya's tea-growing regions.",
+    desc: "Built direct partnerships with small-scale farmers across Kenya's premium tea-growing regions.",
   },
   {
     year: "2025",
     label: "Online Store",
-    desc: "Launched our e-commerce platform to bring Tullia Tea directly to customers worldwide.",
+    desc: "Launched our e-commerce platform to bring Tullia Tea directly to customers, offering nationwide delivery.",
   },
   {
     year: "2026+",
     label: "African Expansion",
-    desc: "Expanding our reach across Africa and into international markets.",
+    desc: "Expanding our reach across Africa to become a leading exporter of premium specialty teas and herbal infusions.",
   },
 ]

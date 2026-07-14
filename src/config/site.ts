@@ -3,7 +3,7 @@ export const siteConfig = {
   legalName: "Rectangular Foods",
   tagline: "Elevating Everyday Wellness",
   description:
-    "Premium Kenyan specialty teas and herbal infusions. Tullia Tea offers handcrafted, natural, preservative-free wellness teas sourced directly from Kenyan farmers.",
+    "Tullia Tea is the signature brand of Rectangular Foods. With the intent to enhance wellness, we craft specialty teas and herbal infusions using pure, natural and preservative-free ingredients.",
   url: process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
   locale: "en-KE",
   currency: "KES",

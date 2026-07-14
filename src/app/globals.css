@@ -84,7 +84,7 @@
   --muted: var(--soft-sage);
   --muted-foreground: oklch(0.52 0.01 250);
 
-  --accent: oklch(0.62 0.11 75);
+  --accent: oklch(0.65 0.18 45);
   --accent-foreground: oklch(0.99 0.004 75);
 
   --warm: oklch(0.52 0.1 45);
