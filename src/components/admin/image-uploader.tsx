@@ -78,12 +78,15 @@ export function ImageUploader({
     <div className="space-y-4">
       <div className="flex items-center justify-between">
         <h3 className="text-sm font-semibold">Product Images</h3>
-        <label className="cursor-pointer">
+        <div className="flex items-center gap-2">
           <Button
             type="button"
             variant="outline"
             size="sm"
             disabled={uploading}
+            onClick={() =>
+              document.getElementById("image-upload-input")?.click()
+            }
           >
             {uploading ? (
               <Loader2 className="mr-1.5 h-4 w-4 animate-spin" />
@@ -93,6 +96,7 @@ export function ImageUploader({
             {uploading ? "Uploading..." : "Add Images"}
           </Button>
           <input
+            id="image-upload-input"
             type="file"
             accept="image/*"
             multiple
@@ -100,7 +104,7 @@ export function ImageUploader({
             onChange={handleUpload}
             disabled={uploading}
           />
-        </label>
+        </div>
       </div>
 
       {images.length === 0 && !uploading && (
