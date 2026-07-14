@@ -22,7 +22,7 @@ export function AboutHero() {
       </div>
       <div className="absolute inset-0 bg-gradient-to-r from-primary/80 via-primary/50 to-transparent" />
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
-        <div className="max-w-2xl">
+        <div className="mx-auto max-w-2xl text-center">
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -35,7 +35,7 @@ export function AboutHero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="mt-4 max-w-xl text-base sm:text-lg text-white/80 leading-relaxed"
+            className="mx-auto mt-4 max-w-xl text-base sm:text-lg text-white/80 leading-relaxed"
           >
             {hero.subtitle}
           </motion.p>

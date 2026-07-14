@@ -58,7 +58,7 @@ export const aboutContent = {
   hero: {
     title: "Our Story",
     subtitle:
-      "From the Kenyan highlands to your cup — a journey of quality, wellness, and purpose.",
+      "From the Kenyan highlands to your cup, a journey of quality, wellness, and purpose.",
   },
   mission: {
     title: "Our Mission",
