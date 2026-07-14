@@ -66,7 +66,7 @@ export function FAQSection() {
   return (
     <div>
       <div className="text-center mb-8">
-        <h2 className="font-heading text-3xl font-semibold tracking-tight sm:text-4xl">
+        <h2 className="font-heading text-3xl font-semibold tracking-tight sm:text-4xl text-primary">
           Frequently Asked Questions
         </h2>
         <p className="mt-2 text-sm text-muted-foreground max-w-md mx-auto">

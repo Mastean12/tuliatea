@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 export default function CheckoutPage() {
   return (
     <Container className="py-8 sm:py-12">
-      <h1 className="font-heading mb-8 text-2xl font-semibold sm:text-3xl">
+      <h1 className="font-heading mb-8 text-2xl font-semibold sm:text-3xl text-primary">
         Checkout
       </h1>
       <CheckoutClient />

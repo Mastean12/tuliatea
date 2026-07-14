@@ -28,7 +28,7 @@ export function CartPageClient() {
         <span className="text-foreground/80">Cart</span>
       </nav>
 
-      <h1 className="font-heading text-3xl font-semibold tracking-tight mb-8">
+      <h1 className="font-heading text-3xl font-semibold tracking-tight mb-8 text-primary">
         Shopping Cart
       </h1>
 

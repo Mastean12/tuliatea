@@ -22,7 +22,7 @@ export function StorySection() {
               viewport={{ once: true, margin: "-60px" }}
               transition={{ duration: 0.5 }}
             >
-              <h2 className="font-heading text-3xl font-semibold tracking-tight sm:text-4xl">
+              <h2 className="font-heading text-3xl font-semibold tracking-tight sm:text-4xl text-primary">
                 {story.title}
               </h2>
               <p className="mt-2 text-sm text-muted-foreground mb-6">
