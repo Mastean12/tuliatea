@@ -68,7 +68,7 @@ export function AdminSidebar() {
 
       <aside
         className={cn(
-          "fixed inset-y-0 left-0 z-50 border-r bg-background transition-all duration-300 lg:z-30",
+          "fixed inset-y-0 left-0 z-50 border-r bg-background transition-all duration-300",
           collapsed ? "w-16" : "w-64",
           open ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
         )}

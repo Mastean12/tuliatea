@@ -58,7 +58,7 @@ export function DashboardSidebar() {
 
       <aside
         className={cn(
-          "fixed inset-y-0 left-0 z-40 border-r bg-background transition-all duration-300 lg:top-16",
+          "fixed inset-y-0 left-0 z-50 border-r bg-background transition-all duration-300 lg:top-16",
           collapsed ? "w-16" : "w-64",
           mobileOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
         )}
