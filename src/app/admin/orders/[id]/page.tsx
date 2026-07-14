@@ -2,7 +2,7 @@ export const dynamic = "force-dynamic"
 
 import { notFound } from "next/navigation"
 import Link from "next/link"
-import { ArrowLeft, MessageCircle, Mail, Phone, Leaf } from "lucide-react"
+import { ArrowLeft, MessageCircle, Mail, Phone } from "lucide-react"
 import { prisma } from "@/lib/prisma"
 import { Card } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
@@ -47,16 +47,73 @@ export default async function AdminOrderDetailPage({ params }: Props) {
     <>
       {/* Print-only receipt */}
       <div className="print-receipt" aria-hidden>
-        <div style={{ position: "relative", maxWidth: 640, margin: "0 auto" }}>
+        <div style={{ position: "relative", maxWidth: 600, margin: "0 auto" }}>
           <div className="receipt-stamp">
-            TULLIA
-            <br />
-            TEA
+            <svg viewBox="0 0 60 60" width="36" height="36">
+              <circle
+                cx="30"
+                cy="30"
+                r="28"
+                fill="none"
+                stroke="#75D123"
+                strokeWidth="2"
+              />
+              <text
+                x="30"
+                y="33"
+                textAnchor="middle"
+                fontFamily="Georgia,serif"
+                fontSize="9"
+                fontWeight="700"
+                fill="#75D123"
+              >
+                PAID
+              </text>
+              <text
+                x="30"
+                y="44"
+                textAnchor="middle"
+                fontFamily="Georgia,serif"
+                fontSize="6"
+                fill="#75D123"
+              >
+                TULLIA
+              </text>
+            </svg>
           </div>
 
           <div className="receipt-header">
-            <h1>Tullia Tea</h1>
-            <div className="tagline">Premium Kenyan Wellness Teas</div>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: 8,
+                marginBottom: 8,
+              }}
+            >
+              <img
+                src="/images/Tulliatealogo.png"
+                alt=""
+                width="32"
+                height="32"
+                style={{ display: "block" }}
+              />
+              <span
+                style={{
+                  fontFamily: "'Cormorant Garamond', Georgia, serif",
+                  fontSize: 24,
+                  fontWeight: 700,
+                  color: "#75D123",
+                  letterSpacing: "0.02em",
+                }}
+              >
+                Tullia Tea
+              </span>
+            </div>
+            <div className="tagline">
+              Premium Wellness Teas · Handcrafted in Kenya
+            </div>
           </div>
 
           <div className="order-number">
@@ -148,20 +205,12 @@ export default async function AdminOrderDetailPage({ params }: Props) {
           )}
 
           <div className="footer">
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                gap: 4,
-                marginBottom: 4,
-              }}
-            >
-              <Leaf size={10} /> {siteConfig.name}
+            <div style={{ marginBottom: 2 }}>
+              {siteConfig.contact.phone} · {siteConfig.contact.email}
             </div>
-            <div className="phone">{siteConfig.contact.phone}</div>
-            <div>{siteConfig.contact.email}</div>
-            <div style={{ marginTop: 6 }}>{siteConfig.tagline}</div>
+            <div style={{ fontSize: 8, opacity: 0.6 }}>
+              {siteConfig.tagline} · Nairobi, Kenya
+            </div>
           </div>
         </div>
       </div>

@@ -242,22 +242,13 @@
 
   .print-receipt .receipt-header {
     text-align: center;
-    padding-bottom: 1.2rem;
-    margin-bottom: 1.2rem;
-    border-bottom: 2px solid #2e7d32;
-  }
-
-  .print-receipt .receipt-header h1 {
-    font-family: "Cormorant Garamond", Georgia, serif;
-    font-size: 28px;
-    font-weight: 700;
-    color: #2e7d32;
-    margin: 0 0 4px;
-    letter-spacing: -0.02em;
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid #75d123;
   }
 
   .print-receipt .receipt-header .tagline {
-    font-size: 10px;
+    font-size: 9px;
     color: #6b7280;
     text-transform: uppercase;
     letter-spacing: 2px;
@@ -265,32 +256,10 @@
 
   .print-receipt .receipt-stamp {
     position: absolute;
-    top: 0.5cm;
-    right: 0;
-    width: 60px;
-    height: 60px;
-    border: 2.5px solid #2e7d32;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: "Cormorant Garamond", Georgia, serif;
-    font-size: 10px;
-    font-weight: 700;
-    color: #2e7d32;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    transform: rotate(-12deg);
-    opacity: 0.85;
-    line-height: 1.2;
-    text-align: center;
-  }
-
-  .print-receipt .receipt-stamp::after {
-    position: absolute;
-    font-size: 7px;
-    letter-spacing: 1.5px;
-    margin-top: 5px;
+    top: 0.6cm;
+    right: 0.4cm;
+    width: 62px;
+    height: 62px;
   }
 
   .print-receipt .order-number {
@@ -388,8 +357,12 @@
     font-weight: 700;
     font-size: 13px;
     padding-top: 4px;
-    border-top: 2px solid #2e7d32;
+    border-top: 2px solid #75d123;
     margin-top: 4px;
+  }
+  .print-receipt .totals .row.total .label,
+  .print-receipt .totals .row.total .value {
+    color: #1f2937;
   }
   .print-receipt .totals .row.total .label,
   .print-receipt .totals .row.total .value {
