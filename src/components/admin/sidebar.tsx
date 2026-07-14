@@ -4,6 +4,7 @@ import { useState } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { signOut } from "next-auth/react"
+import Image from "next/image"
 import {
   LayoutDashboard,
   Package,
@@ -11,11 +12,10 @@ import {
   ShoppingCart,
   Menu,
   X,
-  Leaf,
   LogOut,
   FileText,
   Settings,
-  Image,
+  Image as ImageIcon,
   ChevronDown,
   PanelLeftClose,
   PanelLeft,
@@ -37,7 +37,7 @@ const cmsLinks = [
   { label: "Contact", href: "/admin/cms/contact", icon: FileText },
   { label: "Footer", href: "/admin/cms/footer", icon: FileText },
   { label: "Settings", href: "/admin/cms/settings", icon: Settings },
-  { label: "Media", href: "/admin/cms/media", icon: Image },
+  { label: "Media", href: "/admin/cms/media", icon: ImageIcon },
 ]
 
 export function AdminSidebar() {
@@ -87,7 +87,14 @@ export function AdminSidebar() {
                 href={routes.admin.root}
                 className="flex items-center gap-2 font-heading text-lg font-semibold"
               >
-                <Leaf className="h-5 w-5 text-primary shrink-0" /> Admin
+                <Image
+                  src="/images/TulliaTeaLogo.png"
+                  alt="Tullia Tea"
+                  width={22}
+                  height={22}
+                  className="h-5 w-5 shrink-0"
+                />{" "}
+                Admin
               </Link>
             )}
             {collapsed && (
@@ -95,7 +102,13 @@ export function AdminSidebar() {
                 href={routes.admin.root}
                 className="flex items-center justify-center"
               >
-                <Leaf className="h-5 w-5 text-primary shrink-0" />
+                <Image
+                  src="/images/TulliaTeaLogo.png"
+                  alt="Tullia Tea"
+                  width={22}
+                  height={22}
+                  className="h-5 w-5 shrink-0"
+                />
               </Link>
             )}
             <button
@@ -204,7 +217,13 @@ export function AdminSidebar() {
               )}
               title={collapsed ? "View Site" : undefined}
             >
-              <Leaf className="h-4 w-4 shrink-0" />{" "}
+              <Image
+                src="/images/TulliaTeaLogo.png"
+                alt=""
+                width={16}
+                height={16}
+                className="h-4 w-4 shrink-0"
+              />{" "}
               {!collapsed && <span>View Site</span>}
             </Link>
             <button

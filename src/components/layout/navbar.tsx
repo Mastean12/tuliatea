@@ -3,7 +3,8 @@
 import { useState, useSyncExternalStore } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { ShoppingCart, Menu, X, Leaf } from "lucide-react"
+import Image from "next/image"
+import { ShoppingCart, Menu, X } from "lucide-react"
 import { useSession, signOut } from "next-auth/react"
 import { Container } from "@/components/ui/container"
 import { Button } from "@/components/ui/button"
@@ -44,7 +45,13 @@ export function Navbar() {
               href={routes.home}
               className="flex items-center gap-2 font-heading text-xl font-semibold tracking-tight"
             >
-              <Leaf className="h-6 w-6 text-primary" />
+              <Image
+                src="/images/TulliaTeaLogo.png"
+                alt="Tullia Tea"
+                width={28}
+                height={28}
+                className="h-7 w-7"
+              />
               <span className="hidden sm:inline">Tullia Tea</span>
               <span className="sm:hidden">Tullia</span>
             </Link>

@@ -4,6 +4,7 @@ import { useState } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { signOut } from "next-auth/react"
+import Image from "next/image"
 import {
   LayoutDashboard,
   User,
@@ -14,7 +15,6 @@ import {
   LogOut,
   X,
   Menu,
-  Leaf,
   PanelLeftClose,
   PanelLeft,
 } from "lucide-react"
@@ -77,7 +77,13 @@ export function DashboardSidebar() {
                 href={routes.account.root}
                 className="flex items-center gap-2 font-heading font-semibold"
               >
-                <Leaf className="h-5 w-5 text-primary shrink-0" />
+                <Image
+                  src="/images/TulliaTeaLogo.png"
+                  alt="Tullia Tea"
+                  width={22}
+                  height={22}
+                  className="h-5 w-5 shrink-0"
+                />
                 <span>Dashboard</span>
               </Link>
             )}

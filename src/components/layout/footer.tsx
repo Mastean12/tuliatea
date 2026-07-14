@@ -1,5 +1,6 @@
 import Link from "next/link"
-import { Leaf, Mail, Phone, MapPin, Camera, MessageCircle } from "lucide-react"
+import Image from "next/image"
+import { Mail, Phone, MapPin, Camera, MessageCircle } from "lucide-react"
 import { Container } from "@/components/ui/container"
 import { siteConfig } from "@/config/site"
 import { routes } from "@/config/routes"
@@ -16,7 +17,13 @@ export function Footer() {
               href={routes.home}
               className="flex items-center gap-2 font-heading text-lg font-semibold"
             >
-              <Leaf className="h-5 w-5 text-primary" />
+              <Image
+                src="/images/TulliaTeaLogo.png"
+                alt="Tullia Tea"
+                width={22}
+                height={22}
+                className="h-5 w-5"
+              />
               {siteConfig.name}
             </Link>
             <p className="text-sm leading-relaxed text-muted-foreground/80">

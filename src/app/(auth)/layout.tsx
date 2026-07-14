@@ -1,4 +1,4 @@
-import { Leaf } from "lucide-react"
+import Image from "next/image"
 import Link from "next/link"
 import { routes } from "@/config/routes"
 
@@ -14,7 +14,13 @@ export default function AuthLayout({
           href={routes.home}
           className="flex items-center gap-2 font-heading text-lg font-semibold"
         >
-          <Leaf className="h-5 w-5 text-primary" />
+          <Image
+            src="/images/TulliaTeaLogo.png"
+            alt="Tullia Tea"
+            width={22}
+            height={22}
+            className="h-5 w-5"
+          />
           Tullia Tea
         </Link>
       </div>
