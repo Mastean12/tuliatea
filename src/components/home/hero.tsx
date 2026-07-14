@@ -14,7 +14,6 @@ export function Hero() {
 
   return (
     <section className="relative flex min-h-[80vh] items-center overflow-hidden">
-      {/* Background image */}
       <div className="absolute inset-0">
         <Image
           src="https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=1600&h=1000&fit=crop&auto=format"
@@ -25,9 +24,8 @@ export function Hero() {
           priority
         />
       </div>
-      {/* Gradient overlays */}
-      <div className="absolute inset-0 bg-gradient-to-r from-primary/85 via-primary/60 to-primary/40" />
-      <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/70 to-primary/50" />
+      <div className="absolute inset-0 bg-gradient-to-t from-background/20 via-transparent to-transparent" />
 
       <Container className="relative z-10 py-16 sm:py-20">
         <div className="mx-auto max-w-3xl text-center">
@@ -35,12 +33,12 @@ export function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="mb-4 flex items-center justify-center gap-2"
+            className="mb-5 flex items-center justify-center gap-2"
           >
-            <span className="flex h-7 w-7 items-center justify-center rounded-full bg-white/15 backdrop-blur-sm">
-              <Leaf className="h-3.5 w-3.5 text-white" />
+            <span className="flex h-6 w-6 items-center justify-center rounded-full bg-white/20">
+              <Leaf className="h-3 w-3 text-white" />
             </span>
-            <span className="text-xs font-medium text-white/80 uppercase tracking-widest">
+            <span className="text-[11px] font-semibold text-white/90 uppercase tracking-[0.2em]">
               Premium Kenyan Wellness Tea
             </span>
           </motion.div>
@@ -48,7 +46,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="font-heading text-4xl font-semibold tracking-tight sm:text-5xl lg:text-6xl text-white"
+            className="font-heading text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl"
           >
             {hero.title}
           </motion.h1>
@@ -56,7 +54,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-white/70 sm:text-base"
+            className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-white/80 sm:text-lg"
           >
             {hero.subtitle}
           </motion.p>
@@ -64,12 +62,12 @@ export function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row"
+            className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row"
           >
             <Link href={routes.products}>
               <Button
                 size="lg"
-                className="px-8 bg-white text-primary hover:bg-white/90 shadow-lg"
+                className="px-8 bg-white text-primary hover:bg-white/90 shadow-xl border-0"
               >
                 {hero.ctaPrimary}
               </Button>
@@ -78,7 +76,7 @@ export function Hero() {
               <Button
                 size="lg"
                 variant="outline"
-                className="px-8 border-white/30 text-white hover:bg-white/10"
+                className="px-8 border-2 border-white/40 text-white hover:bg-white/15 bg-transparent"
               >
                 {hero.ctaSecondary}
               </Button>
