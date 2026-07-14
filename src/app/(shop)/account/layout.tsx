@@ -15,11 +15,11 @@ export default async function AccountDashboardLayout({
   if (session.user.role !== "CUSTOMER") redirect(routes.admin.root)
 
   return (
-    <Container className="py-4 sm:py-6">
-      <div className="flex gap-8">
-        <DashboardSidebar />
-        <main className="flex-1 min-w-0 pt-8 lg:pt-0">{children}</main>
+    <>
+      <DashboardSidebar />
+      <div className="lg:pl-64 pt-16">
+        <Container className="py-4 sm:py-6">{children}</Container>
       </div>
-    </Container>
+    </>
   )
 }
