@@ -6,7 +6,7 @@ import { ContactForm } from "@/components/contact/contact-form"
 import { ContactInfo } from "@/components/contact/contact-info"
 import { FAQSection } from "@/components/contact/faq-section"
 import { contactContent } from "@/lib/data/content"
-import { Store, Truck } from "lucide-react"
+import { Store, Truck, ExternalLink } from "lucide-react"
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -18,17 +18,20 @@ export const metadata: Metadata = {
   },
 }
 
+function getDirections(location: string) {
+  return `https://www.google.com/maps/search/${encodeURIComponent(location)}`
+}
+
 export default function ContactPage() {
   return (
     <>
       <ContactHero />
 
-      {/* Contact form + info */}
       <section className="py-12 sm:py-16">
         <Container>
           <div className="grid gap-10 lg:grid-cols-5 lg:gap-14">
             <div className="lg:col-span-3">
-              <h2 className="font-heading text-2xl font-semibold mb-2">
+              <h2 className="font-heading text-2xl font-semibold mb-2 text-primary">
                 Send us a Message
               </h2>
               <p className="text-sm text-muted-foreground mb-8">
@@ -49,41 +52,56 @@ export default function ContactPage() {
         <Container>
           <div className="mx-auto max-w-3xl">
             <h2 className="font-heading text-3xl font-semibold tracking-tight sm:text-4xl text-primary text-center mb-2">
-              Visit Our Stockists
+              Where to Find Tullia Tea
             </h2>
             <p className="text-sm text-muted-foreground text-center mb-8">
-              Find Tullia Tea at these Nairobi locations.
+              Visit our official stockists across Nairobi.
             </p>
-            <div className="grid gap-4 sm:grid-cols-2">
+            <div className="grid gap-5 sm:grid-cols-2">
               {contactContent.stockists.map((s, i) => (
                 <div
                   key={i}
-                  className="rounded-xl border bg-card p-5 flex items-start gap-4"
+                  className="rounded-xl border bg-card p-5 flex flex-col"
                 >
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-accent/10">
-                    <Store className="h-5 w-5 text-accent" />
+                  <div className="flex items-start gap-4 mb-4">
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-accent/10">
+                      <Store className="h-5 w-5 text-accent" />
+                    </div>
+                    <div>
+                      <p className="text-sm font-semibold">{s.name}</p>
+                      <p className="text-xs text-muted-foreground leading-relaxed mt-0.5">
+                        {s.location}
+                      </p>
+                    </div>
                   </div>
-                  <div>
-                    <p className="text-sm font-semibold">{s.name}</p>
-                    <p className="text-xs text-muted-foreground leading-relaxed">
-                      {s.location}
-                    </p>
-                  </div>
+                  <a
+                    href={getDirections(s.location)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-auto inline-flex items-center justify-center gap-1.5 rounded-lg border border-primary/20 px-4 py-2 text-xs font-medium text-primary hover:bg-primary/5 transition-colors"
+                  >
+                    Get Directions <ExternalLink className="h-3 w-3" />
+                  </a>
                 </div>
               ))}
             </div>
-            <div className="mt-4 rounded-xl border bg-card p-4 flex items-center gap-3">
+            <div className="mt-5 rounded-xl border bg-card p-4 flex items-center gap-3">
               <Truck className="h-5 w-5 text-primary shrink-0" />
-              <p className="text-sm text-muted-foreground">
-                {contactContent.delivery}
-              </p>
+              <div>
+                <p className="text-sm font-semibold">
+                  {contactContent.delivery.title}
+                </p>
+                <p className="text-xs text-muted-foreground mt-0.5">
+                  {contactContent.delivery.body}
+                </p>
+              </div>
             </div>
           </div>
         </Container>
       </section>
 
       {/* FAQ */}
-      <section className="bg-muted/50 py-12 sm:py-16">
+      <section className="py-12 sm:py-16">
         <Container>
           <div className="mx-auto max-w-3xl">
             <FAQSection />

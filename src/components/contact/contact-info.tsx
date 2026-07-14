@@ -1,7 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Mail, Phone, MessageCircle, MapPin, Clock, Camera } from "lucide-react"
+import { Mail, Phone, MessageCircle, MapPin, Clock } from "lucide-react"
 import { siteConfig } from "@/config/site"
 import { GoogleMaps } from "@/components/ui/google-maps"
 import Link from "next/link"
@@ -32,7 +32,7 @@ const visitGroup = [
   {
     icon: Clock,
     label: "Business Hours",
-    value: "Monday — Friday: 8:00 AM — 5:00 PM (EAT)",
+    value: "Mon–Fri: 8AM–5PM · Sat: 9AM–1PM · Sun: Closed",
   },
 ]
 
@@ -41,7 +41,7 @@ export function ContactInfo() {
     <div className="space-y-8">
       {/* Contact */}
       <div>
-        <h3 className="font-heading text-sm font-semibold uppercase tracking-widest text-accent mb-4">
+        <h3 className="font-heading text-sm font-semibold uppercase tracking-[0.15em] text-accent mb-4">
           Contact
         </h3>
         <div className="space-y-3">
@@ -56,9 +56,7 @@ export function ContactInfo() {
               <Link
                 href={item.href}
                 target={item.label === "WhatsApp" ? "_blank" : undefined}
-                rel={
-                  item.label === "WhatsApp" ? "noopener noreferrer" : undefined
-                }
+                rel={item.label === "WhatsApp" ? "noopener" : undefined}
                 className="flex items-center gap-3 rounded-xl border bg-card p-3.5 hover:bg-muted transition-all hover:border-primary/20 group"
               >
                 <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/5 group-hover:bg-primary/10 transition-colors">
@@ -76,7 +74,7 @@ export function ContactInfo() {
 
       {/* Visit */}
       <div>
-        <h3 className="font-heading text-sm font-semibold uppercase tracking-widest text-accent mb-4">
+        <h3 className="font-heading text-sm font-semibold uppercase tracking-[0.15em] text-accent mb-4">
           Visit
         </h3>
         <div className="space-y-3">
@@ -104,7 +102,7 @@ export function ContactInfo() {
 
       {/* Follow Us */}
       <div>
-        <h3 className="font-heading text-sm font-semibold uppercase tracking-widest text-accent mb-4">
+        <h3 className="font-heading text-sm font-semibold uppercase tracking-[0.15em] text-accent mb-4">
           Follow Us
         </h3>
         <div className="flex gap-3">
@@ -112,11 +110,11 @@ export function ContactInfo() {
             <Link
               href={`https://instagram.com/${siteConfig.social.instagram.replace("@", "")}`}
               target="_blank"
-              rel="noopener noreferrer"
+              rel="noopener"
               className="flex flex-1 items-center gap-3 rounded-xl border bg-card p-3.5 hover:bg-muted transition-all hover:border-accent/30 group"
             >
               <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-accent/5 group-hover:bg-accent/10 transition-colors">
-                <Camera className="h-5 w-5 text-accent" />
+                <MessageCircle className="h-5 w-5 text-accent" />
               </div>
               <div>
                 <p className="text-xs text-muted-foreground">Instagram</p>

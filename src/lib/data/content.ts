@@ -246,47 +246,66 @@ export const contactContent = {
     address: "Nairobi, Kenya",
     hours: "Monday — Friday: 8:00 AM — 5:00 PM (EAT)",
   },
+  hours:
+    "Monday – Friday: 8:00 AM – 5:00 PM (EAT) · Saturday: 9:00 AM – 1:00 PM (EAT) · Sunday: Closed",
   stockists: [
     {
       name: "NairoBee Honey Shop",
-      location: "Cargen House, Along Nkrumah Lane, Behind Electricity House",
+      location:
+        "Cargen House, Along Nkrumah Lane, Behind Electricity House, Nairobi",
+      slug: "cargen-house",
     },
     {
       name: "NairoBee Honey Shop",
-      location: "KU Plaza, Along Haile Selassie Avenue, Next to Agip House",
+      location:
+        "KU Plaza, Along Haile Selassie Avenue, Next to Agip House, Nairobi",
+      slug: "ku-plaza",
     },
   ],
-  delivery: "Deliveries are handled by TuShop at reasonable rates.",
+  delivery: {
+    title: "Nationwide Delivery",
+    body: "Deliveries are handled through TuShop at reasonable delivery rates across Kenya.",
+  },
   faqs: [
     {
       question: "Where do you source your tea?",
       answer:
-        "Our tea is sourced directly from local farmers across Kenya's premium tea-growing regions, including the Rift Valley, Nyeri, and the central Kenyan highlands. We work with small-scale farmers who use traditional, responsible farming methods.",
+        "Our teas and herbal infusions are handcrafted using sustainably sourced, predominantly organic ingredients from farmers across Kenya.",
     },
     {
-      question: "How should I prepare Tullia Tea?",
+      question: "How do I prepare Tullia Tea?",
       answer:
-        "For the best flavor, use freshly boiled water and steep your tea for 3-5 minutes depending on the variety. Green and herbal teas typically require lower temperatures (80-85°C) while black teas can be brewed at full boil. Each package includes specific brewing instructions.",
+        "Steep one tea bag or one spoonful of loose tea in hot water for 3–5 minutes. Do not boil. Add honey if preferred.",
     },
     {
-      question: "How are deliveries made?",
+      question: "How are herbal infusions prepared?",
       answer:
-        "We use trusted courier services for both local and international deliveries. Orders are processed within 24-48 hours and tracking information is provided once shipped.",
+        "Steep for 3–5 minutes in hot water without boiling. The longer the infusion, the stronger the flavour.",
     },
     {
       question: "Where can I buy Tullia Tea?",
       answer:
-        "Tullia Tea is available through our online store and select retail outlets across Kenya. We are expanding our reach and welcome inquiries from stockists and retailers interested in carrying our products.",
+        "You can purchase directly through our website or visit our official stockists at NairoBee Honey Shop (Cargen House and KU Plaza).",
     },
     {
-      question: "How long does delivery take?",
+      question: "Do you deliver across Kenya?",
       answer:
-        "Local deliveries within Nairobi typically arrive within 1-3 business days. Deliveries to other Kenyan counties take 3-7 business days. International shipping times vary by destination and are calculated at checkout.",
+        "Yes. We partner with TuShop to provide nationwide delivery at affordable rates.",
     },
     {
-      question: "Can I order online?",
+      question: "What makes Tullia Tea different?",
       answer:
-        "Yes, you can order directly through our website. We offer secure online payments and deliver to your preferred address. For bulk or wholesale orders, please contact us directly.",
+        "Tullia Tea is handcrafted in Kenya using natural, preservative-free ingredients that support wellness while empowering local farmers.",
+    },
+    {
+      question: "What products do you offer?",
+      answer:
+        "Our range includes Green Tea, Purple Tea, Herbal Infusions, Turmeric Blends, Hibiscus Blends, Chamomile Blends and Pure Honey.",
+    },
+    {
+      question: "How should I store my tea?",
+      answer:
+        "Store your tea tightly sealed in a cool, dry place away from direct sunlight.",
     },
   ],
 } as const
