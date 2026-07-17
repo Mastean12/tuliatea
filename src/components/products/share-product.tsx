@@ -8,7 +8,6 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { Button } from "@/components/ui/button"
 
 type ShareProductProps = {
   name: string
@@ -24,7 +23,7 @@ export function ShareProduct({ name, url }: ShareProductProps) {
       setCopied(true)
       setTimeout(() => setCopied(false), 2000)
     } catch {
-      // fallback
+      /* fallback */
     }
   }
 
@@ -38,7 +37,7 @@ export function ShareProduct({ name, url }: ShareProductProps) {
       try {
         await navigator.share({ title: name, url })
       } catch {
-        // user cancelled
+        /* user cancelled */
       }
     } else {
       handleCopy()
@@ -48,33 +47,29 @@ export function ShareProduct({ name, url }: ShareProductProps) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
-        <Button variant="outline" size="sm">
-          <Share2 className="mr-2 h-4 w-4" />
+        <span className="inline-flex h-8 items-center justify-center gap-1.5 rounded-lg border border-input bg-background px-3 text-xs font-medium shadow-sm transition-colors hover:bg-muted">
+          <Share2 className="h-3.5 w-3.5" />
           Share
-        </Button>
+        </span>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuItem onClick={handleCopy}>
           {copied ? (
             <>
-              <Check className="mr-2 h-4 w-4 text-green-600" />
-              Copied!
+              <Check className="mr-2 h-4 w-4 text-green-600" /> Copied!
             </>
           ) : (
             <>
-              <Link className="mr-2 h-4 w-4" />
-              Copy Link
+              <Link className="mr-2 h-4 w-4" /> Copy Link
             </>
           )}
         </DropdownMenuItem>
         <DropdownMenuItem onClick={handleWhatsApp}>
-          <Share2 className="mr-2 h-4 w-4 text-green-600" />
-          WhatsApp
+          <Share2 className="mr-2 h-4 w-4 text-green-600" /> WhatsApp
         </DropdownMenuItem>
         {typeof navigator !== "undefined" && "share" in navigator && (
           <DropdownMenuItem onClick={handleNativeShare}>
-            <Share2 className="mr-2 h-4 w-4" />
-            Share via...
+            <Share2 className="mr-2 h-4 w-4" /> Share via...
           </DropdownMenuItem>
         )}
       </DropdownMenuContent>
