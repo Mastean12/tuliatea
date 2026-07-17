@@ -311,6 +311,42 @@ export const contactContent = {
   ],
 } as const
 
+export const productBenefits = {
+  title: "Our Products Help To",
+  items: [
+    {
+      title: "Hydrate",
+      desc: "Replenishes fluids and refreshes your body",
+      icon: "droplets",
+    },
+    {
+      title: "Nourish",
+      desc: "Fuels your body with natural antioxidants",
+      icon: "leaf",
+    },
+    { title: "Balance", desc: "Supports and promotes wellness", icon: "heart" },
+  ],
+}
+
+export const productOfferings = {
+  title: "Product Offerings",
+  subtitle: "Discover our range of premium Kenyan wellness products.",
+  items: [
+    {
+      title: "Specialty Teas",
+      desc: "Green and purple teas available in loose leaf and tea bags.",
+    },
+    {
+      title: "Herbal Infusions",
+      desc: "Chamomile, Hibiscus and Turmeric blends in loose and tea bags.",
+    },
+    {
+      title: "Wellness Packs",
+      desc: "Curated combinations of specialty teas, herbal infusions and pure honey, customized to suit your taste, wellness goals or gifting needs.",
+    },
+  ],
+}
+
 export const timelineEvents = [
   {
     year: "2022",

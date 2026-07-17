@@ -4,6 +4,10 @@ import { Features } from "@/components/home/features"
 import { BestSellers } from "@/components/home/best-sellers"
 import { IngredientsSection } from "@/components/home/ingredients-section"
 import { WellnessBenefitsSection } from "@/components/home/wellness-benefits"
+import {
+  ProductBenefitsSection,
+  ProductOfferingsSection,
+} from "@/components/home/product-benefits"
 import { Testimonials } from "@/components/home/testimonials"
 import { HomeCTA } from "@/components/home/cta"
 
@@ -15,6 +19,8 @@ export default function Home() {
       <Features />
       <IngredientsSection />
       <WellnessBenefitsSection />
+      <ProductBenefitsSection />
+      <ProductOfferingsSection />
       <BestSellers />
       <Testimonials />
       <HomeCTA />
