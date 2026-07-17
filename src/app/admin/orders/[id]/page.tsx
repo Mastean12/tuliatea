@@ -37,11 +37,11 @@ export default async function AdminOrderDetailPage({ params }: Props) {
 
   if (!order) notFound()
 
-  const waMsg = encodeURIComponent(
-    `Hi Tullia Tea, I have a question about order ${order.orderNumber}.`
-  )
-
   const ship = order.shippingAddress
+  const customerName = ship ? `${ship.firstName} ${ship.lastName}` : order.email
+  const waMsg = encodeURIComponent(
+    `Hi ${customerName}, this is Tullia Tea following up on your order ${order.orderNumber}.`
+  )
 
   return (
     <>
