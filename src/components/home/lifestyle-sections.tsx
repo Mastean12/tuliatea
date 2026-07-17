@@ -31,7 +31,7 @@ export function StoryCards() {
       <Container>
         <div className="mx-auto max-w-2xl text-center mb-10">
           <h2 className="font-heading text-3xl font-semibold tracking-tight sm:text-4xl text-primary">
-            Our Story
+            Why Tullia Tea
           </h2>
           <p className="mt-2 text-sm text-muted-foreground">
             Handcrafted Kenyan specialty teas and herbal infusions.
