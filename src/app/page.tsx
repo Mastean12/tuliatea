@@ -4,11 +4,7 @@ import { Features } from "@/components/home/features"
 import { BestSellers } from "@/components/home/best-sellers"
 import { IngredientsSection } from "@/components/home/ingredients-section"
 import { WellnessBenefitsSection } from "@/components/home/wellness-benefits"
-import {
-  OurPromise,
-  FarmToCup,
-  Craftsmanship,
-} from "@/components/home/lifestyle-sections"
+import { StoryCards } from "@/components/home/lifestyle-sections"
 import { Testimonials } from "@/components/home/testimonials"
 import { HomeCTA } from "@/components/home/cta"
 
@@ -21,9 +17,7 @@ export default function Home() {
       <IngredientsSection />
       <WellnessBenefitsSection />
       <BestSellers />
-      <OurPromise />
-      <FarmToCup />
-      <Craftsmanship />
+      <StoryCards />
       <Testimonials />
       <HomeCTA />
     </>

@@ -1,82 +1,68 @@
 "use client"
 
-import { AlternatingSection } from "./alternating-section"
+import { motion } from "framer-motion"
+import { Container } from "@/components/ui/container"
+import { Leaf, Heart, Shield } from "lucide-react"
 
-const FARM_IMAGE =
-  "https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=800&h=600&fit=crop&auto=format"
-const CUP_IMAGE =
-  "https://images.unsplash.com/photo-1571939228382-b2f2b585ce15?w=800&h=600&fit=crop&auto=format"
-const HIGHLANDS_IMAGE =
-  "https://images.unsplash.com/photo-1564890369478-c89ca6d9cde9?w=800&h=600&fit=crop&auto=format"
+const cards = [
+  {
+    icon: Leaf,
+    title: "Our Promise",
+    subtitle: "Quality, Wellness, Sustainability",
+    body: "At Tullia Tea, we believe wellness begins with what you consume. Every blend starts with the finest ingredients sourced directly from Kenyan farmers who share our commitment to quality.",
+  },
+  {
+    icon: Heart,
+    title: "From the Highlands to Your Cup",
+    subtitle: "Rooted in Kenya, crafted with care",
+    body: "Our journey begins in the fertile highlands of Kenya, where rich volcanic soil and abundant rainfall create the perfect conditions for growing exceptional tea.",
+  },
+  {
+    icon: Shield,
+    title: "Handcrafted with Care",
+    subtitle: "Pure ingredients, no shortcuts",
+    body: "Every blend is handcrafted in small batches to preserve its natural goodness. No artificial additives — just pure ingredients grown in Kenya's fertile highlands.",
+  },
+]
 
-export function OurPromise() {
+export function StoryCards() {
   return (
-    <AlternatingSection
-      imageUrl={FARM_IMAGE}
-      imageAlt="Premium Kenyan tea leaves"
-      title="Our Promise"
-      subtitle="Quality, Wellness, Sustainability"
-    >
-      <p>
-        At Tullia Tea, we believe wellness begins with what you consume. That is
-        why every blend we create starts with the finest ingredients sourced
-        directly from Kenyan farmers who share our commitment to quality.
-      </p>
-      <p>
-        Our teas are handcrafted in small batches to preserve their natural
-        goodness, ensuring you receive the freshest, most flavorful experience
-        with every cup.
-      </p>
-      <p>
-        We are committed to sustainable practices that protect our environment
-        and empower local communities. By choosing Tullia Tea, you are
-        supporting a brighter future for Kenyan farmers and their families.
-      </p>
-    </AlternatingSection>
-  )
-}
-
-export function FarmToCup() {
-  return (
-    <AlternatingSection
-      imageUrl={CUP_IMAGE}
-      imageAlt="Pouring premium Kenyan tea"
-      title="From the Highlands to Your Cup"
-      reverse
-      className="bg-gradient-to-b from-soft-sage/50 to-background"
-    >
-      <p>
-        Our journey begins in the lush, fertile highlands of Kenya, where our
-        tea gardens benefit from rich volcanic soil, abundant rainfall, and the
-        perfect altitude for growing exceptional tea.
-      </p>
-      <p>
-        Working alongside local farmers who have cultivated these lands for
-        generations, we select only the finest leaves for our blends. Every step
-        — from hand-picking to small-batch processing — is done with care.
-      </p>
-    </AlternatingSection>
-  )
-}
-
-export function Craftsmanship() {
-  return (
-    <AlternatingSection
-      imageUrl={HIGHLANDS_IMAGE}
-      imageAlt="Kenyan highlands tea plantation"
-      title="Handcrafted with Care"
-    >
-      <p>
-        Every blend at Tullia Tea is handcrafted in small batches to preserve
-        its natural goodness. From the bold notes of our breakfast blends to the
-        soothing aroma of our herbal infusions, each cup tells a story of Kenyan
-        craftsmanship.
-      </p>
-      <p>
-        No artificial additives, no shortcuts — just pure, natural ingredients
-        {`grown in Kenya's fertile highlands and carefully blended to create`}
-        moments of tranquility and nourishment.
-      </p>
-    </AlternatingSection>
+    <section className="py-12 sm:py-16">
+      <Container>
+        <div className="mx-auto max-w-2xl text-center mb-10">
+          <h2 className="font-heading text-3xl font-semibold tracking-tight sm:text-4xl text-primary">
+            Our Story
+          </h2>
+          <p className="mt-2 text-sm text-muted-foreground">
+            Handcrafted Kenyan specialty teas and herbal infusions.
+          </p>
+        </div>
+        <div className="grid gap-5 md:grid-cols-3">
+          {cards.map((card, i) => (
+            <motion.div
+              key={card.title}
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ duration: 0.4, delay: i * 0.08 }}
+              className="flex flex-col rounded-xl border bg-card p-5 hover:shadow-sm transition-shadow"
+            >
+              <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-primary/5">
+                <card.icon className="h-5 w-5 text-primary" />
+              </div>
+              <h3 className="font-heading text-base font-semibold mb-1">
+                {card.title}
+              </h3>
+              <p className="text-xs text-muted-foreground/70 mb-2">
+                {card.subtitle}
+              </p>
+              <p className="text-xs text-muted-foreground leading-relaxed flex-1">
+                {card.body}
+              </p>
+            </motion.div>
+          ))}
+        </div>
+      </Container>
+    </section>
   )
 }
