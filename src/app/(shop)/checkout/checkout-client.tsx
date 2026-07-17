@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useActionState } from "react"
+import { useState, useActionState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import { ArrowLeft, ArrowRight, Check } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -48,11 +48,14 @@ export function CheckoutClient() {
   const total = subtotal + deliveryPrice
 
   // If order placed successfully
-  if (state?.success && state.orderNumber) {
-    clearCart()
-    router.push(`${routes.checkout}/confirmation?order=${state.orderNumber}`)
-    return null
-  }
+  useEffect(() => {
+    if (state?.success && state.orderNumber) {
+      clearCart()
+      router.push(`${routes.checkout}/confirmation?order=${state.orderNumber}`)
+    }
+  }, [state?.success, state.orderNumber, clearCart, router])
+
+  if (state?.success) return null
 
   const hasItems = items.length > 0
 
