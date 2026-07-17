@@ -8,11 +8,12 @@ export const homeContent = {
   },
   brand: {
     description:
-      "Tullia Tea is the signature brand of Rectangular Foods. With the intent to enhance wellness, we craft specialty teas and herbal infusions using pure, natural and preservative-free ingredients.",
+      "Tullia Tea is a woman-led enterprise inspired by a rich, tea-loving heritage and fascination with different teas. Tullia Tea is a signature brand of Rectangular Foods; a Kenyan-based agribusiness established in 2022. We craft specialty tea and herbal infusions through value-addition of natural and preservative-free ingredients, as we build a trusted brand that empowers Kenyan farmers, creates jobs and prioritizes sustainability.",
   },
   features: {
     title: "Why Choose Tullia Tea",
-    subtitle: "Crafted with integrity from the Kenyan highlands to your cup.",
+    subtitle:
+      "For health-conscious individuals desiring natural, preservative-free, great-tasting beverages, our specialty teas and herbal infusions are a premium Kenyan wellness tea brand that support everyday wellness.",
     items: [
       {
         title: "Sustainably Sourced",
@@ -163,10 +164,10 @@ export const aboutContent = {
   hero: {
     title: "Our Story",
     subtitle:
-      "Tullia Tea is the signature brand of Rectangular Foods, a Kenyan-based agribusiness established in 2022.",
+      "A woman-led enterprise inspired by a rich, tea-loving heritage and fascination with different teas.",
   },
   brandDescription:
-    "Tullia Tea is the signature brand of Rectangular Foods. With the intent to enhance wellness, we craft specialty teas and herbal infusions using pure, natural and preservative-free ingredients.",
+    "Tullia Tea is a woman-led enterprise inspired by a rich, tea-loving heritage and fascination with different teas. Tullia Tea is a signature brand of Rectangular Foods; a Kenyan-based agribusiness established in 2022. We craft specialty tea and herbal infusions through value-addition of natural and preservative-free ingredients, as we build a trusted brand that empowers Kenyan farmers, creates jobs and prioritizes sustainability.",
   mission: {
     title: "Our Mission",
     body: "Build a trusted brand that empowers Kenyan farmers, creates jobs, and prioritizes sustainability.",
