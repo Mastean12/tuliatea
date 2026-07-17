@@ -10,14 +10,6 @@ export type PaymentMethod = {
 
 export const PAYMENT_METHODS: PaymentMethod[] = [
   {
-    id: "cod",
-    name: "Cash on Delivery",
-    slug: "cod",
-    description: "Pay with cash when your order is delivered",
-    icon: "banknote",
-    requiresRedirect: false,
-  },
-  {
     id: "mpesa",
     name: "M-Pesa",
     slug: "mpesa",

@@ -1,12 +1,11 @@
 "use client"
 
-import { Banknote, Smartphone, Building, CreditCard } from "lucide-react"
+import { Smartphone, Building, CreditCard } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Badge } from "@/components/ui/badge"
 import { PAYMENT_METHODS } from "@/services/payment"
 
 const iconMap: Record<string, React.ReactNode> = {
-  banknote: <Banknote className="h-5 w-5" />,
   smartphone: <Smartphone className="h-5 w-5" />,
   building: <Building className="h-5 w-5" />,
   "credit-card": <CreditCard className="h-5 w-5" />,

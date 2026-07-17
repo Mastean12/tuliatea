@@ -5,6 +5,7 @@ import { prisma } from "@/lib/prisma"
 import { createOrder, validateStock } from "@/services/order"
 import { getDeliveryPrice } from "@/services/delivery"
 import { getPaymentMethod } from "@/services/payment"
+import { sendOrderNotification } from "@/services/notification"
 
 const checkoutSchema = z.object({
   firstName: z.string().min(1, "First name is required"),
@@ -130,11 +131,34 @@ export async function placeOrder(
     })
 
     // Decrement stock
+    const itemNames: string[] = []
     for (const item of cartItems) {
-      await prisma.product.update({
+      const p = await prisma.product.update({
         where: { id: item.id },
         data: { stock: { decrement: item.quantity } },
+        select: { name: true },
       })
+      itemNames.push(p.name)
+    }
+
+    // Send WhatsApp notification
+    try {
+      await sendOrderNotification({
+        orderNumber: order.orderNumber,
+        customerName: `${parsed.data.firstName} ${parsed.data.lastName}`,
+        email: parsed.data.email,
+        phone: parsed.data.phone,
+        items: cartItems.map((item, i) => ({
+          name: itemNames[i] || "Product",
+          quantity: item.quantity,
+          price: item.price,
+        })),
+        total: calculatedTotal,
+        deliveryMethod: parsed.data.deliveryMethod,
+        paymentMethod: parsed.data.paymentMethod,
+      })
+    } catch {
+      // Notification failure is non-blocking
     }
 
     return { success: true, orderNumber: order.orderNumber }
