@@ -14,7 +14,8 @@ const benefitIcons: Record<string, React.ReactNode> = {
 const offeringIcons = [
   <Leaf key="1" className="h-5 w-5" />,
   <Sun key="2" className="h-5 w-5" />,
-  <Gift key="3" className="h-5 w-5" />,
+  <Star key="3" className="h-5 w-5" />,
+  <Gift key="4" className="h-5 w-5" />,
 ]
 
 export function ProductBenefitsSection() {
@@ -83,7 +84,7 @@ export function ProductOfferingsSection() {
             {productOfferings.subtitle}
           </motion.p>
         </div>
-        <div className="grid gap-5 sm:grid-cols-3">
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {productOfferings.items.map((item, i) => (
             <motion.div
               key={item.title}

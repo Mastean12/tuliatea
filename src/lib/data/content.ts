@@ -170,57 +170,51 @@ export const aboutContent = {
     "Tullia Tea is a woman-led enterprise inspired by a rich, tea-loving heritage and fascination with different teas. Tullia Tea is a signature brand of Rectangular Foods; a Kenyan-based agribusiness established in 2022. We craft specialty tea and herbal infusions through value-addition of natural and preservative-free ingredients, as we build a trusted brand that empowers Kenyan farmers, creates jobs and prioritizes sustainability.",
   mission: {
     title: "Our Mission",
-    body: "Build a trusted brand that empowers Kenyan farmers, creates jobs, and prioritizes sustainability.",
+    body: "To offer high-quality, sustainably-sourced tea and herbal infusions that enrich our customers' well-being and foster meaningful connections between local communities and global markets.",
   },
   vision: {
     title: "Our Vision",
-    body: "Become a leading African exporter of premium specialty teas and herbal infusions.",
+    body: "To be a leading African manufacturer and exporter of premium tea & herbal infusions.",
   },
   values: {
     title: "Our Values",
-    subtitle:
-      "Quality, Wellness, Sustainability, Community, Innovation, Authenticity.",
+    subtitle: "Authenticity, Sustainability, Wellness, Excellence, Integrity.",
     items: [
       {
-        title: "Quality",
+        title: "Authenticity",
         description:
-          "We never compromise on quality. Every leaf is carefully selected, every blend taste-tested to ensure perfection.",
-      },
-      {
-        title: "Wellness",
-        description:
-          "Every product is designed with your well-being in mind — natural ingredients, no additives, just pure goodness.",
+          "Deeply rooted in tradition and thoughtfully crafted to preserve the true essence of tea.",
       },
       {
         title: "Sustainability",
         description:
-          "We are committed to eco-friendly practices that protect Kenya's natural beauty and support local farming communities.",
+          "Committed to ethical sourcing, environmental stewardship and responsible production practices.",
       },
       {
-        title: "Community",
+        title: "Wellness",
         description:
-          "We work directly with small-scale farmers, paying fair prices and investing in local development.",
+          "Inspiring healthy lifestyles through natural and mindful experiences.",
       },
       {
-        title: "Innovation",
+        title: "Excellence",
         description:
-          "We continuously explore new blends and ingredients to bring you the finest wellness teas from Africa.",
+          "Upholding the highest standards of quality in production and service.",
       },
       {
-        title: "Authenticity",
+        title: "Integrity",
         description:
-          "Every cup tells the true story of Kenyan craftsmanship, heritage, and dedication to quality.",
+          "Operating with honesty, transparency, and respect across all relationships.",
       },
     ],
   },
   story: {
-    title: "Our Journey",
-    subtitle: "Rooted in Kenya, Branched for the World.",
+    title: "Our Story",
+    subtitle: "A ritual in every sip.",
     paragraphs: [
-      "Tullia Tea is the signature brand of Rectangular Foods, a Kenyan-based agribusiness established in 2022. Rectangular Foods is committed to providing healthy food and beverages through premium specialty teas and herbal infusions.",
-      "Our journey begins in the lush, fertile highlands of Kenya, where our tea gardens benefit from rich volcanic soil, abundant rainfall, and the perfect altitude for growing exceptional tea. Working alongside local farmers who have cultivated these lands for generations, we select only the finest leaves for our blends.",
-      "Every blend at Tullia Tea is handcrafted in small batches to preserve its natural goodness. Products are made using sustainably sourced, predominantly organic ingredients from farmers across Kenya.",
-      "As we grow, our commitment to sustainability and community remains unwavering. We invest in eco-friendly farming practices, support local education initiatives, and strive to create a positive impact that extends far beyond the tea cup.",
+      "Tullia Tea was born from the belief that wellness is found in the gentle moments we often overlook. Rooted in nature and inspired by mindful living, our teas are thoughtfully crafted to bring calm, balance and nourishment into your everyday life.",
+      "Each blend begins with carefully selected flavourful herbs, and is naturally crafted with no preservatives or additives, designed for how they make you feel — soothed, restored and refreshed. From the calming warmth of chamomile and the vibrant brightness of hibiscus, to the rich antioxidant-packed depth of purple tea, the smooth, earthy green tea and rich, golden turmeric, every cup carries a sense of intention.",
+      "From our hands to your cup, Tullia Tea is an invitation to pause in an ever-busy world. It is a reminder that taking care of yourself is not a luxury, but a necessity. Tullia Tea is more than tea, it's a ritual in every sip.",
+      "TULLIA is derived from the Swahili word 'tulia', which means to be calm. This is the inspiration behind the careful crafting of TULLIA TEA — every blend is thoughtfully created to bring serenity, balance and wellbeing to our customers. From the first sip to the last, Tullia Tea invites you to slow down, reconnect and experience wellness in every cup.",
     ],
   },
   sustainability: {
@@ -339,6 +333,10 @@ export const productOfferings = {
     {
       title: "Herbal Infusions",
       desc: "Chamomile, Hibiscus and Turmeric blends in loose and tea bags.",
+    },
+    {
+      title: "Honey",
+      desc: "Pure raw Kenyan honey sourced directly from local beekeepers.",
     },
     {
       title: "Wellness Packs",
