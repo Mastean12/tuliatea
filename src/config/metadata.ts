@@ -17,7 +17,7 @@ export function createMetadata({
   noIndex,
 }: MetadataProps = {}): Metadata {
   const url = path ? `${siteConfig.url}${path}` : siteConfig.url
-  const ogImage = image || `${siteConfig.url}/images/og-default.jpg`
+  const ogImage = image || `${siteConfig.url}/images/Tulliatealogo.png`
 
   return {
     title: title

@@ -29,9 +29,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description: product.description.slice(0, 160),
       images: [
         {
-          url: `${siteConfig.url}/images/og-default.jpg`,
-          width: 1200,
-          height: 630,
+          url: `${siteConfig.url}/images/Tulliatealogo.png`,
+          width: 512,
+          height: 512,
         },
       ],
     },
