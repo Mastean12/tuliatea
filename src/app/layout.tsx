@@ -30,9 +30,15 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "any" },
+      { url: "/favicon-16x16.svg", sizes: "16x16", type: "image/svg+xml" },
+      { url: "/favicon-32x32.svg", sizes: "32x32", type: "image/svg+xml" },
+      { url: "/images/Tulliatealogo.png", sizes: "192x192", type: "image/png" },
       { url: "/images/Tulliatealogo.png", sizes: "512x512", type: "image/png" },
     ],
-    apple: { url: "/images/Tulliatealogo.png", type: "image/png" },
+    apple: [
+      { url: "/apple-touch-icon.svg", sizes: "180x180", type: "image/svg+xml" },
+      { url: "/images/Tulliatealogo.png", sizes: "180x180", type: "image/png" },
+    ],
   },
   openGraph: {
     type: "website",
