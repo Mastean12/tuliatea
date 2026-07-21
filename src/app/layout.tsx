@@ -27,6 +27,13 @@ export const metadata: Metadata = {
   description: siteConfig.description,
   metadataBase: new URL(siteConfig.url),
   keywords: siteConfig.keywords,
+  icons: {
+    icon: [
+      { url: "/images/Tulliatealogo.png", type: "image/png" },
+      { url: "/favicon.svg", type: "image/svg+xml" },
+    ],
+    apple: { url: "/images/Tulliatealogo.png", type: "image/png" },
+  },
   openGraph: {
     type: "website",
     locale: siteConfig.locale,
@@ -35,9 +42,9 @@ export const metadata: Metadata = {
     description: siteConfig.description,
     images: [
       {
-        url: `${siteConfig.url}/images/og-default.jpg`,
-        width: 1200,
-        height: 630,
+        url: "/images/Tulliatealogo.png",
+        width: 512,
+        height: 512,
       },
     ],
   },
@@ -45,6 +52,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: siteConfig.name,
     description: siteConfig.description,
+    images: ["/images/Tulliatealogo.png"],
   },
   robots: {
     index: true,

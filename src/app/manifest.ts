@@ -11,8 +11,8 @@ export default function manifest(): MetadataRoute.Manifest {
     background_color: "#FAF7F2",
     theme_color: "#2E7D32",
     icons: [
-      { src: "/icons/icon-192.svg", sizes: "192x192", type: "image/svg+xml" },
-      { src: "/icons/icon-512.svg", sizes: "512x512", type: "image/svg+xml" },
+      { src: "/images/Tulliatealogo.png", sizes: "192x192", type: "image/png" },
+      { src: "/images/Tulliatealogo.png", sizes: "512x512", type: "image/png" },
     ],
   }
 }
