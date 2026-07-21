@@ -28,11 +28,8 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   keywords: siteConfig.keywords,
   icons: {
-    icon: [
-      { url: "/images/Tulliatealogo.png", type: "image/png" },
-      { url: "/favicon.svg", type: "image/svg+xml" },
-    ],
-    apple: { url: "/images/Tulliatealogo.png", type: "image/png" },
+    icon: "/images/Tulliatealogo.png",
+    apple: "/images/Tulliatealogo.png",
   },
   openGraph: {
     type: "website",
