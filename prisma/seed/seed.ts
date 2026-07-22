@@ -10,6 +10,8 @@ const prisma = new PrismaClient({
 // Verified working Unsplash photos
 const U = (id: string) =>
   `https://images.unsplash.com/photo-${id}?w=600&h=600&fit=crop&auto=format`
+// Local uploaded product images
+const UI = (name: string) => `/images/${encodeURIComponent(name)}`
 
 const productImages: Record<string, string[]> = {
   "pure-orthodox-green-tea": [
@@ -17,46 +19,45 @@ const productImages: Record<string, string[]> = {
     U("1564890369478-c89ca6d9cde9"),
   ],
   "green-tea-with-shell-ginger": [
+    UI("Green tea with Shell ginger.jpg"),
     U("1564890369478-c89ca6d9cde9"),
-    U("1556679343-c7306c1976bc"),
   ],
   "pure-green-tea-loose": [
     U("1556679343-c7306c1976bc"),
     U("1564890369478-c89ca6d9cde9"),
   ],
   "pure-orthodox-purple-tea": [
+    UI("Pure orthodox Purple tea (pyramid).jpg"),
     U("1594631252845-29fc4cc8cde9"),
-    U("1556881286-fc6915169721"),
   ],
   "pure-orthodox-purple-tea-loose": [
-    U("1556881286-fc6915169721"),
+    UI("Pure orthodox Purple tea (loose).jpg"),
     U("1594631252845-29fc4cc8cde9"),
   ],
   "purple-tea-with-lemon-verbena": [
-    U("1563911892437-1feda0179e1b"),
     U("1556881286-fc6915169721"),
+    U("1594631252845-29fc4cc8cde9"),
   ],
   "chamomile-with-peppermint": [
+    UI("chamomile with pepoermint.jpg"),
     U("1556881286-fc6915169721"),
-    U("1563911892437-1feda0179e1b"),
   ],
   "hibiscus-with-lemongrass-bags": [
+    UI("Hibiscus with lemongrass.jpg"),
     U("1563911892437-1feda0179e1b"),
-    U("1556881286-fc6915169721"),
   ],
   "hibiscus-lemongrass-pyramid": [
+    UI("Hibiscus with lemongrass.jpg"),
     U("1563911892437-1feda0179e1b"),
-    U("1556881286-fc6915169721"),
   ],
   "hibiscus-with-lemongrass-jar": [
-    U("1556881286-fc6915169721"),
-    U("1564890369478-c89ca6d9cde9"),
+    UI("Hibiscus with lemongrass.jpg"),
+    U("1563911892437-1feda0179e1b"),
   ],
   "turmeric-with-baobab": [
     U("1563911892437-1feda0179e1b"),
     U("1594631252845-29fc4cc8cde9"),
   ],
-  "pure-honey": [U("1556881286-fc6915169721"), U("1564890369478-c89ca6d9cde9")],
 }
 
 async function main() {
@@ -117,12 +118,6 @@ async function main() {
       slug: "herbal-infusion",
       description: "Naturally caffeine-free wellness herbal blends",
       sortOrder: 3,
-    },
-    {
-      name: "Honey",
-      slug: "honey",
-      description: "Pure raw Kenyan honey",
-      sortOrder: 4,
     },
     {
       name: "Specialty Tea",
@@ -392,28 +387,6 @@ async function main() {
       weight: "100g",
       servings: "30 cups",
       categorySlug: "herbal-infusion",
-    },
-    {
-      name: "Pure Honey",
-      slug: "pure-honey",
-      shortDesc: "Pure raw Kenyan honey",
-      description:
-        "Pure, raw honey sourced directly from Kenyan beekeepers. Available in 500g and 1kg.",
-      ingredients: "100% pure raw Kenyan honey",
-      benefits:
-        "Natural sweetener. Rich in antioxidants. Supports immunity. Soothes sore throats.",
-      brewingGuide:
-        "Enjoy a spoonful in your tea, on toast, or straight from the jar. Store at room temperature.",
-      deliveryInfo: "Delivered via TuShop at reasonable rates.",
-      returnInfo: "If unsatisfied, contact us within 14 days.",
-      tags: "honey,natural,sweetener,raw,kenyan",
-      price: 1500,
-      stock: 45,
-      isFeatured: false,
-      isBestSeller: false,
-      weight: "500g / 1kg",
-      servings: "Many servings",
-      categorySlug: "honey",
     },
   ]
 
