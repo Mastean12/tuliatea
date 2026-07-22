@@ -147,9 +147,22 @@ export async function getRelatedProducts(
 }
 
 export async function getCategories() {
-  return prisma.category.findMany({
+  const categories = await prisma.category.findMany({
     where: { isActive: true },
     orderBy: { sortOrder: "asc" },
-    include: { _count: { select: { products: true } } },
   })
+
+  // Get actual active product counts per category
+  const counts = await prisma.product.groupBy({
+    by: ["categoryId"],
+    where: { isActive: true },
+    _count: { id: true },
+  })
+
+  const countMap = new Map(counts.map((c) => [c.categoryId, c._count.id]))
+
+  return categories.map((cat) => ({
+    ...cat,
+    _count: { products: countMap.get(cat.id) || 0 },
+  }))
 }
