@@ -11,35 +11,27 @@ const prisma = new PrismaClient({
 const U = (id: string) =>
   `https://images.unsplash.com/photo-${id}?w=600&h=600&fit=crop&auto=format`
 // Local uploaded product images
-const UI = (name: string) => `/images/${encodeURIComponent(name)}`
+const UI = (name: string) => `/images/${name}`
 
 const productImages: Record<string, string[]> = {
   "green-tea-with-shell-ginger": [
-    UI("Green tea with Shell ginger.jpg"),
+    UI("green-tea-shell-ginger.jpg"),
     U("1564890369478-c89ca6d9cde9"),
   ],
   "pure-orthodox-purple-tea": [
-    UI("Pure orthodox Purple tea (pyramid).jpg"),
-    U("1594631252845-29fc4cc8cde9"),
-  ],
-  "pure-orthodox-purple-tea-loose": [
-    UI("Pure orthodox Purple tea (loose).jpg"),
+    UI("purple-tea-pyramid.jpg"),
     U("1594631252845-29fc4cc8cde9"),
   ],
   "chamomile-with-peppermint": [
-    UI("chamomile with peppermint.jpg"),
+    UI("chamomile-peppermint.jpg"),
     U("1556881286-fc6915169721"),
   ],
-  "hibiscus-with-lemongrass-bags": [
-    UI("Hibiscus with lemongrass.jpg"),
+  "hibiscus-with-lemongrass": [
+    UI("hibiscus-lemongrass.jpg"),
     U("1563911892437-1feda0179e1b"),
   ],
   "hibiscus-lemongrass-pyramid": [
-    UI("Hibiscus with lemongrass.jpg"),
-    U("1563911892437-1feda0179e1b"),
-  ],
-  "hibiscus-with-lemongrass-jar": [
-    UI("Hibiscus with lemongrass.jpg"),
+    UI("hibiscus-lemongrass.jpg"),
     U("1563911892437-1feda0179e1b"),
   ],
 }
@@ -175,28 +167,6 @@ async function main() {
       categorySlug: "purple-tea",
     },
     {
-      name: "Pure Orthodox Purple Tea (Loose)",
-      slug: "pure-orthodox-purple-tea-loose",
-      shortDesc: "Rare purple tea in loose leaf form",
-      description:
-        "The same premium purple tea in loose leaf form. Naturally rich in anthocyanins with a smooth, slightly sweet flavor.",
-      ingredients: "Pure Orthodox Tea",
-      benefits:
-        "High in anthocyanins. Supports cognition. Improves skin. Helps manage weight. Helps fight colds and flu.",
-      brewingGuide:
-        "Steep one spoonful of loose leaf in hot water for 3-5 minutes. Do not boil. Sieve before drinking.",
-      deliveryInfo: "Delivered via TuShop at reasonable rates.",
-      returnInfo: "If unsatisfied, contact us within 14 days.",
-      tags: "purple-tea,loose-leaf,antioxidant",
-      price: 500,
-      stock: 25,
-      isFeatured: false,
-      isBestSeller: false,
-      weight: "50g",
-      servings: "25 cups",
-      categorySlug: "purple-tea",
-    },
-    {
       name: "Chamomile with Peppermint",
       slug: "chamomile-with-peppermint",
       shortDesc: "Calming chamomile with peppermint and herbs",
@@ -220,7 +190,7 @@ async function main() {
     },
     {
       name: "Hibiscus with Lemongrass",
-      slug: "hibiscus-with-lemongrass-bags",
+      slug: "hibiscus-with-lemongrass",
       shortDesc: "Vibrant hibiscus with lemongrass tea bags",
       description:
         "A vibrant, tangy herbal infusion of hibiscus and lemongrass with peppermint, thyme and fennel.",
@@ -260,27 +230,6 @@ async function main() {
       isBestSeller: false,
       weight: "30g",
       servings: "15 cups",
-      categorySlug: "herbal-infusion",
-    },
-    {
-      name: "Hibiscus with Lemongrass (Jar)",
-      slug: "hibiscus-with-lemongrass-jar",
-      shortDesc: "Loose hibiscus and lemongrass in a premium jar",
-      description:
-        "A vibrant loose herbal blend of hibiscus and lemongrass with peppermint and thyme in a premium jar.",
-      ingredients: "Hibiscus, Lemongrass, Peppermint, Thyme",
-      benefits: "Rich in Vitamin C. Supports immunity. Lowers blood pressure.",
-      brewingGuide:
-        "Steep one spoonful in hot water for 3-5 minutes. Do not boil. Serve hot or iced.",
-      deliveryInfo: "Delivered via TuShop at reasonable rates.",
-      returnInfo: "If unsatisfied, contact us within 14 days.",
-      tags: "herbal,hibiscus,lemongrass,jar",
-      price: 600,
-      stock: 20,
-      isFeatured: false,
-      isBestSeller: false,
-      weight: "50g",
-      servings: "25 cups",
       categorySlug: "herbal-infusion",
     },
   ]
@@ -331,7 +280,19 @@ async function main() {
     })
   }
 
-  console.log("  ✅ 6 products created with images\n")
+  // Cleanup: archive products not in the seed (soft delete)
+  const activeSlugs = products.map((p) => p.slug)
+  const archived = await prisma.product.updateMany({
+    where: { slug: { notIn: activeSlugs }, isActive: true },
+    data: { isActive: false, status: ProductStatus.ARCHIVED },
+  })
+  if (archived.count > 0) {
+    console.log(
+      `  🗑 Archived ${archived.count} old product(s) not in current seed`
+    )
+  }
+
+  console.log(`  ✅ ${products.length} products created with images\n`)
   console.log("╔══════════════════════════════════════════════════════╗")
   console.log("║              TEST ACCOUNTS                          ║")
   console.log("╠══════════════════════════════════════════════════════╣")
