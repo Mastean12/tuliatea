@@ -54,7 +54,9 @@ export function ProductCard({
             isCompact ? "h-20 w-20 shrink-0 rounded-xl" : "aspect-[1/1]"
           )}
         >
-          {product.image?.startsWith("http") ? (
+          {product.image &&
+          (product.image.startsWith("http") ||
+            product.image.startsWith("/")) ? (
             <Image
               src={product.image}
               alt={product.name}
