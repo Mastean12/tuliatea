@@ -14,16 +14,8 @@ const U = (id: string) =>
 const UI = (name: string) => `/images/${encodeURIComponent(name)}`
 
 const productImages: Record<string, string[]> = {
-  "pure-orthodox-green-tea": [
-    U("1556679343-c7306c1976bc"),
-    U("1564890369478-c89ca6d9cde9"),
-  ],
   "green-tea-with-shell-ginger": [
     UI("Green tea with Shell ginger.jpg"),
-    U("1564890369478-c89ca6d9cde9"),
-  ],
-  "pure-green-tea-loose": [
-    U("1556679343-c7306c1976bc"),
     U("1564890369478-c89ca6d9cde9"),
   ],
   "pure-orthodox-purple-tea": [
@@ -34,12 +26,8 @@ const productImages: Record<string, string[]> = {
     UI("Pure orthodox Purple tea (loose).jpg"),
     U("1594631252845-29fc4cc8cde9"),
   ],
-  "purple-tea-with-lemon-verbena": [
-    U("1556881286-fc6915169721"),
-    U("1594631252845-29fc4cc8cde9"),
-  ],
   "chamomile-with-peppermint": [
-    UI("chamomile with pepoermint.jpg"),
+    UI("chamomile with peppermint.jpg"),
     U("1556881286-fc6915169721"),
   ],
   "hibiscus-with-lemongrass-bags": [
@@ -53,10 +41,6 @@ const productImages: Record<string, string[]> = {
   "hibiscus-with-lemongrass-jar": [
     UI("Hibiscus with lemongrass.jpg"),
     U("1563911892437-1feda0179e1b"),
-  ],
-  "turmeric-with-baobab": [
-    U("1563911892437-1feda0179e1b"),
-    U("1594631252845-29fc4cc8cde9"),
   ],
 }
 
@@ -146,28 +130,6 @@ async function main() {
   // ── Products (Official Catalogue) ────────────────────
   const products = [
     {
-      name: "Pure Orthodox Green Tea",
-      slug: "pure-orthodox-green-tea",
-      shortDesc: "Premium orthodox green tea in pyramid tea bags",
-      description:
-        "A premium orthodox green tea from the Kenyan highlands. Light, refreshing, and packed with natural antioxidants.",
-      ingredients: "Pure Orthodox Green Tea",
-      benefits:
-        "Rich in antioxidants. Improves focus. Reduces blood sugar. Lowers cholesterol. Lowers blood pressure. Helps manage weight. Helps reduce acne.",
-      brewingGuide:
-        "Steep one tea bag in hot water for 3-5 minutes. Do not boil. Honey may be added if preferred. Best time: Morning before breakfast or after meals.",
-      deliveryInfo: "Delivered via TuShop at reasonable rates.",
-      returnInfo: "If unsatisfied, contact us within 14 days.",
-      tags: "green-tea,orthodox,antioxidant,kenyan",
-      price: 500,
-      stock: 50,
-      isFeatured: true,
-      isBestSeller: true,
-      weight: "30g",
-      servings: "15 cups",
-      categorySlug: "green-tea",
-    },
-    {
       name: "Green Tea with Shell Ginger",
       slug: "green-tea-with-shell-ginger",
       shortDesc: "Green tea with shell ginger and citrus notes",
@@ -185,28 +147,6 @@ async function main() {
       price: 350,
       stock: 40,
       isFeatured: true,
-      isBestSeller: false,
-      weight: "50g",
-      servings: "25 cups",
-      categorySlug: "green-tea",
-    },
-    {
-      name: "Pure Green Tea (Loose)",
-      slug: "pure-green-tea-loose",
-      shortDesc: "Classic loose leaf pure green tea",
-      description:
-        "A clean, pure green tea from the Kenyan highlands. Bright, vegetal notes with a smooth finish.",
-      ingredients: "Pure Orthodox Green Tea",
-      benefits:
-        "Rich in antioxidants. Improves focus. Reduces blood sugar. Lowers cholesterol. Helps manage weight.",
-      brewingGuide:
-        "Steep one spoonful of loose leaf in hot water for 3-5 minutes. Do not boil. Sieve before drinking.",
-      deliveryInfo: "Delivered via TuShop at reasonable rates.",
-      returnInfo: "If unsatisfied, contact us within 14 days.",
-      tags: "green-tea,loose-leaf,daily",
-      price: 350,
-      stock: 60,
-      isFeatured: false,
       isBestSeller: false,
       weight: "50g",
       servings: "25 cups",
@@ -251,29 +191,6 @@ async function main() {
       price: 500,
       stock: 25,
       isFeatured: false,
-      isBestSeller: false,
-      weight: "50g",
-      servings: "25 cups",
-      categorySlug: "purple-tea",
-    },
-    {
-      name: "Purple Tea with Lemon Verbena",
-      slug: "purple-tea-with-lemon-verbena",
-      shortDesc: "Purple tea with lemon verbena and hibiscus",
-      description:
-        "A vibrant blend of rare Kenyan purple tea with lemon verbena, hibiscus, and ginger. Citrusy, refreshing, and uniquely uplifting.",
-      ingredients:
-        "Purple Tea, Lemon Verbena, Hibiscus, Ginger, Cayenne, Citric Acid",
-      benefits:
-        "High in anthocyanins. Supports cognition. Rich in vitamin C. Aids digestion.",
-      brewingGuide:
-        "Steep one tea bag in hot water for 3-5 minutes. Do not boil. Honey may be added if preferred.",
-      deliveryInfo: "Delivered via TuShop at reasonable rates.",
-      returnInfo: "If unsatisfied, contact us within 14 days.",
-      tags: "purple-tea,lemon-verbena,hibiscus,ginger",
-      price: 500,
-      stock: 30,
-      isFeatured: true,
       isBestSeller: false,
       weight: "50g",
       servings: "25 cups",
@@ -364,28 +281,6 @@ async function main() {
       isBestSeller: false,
       weight: "50g",
       servings: "25 cups",
-      categorySlug: "herbal-infusion",
-    },
-    {
-      name: "Turmeric with Baobab",
-      slug: "turmeric-with-baobab",
-      shortDesc: "Golden turmeric with baobab and ashwagandha",
-      description:
-        "A warming golden blend of turmeric, baobab, ashwagandha, star anise and cinnamon.",
-      ingredients: "Turmeric, Baobab, Ashwagandha, Star Anise, Cinnamon",
-      benefits:
-        "Anti-inflammatory. Supports digestion. Improves circulation. Supports immunity. Helps relieve arthritis and body pain.",
-      brewingGuide:
-        "Steep one spoonful in hot water for 3-5 minutes. Do not boil. Honey may be added. Best time: Evening after supper.",
-      deliveryInfo: "Delivered via TuShop at reasonable rates.",
-      returnInfo: "If unsatisfied, contact us within 14 days.",
-      tags: "herbal,turmeric,baobab,ashwagandha",
-      price: 600,
-      stock: 25,
-      isFeatured: true,
-      isBestSeller: false,
-      weight: "100g",
-      servings: "30 cups",
       categorySlug: "herbal-infusion",
     },
   ]
